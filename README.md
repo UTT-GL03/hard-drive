@@ -19,3 +19,8 @@ Au-delà de la simple commodité, son utilité sociale est multiple.
 Le partage numérique de documents contribue donc directement à la réduction des inégalités d’accès à l’information : chacun peut consulter, modifier ou enrichir un fichier sans avoir besoin de moyens matériels lourds, coûteux ou polluants (impressions papier, déplacements physiques, envoi postal).
 
 ## Effet de la numérisation
+
+## Auteurs
+
+* Antoine MAZEAU
+* Rémy Kinzelin
