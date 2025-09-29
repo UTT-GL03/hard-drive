@@ -20,11 +20,11 @@ Le partage numérique de documents contribue donc directement à la réduction d
 
 ## Effet de la numérisation
 
-Avant l’essor du numérique, le partage de documents reposait essentiellement sur des moyens matériels : impressions papier, photocopies, envois postaux ou déplacements physiques pour transmettre l’information. Ces pratiques avaient un coût élevé, tant en ressources qu’en temps :
+Avant la création du numérique, le partage de documents reposait sur des moyens matériels : impressions papier, photocopies, envois postaux ou déplacements physiques pour transmettre l’information. Ces pratiques avaient un coût élevé, tant en ressources qu’en temps :
 
 * Consommation de papier : chaque échange nécessitait plusieurs copies imprimées, contribuant à la déforestation, à l’utilisation d’eau et de produits chimiques pour la fabrication du papier.
 
-* Envoi postal : le transport des documents par courrier ou messagerie impliquait une logistique énergivore (véhicules, carburants, emballages), avec une empreinte carbone importante.
+* Envoi postal : le transport des documents par courrier ou messagerie impliquait une logistique élevée (véhicules, carburants, emballages), avec une empreinte carbone importante.
 
 * Déplacements physiques : réunions ou échanges nécessitaient parfois de se déplacer pour remettre ou consulter un document, ce qui générait des émissions supplémentaires liées aux transports.
 
@@ -52,20 +52,30 @@ Par ailleurs, nous distinguons deux grands cas d’usage :
 
 Scénario : "Consulter un document partagé récemment"
 
-L’utilisateur se connecte au service.
-Il accède à l’espace partagé de son équipe et voit la liste des documents les plus récents.
-Il sélectionne un document (ex. rapport de projet) et le lit jusqu’au bout.
-Il revient à la liste des documents.
-Il choisit un deuxième document (ex. un tableau de suivi) et le consulte également.
-S’il doit revenir plus tard dans la journée sur le premier document, il le rouvre : grâce au cache, seule une partie des données est rechargée.
+* L’utilisateur se connecte au service.
+
+* Il accède à l’espace partagé de son équipe et voit la liste des documents les plus récents.
+  
+* Il sélectionne un document (ex. rapport de projet) et le lit jusqu’au bout.
+  
+* Il revient à la liste des documents.
+  
+* Il choisit un deuxième document (ex. un tableau de suivi) et le consulte également.
+  
+* S’il doit revenir plus tard dans la journée sur le premier document, il le rouvre : grâce au cache, seule une partie des données est rechargée.
 
 Scénario : "Accéder à un document archivé" 
 
-L’utilisateur se connecte au service.
-Il recherche un document dans une rubrique spécifique (par exemple "Cours 2023" ou "Archives du projet X").
-Il consulte la liste des documents correspondants.
-Il ouvre un premier document et le lit jusqu’au bout.
-Il revient à la liste, choisit un autre document plus ancien et le lit également.
+* L’utilisateur se connecte au service.
+
+* Il recherche un document dans une rubrique spécifique (par exemple "Cours 2023" ou "Archives du projet X").
+  
+* Il consulte la liste des documents correspondants.
+  
+* Il ouvre un premier document et le lit jusqu’au bout.
+  
+* Il revient à la liste, choisit un autre document plus ancien et le lit également.
+
 Étant donné que ces fichiers sont moins consultés, ils peuvent provenir d’un stockage plus lent ou nécessiter plus de transfert, ce qui augmente légèrement l’empreinte par rapport aux documents récents en cache.
 
 ## Auteurs
