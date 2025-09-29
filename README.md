@@ -20,6 +20,26 @@ Le partage numérique de documents contribue donc directement à la réduction d
 
 ## Effet de la numérisation
 
+Avant l’essor du numérique, le partage de documents reposait essentiellement sur des moyens matériels : impressions papier, photocopies, envois postaux ou déplacements physiques pour transmettre l’information. Ces pratiques avaient un coût élevé, tant en ressources qu’en temps :
+
+* Consommation de papier : chaque échange nécessitait plusieurs copies imprimées, contribuant à la déforestation, à l’utilisation d’eau et de produits chimiques pour la fabrication du papier.
+
+* Envoi postal : le transport des documents par courrier ou messagerie impliquait une logistique énergivore (véhicules, carburants, emballages), avec une empreinte carbone importante.
+
+* Déplacements physiques : réunions ou échanges nécessitaient parfois de se déplacer pour remettre ou consulter un document, ce qui générait des émissions supplémentaires liées aux transports.
+
+* Stockage matériel : conserver les documents exigeait des classeurs, armoires et espaces dédiés, eux-mêmes producteurs de déchets et limités en capacité.
+
+La numérisation a transformé cette dynamique :
+
+* Un fichier numérique peut être dupliqué et diffusé instantanément sans consommation supplémentaire de papier ni de carburant.
+
+* Le stockage dématérialisé réduit la nécessité d’espaces physiques et facilite l’archivage.
+
+* La rapidité et la facilité de transmission renforcent l’efficacité des échanges, permettant à des millions de personnes d’accéder à l’information quasi simultanément.
+
+Ainsi, la numérisation représente une rupture majeure : elle diminue fortement l’usage de ressources matérielles traditionnelles (papier, transport, logistique) et démocratise l’accès au savoir.
+
 ## Auteurs
 
 * Antoine MAZEAU
