@@ -42,41 +42,21 @@ Ainsi, la numérisation représente une rupture majeure : elle diminue fortement
 
 ## Scénarios d’usage et impacts
 
-Nous faisons l’hypothèse que le service de partage de documents est utilisé régulièrement au cours d’une journée de travail ou d’étude, par exemple pour préparer un cours, collaborer sur un projet ou relire un rapport. Dans ce cadre, il est fréquent qu’un même document soit consulté plusieurs fois, parfois depuis différents appareils. Nous prendrons en compte dans notre scénario l’effet bénéfique du cache : un document déjà téléchargé n’a pas besoin d’être rechargé intégralement, ce qui réduit l’impact environnemental.
+Nous partons de l'hypothèse que l'utilisateur du drive accède plusieurs fois par jour sur son interface pour importer et exporter des fichiers. Pour cette raison, nous prendrons en compte l'accès aux fichiers une seconde fois après chaque exportation/importation pour voir l'effet du cache.
 
-Par ailleurs, nous distinguons deux grands cas d’usage :
+### Scénario 1 : Importation d'un fichier dans le drive
 
-* l’accès à un document partagé récemment, dans un dossier de travail collaboratif ;
+- L'utilisateur accède à son drive
+- Il clique sur le bouton pour importer un fichier
+- Il choisit le fichier et valide l'importation
+- L'utilisateur se retrouve nouveau sur la page d'accueil de son drive
 
-* la consultation d’un document plus ancien archivé dans la plateforme.
+### Scénario 2 : Exportation d'un fichier dans le drive
 
-Scénario : "Consulter un document partagé récemment"
-
-* L’utilisateur se connecte au service.
-
-* Il accède à l’espace partagé de son équipe et voit la liste des documents les plus récents.
-  
-* Il sélectionne un document (ex. rapport de projet) et le lit jusqu’au bout.
-  
-* Il revient à la liste des documents.
-  
-* Il choisit un deuxième document (ex. un tableau de suivi) et le consulte également.
-  
-* S’il doit revenir plus tard dans la journée sur le premier document, il le rouvre : grâce au cache, seule une partie des données est rechargée.
-
-Scénario : "Accéder à un document archivé" 
-
-* L’utilisateur se connecte au service.
-
-* Il recherche un document dans une rubrique spécifique (par exemple "Cours 2023" ou "Archives du projet X").
-  
-* Il consulte la liste des documents correspondants.
-  
-* Il ouvre un premier document et le lit jusqu’au bout.
-  
-* Il revient à la liste, choisit un autre document plus ancien et le lit également.
-
-Étant donné que ces fichiers sont moins consultés, ils peuvent provenir d’un stockage plus lent ou nécessiter plus de transfert, ce qui augmente légèrement l’empreinte par rapport aux documents récents en cache.
+- L'utilisateur accède à son drive
+- Il sélectionne le fichier qu'il souhaite télécharger
+- Il clique sur le bouton télécharger pour récupérer le fichier
+- L'utilisateur se retrouve nouveau sur la page d'accueil de son drive
 
 ## Auteurs
 
