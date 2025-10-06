@@ -64,7 +64,15 @@ Nous partons de l'hypothèse que l'utilisateur du drive accède plusieurs fois p
 | ----------- | ----------- |----------- | ----------- |
 | Google Drive | ... | ... | ... |
 | Microsoft OneDrive | ... | ... | ... |
+| DropBox | ... | ... | ... |
+
+## Modèle économique
+
+| Service | Accès gratuit | Abonnement Payant | Répartition des revenus |
+| ----------- | ----------- |----------- | ----------- |
+| Google Drive | ... | ... | ... |
 | Microsoft OneDrive | ... | ... | ... |
+| DropBox | ... | ... | ... |
 
 ## Auteurs
 
