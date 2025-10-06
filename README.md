@@ -58,6 +58,14 @@ Nous partons de l'hypothèse que l'utilisateur du drive accède plusieurs fois p
 - Il clique sur le bouton télécharger pour récupérer le fichier
 - L'utilisateur se retrouve nouveau sur la page d'accueil de son drive
 
+## Impact de l'exécution des scénarios auprès de différents services concurrents
+
+| Service | Score (sur 100) | Classe | Détail des mesures |
+| ----------- | ----------- |----------- | ----------- |
+| Google Drive | ... | ... | ... |
+| Microsoft OneDrive | ... | ... | ... |
+| Microsoft OneDrive | ... | ... | ... |
+
 ## Auteurs
 
 * Antoine MAZEAU
