@@ -124,6 +124,18 @@ L’étude de l’offre des services cloud destinés au grand public (cf. Tab. 2
 ³ [Source : Estimations de campagnes à régie intégrée — Le Figaro / régies médias françaises](https://www.lefigaro.fr/medias/)  
 ⁴ [Source : Étude de prix de services premium cloud (Nextcloud / ownCloud / Pydio)](https://nextcloud.com/pricing/)
 
+## Maquette de l'interface et échantillon de données
+
+Au vu des différents services comparés, des exigences environnementales exprimées précédemment et des scénarios d’usage retenus, nous avons défini pour notre prototype une maquette de l'interface et un échantillon de données réalistes.
+
+Les ressources numériques présentes sur notre application seront de deux types principaux :
+  - un dossier ou un répertoire (avec une HTTP-URI ayant pour chemin / pour la racine ou /folder/{name} pour un dossier spécifique) ;
+  - un document (avec pour chemin /document/{id} pour accéder à un fichier particulier).
+
+Fig. 1 : Maquette de l'interface du prototype
+a. type de page pour les dossiers (racine ou thématiques),
+b. type de page pour un document.
+
 ## Auteurs
 
 * Antoine MAZEAU
