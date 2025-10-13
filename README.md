@@ -62,7 +62,7 @@ Nous partons de l'hypothèse que l'utilisateur du drive accède plusieurs fois p
 
 | Service | Score (sur 100) | Classe | Détail des mesures |
 | ----------- | ----------- |----------- | ----------- |
-| Google Drive | ... | ... | ... |
+| Google Drive | 5.7 | G | [...](./benchmark/GoogleDrive/benchmark.md) |
 | Microsoft OneDrive | ... | ... | ... |
 | DropBox | ... | ... | ... |
 
