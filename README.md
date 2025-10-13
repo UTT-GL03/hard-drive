@@ -68,11 +68,61 @@ Nous partons de l'hypothèse que l'utilisateur du drive accède plusieurs fois p
 
 ## Modèle économique
 
+Comme nous l’avons observé précédemment, une part importante de l’impact environnemental d’un service numérique découle directement de son modèle économique. En effet, ce modèle conditionne le volume de données échangées, le nombre d’utilisateurs actifs, les pratiques de stockage et la fréquence des sollicitations réseau. Il est donc nécessaire d’analyser les principaux acteurs du partage de documents afin d’en déduire les leviers possibles de sobriété.
+
 | Service | Accès gratuit | Abonnement Payant | Répartition des revenus |
 | ----------- | ----------- |----------- | ----------- |
-| Google Drive | ... | ... | ... |
-| Microsoft OneDrive | ... | ... | ... |
-| DropBox | ... | ... | ... |
+| Google Drive | 15 Go gratuits | 100 Go à 2 €/mois / 2 To à 10 €/mois | Freemium (publicités indirectes via l’écosystème Google) |
+| Microsoft OneDrive | 5 Go gratuits | 100 Go à 2 €/mois / 1 To à 10 €/mois / 6 To à 13 €/mois (famille) | Freemium (abonnement Microsoft 365, intégration écosystème) |
+| DropBox | 2 Go gratuits | 2 To à partir de 12 €/mois / 3 To à 20 €/mois | Freemium (abonnement pur, sans publicité) |
+
+Tab. 1 : Offres des principaux services de partage de documents (particuliers).
+
+Ces offres présentent des caractéristiques communes :
+
+* Un accès gratuit limité, financé par d’autres activités (publicité, intégration logicielle, collecte de données).
+
+* Des formules payantes permettant un stockage accru et la suppression des restrictions.
+
+* Une forte incitation à l’abonnement, souvent couplée à d’autres services du même groupe (Gmail, Office, etc.).
+
+Les différences se situent surtout dans la nature des revenus et leur dépendance à la donnée utilisateur :
+
+* Google Drive et OneDrive tirent parti d’écosystèmes complets (publicité ciblée, synchronisation, analyse de l’usage), ce qui alourdit indirectement l’empreinte carbone liée au suivi et à la personnalisation.
+
+* Dropbox, reposant uniquement sur un modèle par abonnement, se montre plus neutre sur le plan de la collecte de données, mais nécessite un volume d’utilisateurs payants élevé pour rester viable.
+
+Le seul modèle alternatif identifié est celui de **Nextcloud**, totalement gratuit mais reposant sur des **dons** et des **services d’hébergement professionnels** proposés par des partenaires. Il est probable que la maintenance plus limitée de sa plateforme publique (par rapport à un service grand public tel que Google Drive) nécessite une équipe technique plus réduite.
+
+| **Source possible de revenus** | **Montant unitaire** | **Quantité nécessaire pour financer un salaire¹** |
+|--------------------------------|----------------------|--------------------------------------------------|
+| Abonnement (2 €/mois) | 24 €/an | 500 |
+| Affichage d’une publicité (régie tierce) | 0,00046 €² | 26 000 000 |
+| Diffusion d’une publicité (régie intégrée) | 10 000 €³ | 1,2 |
+| Vente de services complémentaires (hébergement sécurisé, support premium) | 200 €⁴ | 60 |
+
+**Tab. 2 : Sources de revenus possibles pour un service de stockage en ligne.**
+
+L’étude de l’offre des services cloud destinés au grand public (cf. Tab. 2) nous a permis d’identifier les principales sources de revenus utilisées. Associées à un bref état de l’art (cf. Tab. 3), nous avons pu établir que :
+
+- la **revente ou l’exploitation des données d’usage** n’est pas une source de revenu directe, mais elle alimente le ciblage publicitaire ;  
+- les deux modèles de publicité les plus courants sont le **revenu pour mille vues (RPM)** et le **revenu par clic (CPC)** ; le second domine pour les régies tierces, tandis que le premier sert surtout à estimer les revenus moyens ;  
+- une **régie intégrée** (bandeaux internes, partenariats directs) génère des revenus bien plus élevés qu’une régie tierce ;  
+- un **modèle par abonnement** est celui qui assure la meilleure stabilité financière pour un service cloud.  
+
+**Par conséquent**, pour limiter les coûts et l’impact écologique liés au trafic publicitaire, nous proposons de :
+
+- renoncer aux publicités gérées par des régies tierces,  
+- adopter un **modèle hybride**, basé principalement sur les **abonnements**,  
+- le compléter par un **bandeau publicitaire interne** réservé aux utilisateurs non abonnés,  
+- et explorer un **modèle de dons** pour les utilisateurs particuliers souhaitant soutenir la version gratuite du service.
+
+---
+
+¹ Hypothèse basée sur un salaire brut annuel de 12 000 € et une marge opérationnelle de 20 %.  
+² [Source : Google AdSense — définition et calcul du RPM](https://support.google.com/adsense/answer/112032?hl=fr)  
+³ [Source : Estimations de campagnes à régie intégrée — Le Figaro / régies médias françaises](https://www.lefigaro.fr/medias/)  
+⁴ [Source : Étude de prix de services premium cloud (Nextcloud / ownCloud / Pydio)](https://nextcloud.com/pricing/)
 
 ## Auteurs
 
