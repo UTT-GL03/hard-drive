@@ -60,11 +60,22 @@ Nous partons de l'hypothèse que l'utilisateur du drive accède plusieurs fois p
 
 ## Impact de l'exécution des scénarios auprès de différents services concurrents
 
+Nous avons choisi de comparer l'impact des scénarios pour les services de stockage de documents en ligne les plus utilisés et connus du grand public. Pour cela, nous avons choisi Google Drive, Microsoft OneDrive et DropBox.
+
+Et, pour calculer l'impact de ces scénarios, nous avons dû calculer à la main les scores et classes écoindex des services. Vous pouvez retrouver plus de détails sur comment nous avons réalisé les mesures dans la partie benchmark, accessible dans les liens du tableau ci-dessous.
+
 | Service | Score (sur 100) | Classe | Détail des mesures |
 | ----------- | ----------- |----------- | ----------- |
 | Google Drive | 5.7 | G | [...](./benchmark/GoogleDrive/benchmark.md) |
 | Microsoft OneDrive | ... | ... | ... |
-| DropBox | ... | ... | ... |
+| DropBox | 12.4 | F | [...](./benchmark/DropBox/benchmark.md) |
+
+### Analyse des résultats
+
+Pour la majorité des services, nous pouvons constater que nous obtenons un score qui est très bas. Cela peut s'expliquer par plusieurs facteurs divers. Nous avons effectué les tests sur nos comptes personnels pour Google et Microsoft. Ces comptes contiennent ainsi déjà beaucoup de données. Le nombre de requêtes et d'éléments du DOM étant relatif au nombre de fichiers stockés sur notre compte, les mauvais résultats peuvent s'expliquer de cette manière.
+
+Malgré cela, nous avons donc décidé d'intégrer un service que nous n'avions jamais utilisé, ici Dropbox. Cela nous permet de confirmer que les très mauvais résultats peuvent s'expliquer par la quantité de données stockées sur le service. Cependant, nous pouvons tout de même constater que les scores obtenus pour un service vide sont toujours très bas. Cela peut s'expliquer par la quantité d'éléments graphiques qui s'affichent à l'écran pour une simple action (pop-up de confirmation, animation, ...) ou encore par les nombreux traqueurs qui s'installent au chargement de la page.
+
 
 ## Modèle économique
 
