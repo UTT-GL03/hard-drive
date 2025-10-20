@@ -143,9 +143,17 @@ Les ressources numériques présentes sur notre application seront de deux types
   - un dossier ou un répertoire (avec une HTTP-URI ayant pour chemin / pour la racine ou /folder/{name} pour un dossier spécifique) ;
   - un document (avec pour chemin /document/{id} pour accéder à un fichier particulier).
 
-Fig. 1 : Maquette de l'interface du prototype
-a. type de page pour les dossiers (racine ou thématiques),
-b. type de page pour un document.
+### Maquettes
+
+Maquette 1 : page d’inscription / connexion
+Interface permettant de créer un compte, se connecter et gérer l’authentification.
+![](./docs/mockup_registration.png)
+Fig.1 : Maquette de la page d’inscription / connexion.
+
+Maquette 2 : page principale de l’application
+Gestion des fichiers et dossiers, accès rapide aux fichiers récents, possibilité d’importer, exporter et partager des fichiers.
+![](./docs/mockup_app.png)
+Fig.2 : Maquette de la page principale avec listes de dossiers et fichiers.
 
 ## Auteurs
 
