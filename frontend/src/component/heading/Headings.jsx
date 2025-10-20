@@ -1,6 +1,15 @@
+import LiquidSearchBar from '../liquidSearchBar/LiquidSearchBar';
+import './Headings.scss'
+
 const Headings = () => {
+    const logo="";
     return (
-        <h1>Header</h1>
+        <div className="headings-container">
+            <div className="headings-logo">
+                <img src={logo} alt="Logo" />
+            </div>
+            <LiquidSearchBar></LiquidSearchBar>
+        </div>
     )   
 }
 

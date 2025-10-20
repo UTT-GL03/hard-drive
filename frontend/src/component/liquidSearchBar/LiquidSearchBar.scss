@@ -1,0 +1,131 @@
+.liquid-glass-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0.85rem 1.75rem;
+  border-radius: 2rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  backdrop-filter: blur(8px) saturate(200%) brightness(1.1);
+  -webkit-backdrop-filter: blur(8px) saturate(200%) brightness(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      0 12px 48px rgba(0, 0, 0, 0.15),
+      0 4px 12px rgba(0, 0, 0, 0.1),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+
+    .search-icon {
+      color: rgba(0, 0, 0, 0.9);
+    }
+
+    input::placeholder {
+      color: rgba(0, 0, 0, 0.65);
+    }
+  }
+
+  &:focus-within {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.12) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+
+    .search-icon {
+      color: rgba(0, 0, 0, 1);
+    }
+
+    input::placeholder {
+      color: rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  .search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .search-icon {
+    color: rgba(0, 0, 0, 0.7);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+  input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: #000;
+    font-size: 1rem;
+    outline: none;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.5);
+      transition: color 0.3s ease;
+    }
+  }
+
+  .liquid-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at 30% 30%, 
+      rgba(255, 255, 255, 0.18), 
+      transparent 60%
+    );
+    pointer-events: none;
+    animation: liquidMove 8s ease-in-out infinite;
+    opacity: 0.8;
+  }
+}
+
+@keyframes liquidMove {
+  0% { 
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+  25% { 
+    transform: translate(15px, 8px) scale(1.05);
+    opacity: 0.9;
+  }
+  50% { 
+    transform: translate(-12px, -6px) scale(1.02);
+    opacity: 0.85;
+  }
+  75% { 
+    transform: translate(8px, -12px) scale(1.03);
+    opacity: 0.9;
+  }
+  100% { 
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+}

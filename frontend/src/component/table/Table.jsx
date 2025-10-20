@@ -1,6 +1,10 @@
+import './Table.scss'
+
 const Table = () => {
     return (
-        <h1>Table</h1>
+        <div className="table-container">
+            <h1>Table</h1>
+        </div>
     )
 }
 
