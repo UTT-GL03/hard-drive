@@ -1,13 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import Registration from './pages/Registration'
-import AppPage from './pages/AppPage'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Homepage from './component/homepage/Homepage'
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Registration />} />
-        <Route path="/app" element={<AppPage />} />
+        <Route path="/" element={<Homepage />} />
       </Routes>
     </Router>
   )
