@@ -67,7 +67,7 @@ Et, pour calculer l'impact de ces scénarios, nous avons dû calculer à la main
 | Service | Score (sur 100) | Classe | Détail des mesures |
 | ----------- | ----------- |----------- | ----------- |
 | Google Drive | 5.7 | G | [...](./benchmark/GoogleDrive/benchmark.md) |
-| Microsoft OneDrive | ... | ... | ... |
+| Microsoft OneDrive | 16.2 | F | [...](./benchmark/Microsoft/benchmark.md) |
 | DropBox | 12.4 | F | [...](./benchmark/DropBox/benchmark.md) |
 
 ### Analyse des résultats
