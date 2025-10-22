@@ -1,8 +1,6 @@
 import './Sidebar.scss';
-import { useState } from 'react';
 
-const SideBar = () => {
-    const [activeItem, setActiveItem] = useState("Mon Drive");
+const SideBar = ({ activeItem, setActiveItem }) => {
 
     const menuItems = ["Mon Drive", "Ordinateurs", "Favoris", "Récent", "Corbeille"];
 
@@ -16,7 +14,7 @@ const SideBar = () => {
                 className={activeItem === item ? "active" : ""}
                 onClick={() => setActiveItem(item)}
                 >
-                {item}
+                    {item}
                 </li>
             ))}
             </ul>
