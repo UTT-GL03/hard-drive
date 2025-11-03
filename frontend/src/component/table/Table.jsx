@@ -33,6 +33,8 @@ const Table = ({ data, currentView, currentFolderId, setCurrentFolderId, allFold
         }
         return a.name.localeCompare(b.name);
     });
+    console.log(allItems);
+    
 
     // Fonction utilitaire pour la date
     const formatDate = (isoString) => {
