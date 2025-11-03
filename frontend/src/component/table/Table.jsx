@@ -1,7 +1,16 @@
 import './Table.scss'
 import BreadCrumbs from '../breadCrumbs/BreadCrumbs';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Table = ({ data, currentView, currentFolderId, setCurrentFolderId, allFolders }) => {
+    const {slug: folder_id} = useParams();
+    const navigate = useNavigate();
+    const filter_data = {
+        folders: data.folders
+            .filter(f => f.parent_id === folder_id || (folder_id === undefined && f.parent_id === null)),
+        documents: data.documents
+            .filter(d => d.folder_id === folder_id || (folder_id === undefined && d.folder_id === null)),
+    }
 
     // Fonction utilitaire pour formater la taille des fichiers
     const formatSize = (bytes) => {
@@ -11,30 +20,6 @@ const Table = ({ data, currentView, currentFolderId, setCurrentFolderId, allFold
         const i = Math.floor(Math.log(bytes) / Math.log(k));
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     };
-
-    const allItems = [
-        ...data.folders.map(f => ({ 
-            ...f, 
-            type: 'folder', 
-            name: f.name, 
-            date: f.created_at, 
-            size: '-' 
-        })),
-        ...data.documents.map(d => ({ 
-            ...d, 
-            type: 'document', 
-            name: d.title, 
-            date: d.created_at, 
-            size: formatSize(d.size)
-        }))
-    ].sort((a, b) => {
-        if (a.type !== b.type) {
-            return a.type === 'folder' ? -1 : 1;
-        }
-        return a.name.localeCompare(b.name);
-    });
-    console.log(allItems);
-    
 
     // Fonction utilitaire pour la date
     const formatDate = (isoString) => {
@@ -46,8 +31,7 @@ const Table = ({ data, currentView, currentFolderId, setCurrentFolderId, allFold
     
     const handleFolderClick = (folderId) => {
         if (currentView === "Mon Drive") {
-            setCurrentFolderId(folderId);
-            window.history.pushState(null, '', `?folder=${folderId}`);
+            navigate(`/${folderId}`)
         }
     };
 
@@ -68,21 +52,27 @@ const Table = ({ data, currentView, currentFolderId, setCurrentFolderId, allFold
                     </tr>
                 </thead>
                 <tbody>
-                    {allItems.length === 0 ? (
-                        <tr><td colSpan="3">Aucun élément dans cette vue.</td></tr>
-                    ) : (
-                        allItems.map((item) => (
-                            <tr 
-                                key={item.id} 
-                                className={item.type}
-                                onClick={() => item.type === 'folder' ? handleFolderClick(item.id) : null}
-                            >
-                                <td>{item.type === 'folder' ? '📁' : '📄'} {item.name}</td>
-                                <td>{formatDate(item.date)}</td>
-                                <td>{item.size}</td>
-                            </tr>
-                        ))
-                    )}
+                    {filter_data.folders.map(f => (
+                        <tr 
+                            key={f.id} 
+                            className='folder'
+                            onClick={() => handleFolderClick(f.id)}
+                        >
+                            <td>{'📁'} {f.name}</td>
+                            <td>{formatDate(f.created_at)}</td>
+                            <td>-</td>
+                        </tr>
+                    ))}
+                    {filter_data.documents.map(d => (
+                        <tr 
+                            key={d.id} 
+                            className='document'
+                        >
+                            <td>{'📄'} {d.title}</td>
+                            <td>{formatDate(d.created_at)}</td>
+                            <td>{formatSize(d.size)}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>

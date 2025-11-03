@@ -17,29 +17,6 @@ export default function Homepage() {
 
   const files = useFiles();
 
-  const getFilteredData = () => {
-    if (!files) return;
-    const { folders: allFolders, documents: allDocuments } = files;
-    if (currentFolderId) {
-      // Afficher le contenu du dossier spécifique
-      const subFolders = allFolders.filter(f => f.parent_id === currentFolderId);
-      const folderDocuments = allDocuments.filter(d => d.folder_id === currentFolderId);
-
-      const currentFolder = allFolders.find(f => f.id === currentFolderId);
-      const viewName = currentFolder ? currentFolder.name : "Dossier Inconnu";
-
-      return { folders: subFolders, documents: folderDocuments, viewName };
-    } else {
-      // Afficher le contenu de la racine de "Mon Drive"
-      const rootFolders = allFolders.filter(f => f.parent_id === null);
-      const rootDocuments = allDocuments.filter(d => d.folder_id === null);
-      return { folders: rootFolders, documents: rootDocuments, viewName: "Mon Drive" };
-    }
-
-  };
-
-  const data = getFilteredData();
-
   const startResize = () => {
     isResizing.current = true
   }
@@ -77,9 +54,9 @@ export default function Homepage() {
         <div className="resizer" onMouseDown={startResize} />
       </div>
       <div className="main-content">
-        {data
+        {files
           ?  <Table 
-              data={data} 
+              data={files} 
               currentView={currentView}
               currentFolderId={currentFolderId}
               setCurrentFolderId={setCurrentFolderId}

@@ -5,7 +5,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/:slug?" element={<Homepage />} />
       </Routes>
     </Router>
   )
