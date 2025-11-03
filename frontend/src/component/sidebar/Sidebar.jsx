@@ -2,7 +2,7 @@ import './Sidebar.scss';
 
 const SideBar = ({ activeItem, setActiveItem }) => {
 
-    const menuItems = ["Mon Drive", "Ordinateurs", "Favoris", "Récent", "Corbeille"];
+    const menuItems = ["Mon Drive"];
 
     return (
         <div className="sidebar-container">

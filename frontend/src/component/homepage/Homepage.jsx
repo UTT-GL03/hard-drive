@@ -16,39 +16,29 @@ export default function Homepage() {
   const [currentFolderId, setCurrentFolderId] = useState(null);
 
   const files = useFiles();
-  
 
   const getFilteredData = () => {
     if (!files) return;
     const { folders: allFolders, documents: allDocuments } = files;
-    if (currentView === "Mon Drive") {
-        if (currentFolderId) {
-          // Afficher le contenu du dossier spécifique
-          const subFolders = allFolders.filter(f => f.parent_id === currentFolderId);
-          const folderDocuments = allDocuments.filter(d => d.folder_id === currentFolderId);
+    if (currentFolderId) {
+      // Afficher le contenu du dossier spécifique
+      const subFolders = allFolders.filter(f => f.parent_id === currentFolderId);
+      const folderDocuments = allDocuments.filter(d => d.folder_id === currentFolderId);
 
-          const currentFolder = allFolders.find(f => f.id === currentFolderId);
-          const viewName = currentFolder ? currentFolder.name : "Dossier Inconnu";
+      const currentFolder = allFolders.find(f => f.id === currentFolderId);
+      const viewName = currentFolder ? currentFolder.name : "Dossier Inconnu";
 
-          return { folders: subFolders, documents: folderDocuments, viewName };
-        } else {
-          // Afficher le contenu de la racine de "Mon Drive"
-          const rootFolders = allFolders.filter(f => f.parent_id === null);
-          const rootDocuments = allDocuments.filter(d => d.folder_id === null);
-          return { folders: rootFolders, documents: rootDocuments, viewName: "Mon Drive" };
-        }
-    } else if (currentView === "Récent") {
-        // Afficher tous les documents triés par date de création (du plus récent au plus ancien)
-        const recentDocuments = [...allDocuments].sort((a, b) => 
-          new Date(b.created_at) - new Date(a.created_at)
-        );
-        return { folders: [], documents: recentDocuments, viewName: "Récent" };
+      return { folders: subFolders, documents: folderDocuments, viewName };
     } else {
-        return { folders: [], documents: [], viewName: currentView };
-      }
+      // Afficher le contenu de la racine de "Mon Drive"
+      const rootFolders = allFolders.filter(f => f.parent_id === null);
+      const rootDocuments = allDocuments.filter(d => d.folder_id === null);
+      return { folders: rootFolders, documents: rootDocuments, viewName: "Mon Drive" };
+    }
+
   };
 
- const data = getFilteredData();
+  const data = getFilteredData();
 
   const startResize = () => {
     isResizing.current = true
@@ -93,7 +83,7 @@ export default function Homepage() {
               currentView={currentView}
               currentFolderId={currentFolderId}
               setCurrentFolderId={setCurrentFolderId}
-              allFolders={data.folders}
+              allFolders={files ? files.folders : []}
             />
           : <div className="loader-container">
               <Loader />
