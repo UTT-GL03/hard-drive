@@ -45,6 +45,7 @@ const Table = ({ data, currentView, currentFolderId, setCurrentFolderId, allFold
     const handleFolderClick = (folderId) => {
         if (currentView === "Mon Drive") {
             setCurrentFolderId(folderId);
+            window.history.pushState(null, '', `?folder=${folderId}`);
         }
     };
 

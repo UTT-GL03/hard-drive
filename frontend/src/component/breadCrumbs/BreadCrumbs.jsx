@@ -27,7 +27,7 @@ const BreadCrumbs = ({ currentFolderId, setCurrentFolderId, allFolders }) => {
             </span>
             {path.map((folder) => (
                 <span key={folder.id}>
-                    <span className="breadcrumb-separator"> / </span>
+                    <span className="breadcrumb-separator"> {'>'} </span>
                     <span
                         className="breadcrumb-item"
                         onClick={() => setCurrentFolderId(folder.id)}
