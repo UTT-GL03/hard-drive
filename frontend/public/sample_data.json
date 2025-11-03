@@ -1,0 +1,176 @@
+{
+  "folders": [
+    {
+      "id": "02f35468-7e53-43f3-90d9-a7988f653a66",
+      "name": "Folder 0",
+      "created_at": "2025-05-19T22:15:50.569Z",
+      "parent_id": null
+    },
+    {
+      "id": "8f016a0f-130a-4375-a9cd-832179bcbff7",
+      "name": "Folder 1",
+      "created_at": "2025-06-13T13:55:40.973Z",
+      "parent_id": null
+    },
+    {
+      "id": "a22213b0-2ccc-4baf-bf81-fbbe231bb20c",
+      "name": "Folder 2",
+      "created_at": "2025-09-11T14:09:18.729Z",
+      "parent_id": null
+    },
+    {
+      "id": "5a2b0446-41ca-400b-8ffb-466b3b3ab14c",
+      "name": "Folder 3",
+      "created_at": "2025-07-29T12:03:24.785Z",
+      "parent_id": null
+    },
+    {
+      "id": "f940fafd-b5f2-4e1d-8200-0ac60dbb6d6d",
+      "name": "Folder 4",
+      "created_at": "2025-05-31T16:46:13.688Z",
+      "parent_id": null
+    }
+  ],
+  "documents": [
+    {
+      "id": "23696afb-9b40-4e7e-b6a3-99e2a9cb5d5a",
+      "title": "Document 0",
+      "created_at": "2025-04-18T16:36:14.804Z",
+      "size": 157340,
+      "folder_id": "8f016a0f-130a-4375-a9cd-832179bcbff7"
+    },
+    {
+      "id": "02d6d1a2-e139-4910-898c-7da5ca07d871",
+      "title": "Document 1",
+      "created_at": "2025-10-24T05:38:00.950Z",
+      "size": 120273,
+      "folder_id": "02f35468-7e53-43f3-90d9-a7988f653a66"
+    },
+    {
+      "id": "6bcbaf8d-f05f-427b-a7b1-707bfe0b9e59",
+      "title": "Document 2",
+      "created_at": "2025-07-17T14:48:20.480Z",
+      "size": 53833,
+      "folder_id": null
+    },
+    {
+      "id": "54ce6ff1-5e91-4113-ad7e-5247435035dd",
+      "title": "Document 3",
+      "created_at": "2025-03-03T13:40:09.413Z",
+      "size": 28133,
+      "folder_id": "8f016a0f-130a-4375-a9cd-832179bcbff7"
+    },
+    {
+      "id": "46ab24ec-5ad8-4cd4-984f-64637567cf1f",
+      "title": "Document 4",
+      "created_at": "2025-03-18T20:12:35.722Z",
+      "size": 126614,
+      "folder_id": null
+    },
+    {
+      "id": "9b0dfcb6-fa88-49e3-9349-8ce1b5dafc6c",
+      "title": "Document 5",
+      "created_at": "2025-07-20T21:07:11.796Z",
+      "size": 27169,
+      "folder_id": null
+    },
+    {
+      "id": "512c8981-c13e-41ad-a8ef-214cc3ad3e5f",
+      "title": "Document 6",
+      "created_at": "2025-10-09T23:08:18.142Z",
+      "size": 29356,
+      "folder_id": null
+    },
+    {
+      "id": "c5658845-ca6e-467a-afe9-dbca1513ceb6",
+      "title": "Document 7",
+      "created_at": "2025-02-08T17:30:06.333Z",
+      "size": 153052,
+      "folder_id": "8f016a0f-130a-4375-a9cd-832179bcbff7"
+    },
+    {
+      "id": "234ee25b-9286-45b5-b415-1193a56c5826",
+      "title": "Document 8",
+      "created_at": "2025-05-21T23:16:23.491Z",
+      "size": 153794,
+      "folder_id": null
+    },
+    {
+      "id": "ad7af5f5-d3a7-4030-8316-90e9803ff91d",
+      "title": "Document 9",
+      "created_at": "2025-01-23T20:05:41.567Z",
+      "size": 65877,
+      "folder_id": null
+    },
+    {
+      "id": "ae2c9dad-2aa6-4d90-97e5-1b970598e7d7",
+      "title": "Document 10",
+      "created_at": "2025-10-21T04:13:39.766Z",
+      "size": 94962,
+      "folder_id": "5a2b0446-41ca-400b-8ffb-466b3b3ab14c"
+    },
+    {
+      "id": "875ac95d-6d3b-4fa0-8810-b33125e0f5d3",
+      "title": "Document 11",
+      "created_at": "2025-04-07T12:23:08.587Z",
+      "size": 102177,
+      "folder_id": "8f016a0f-130a-4375-a9cd-832179bcbff7"
+    },
+    {
+      "id": "460ba1fe-4c04-4525-b317-99117c4c4cb9",
+      "title": "Document 12",
+      "created_at": "2025-04-22T06:15:42.649Z",
+      "size": 12844,
+      "folder_id": null
+    },
+    {
+      "id": "6afe7c86-e949-436e-9efb-eb86747d1e46",
+      "title": "Document 13",
+      "created_at": "2025-05-14T13:39:35.754Z",
+      "size": 132200,
+      "folder_id": null
+    },
+    {
+      "id": "0a084a12-1206-4532-bd71-060138310c51",
+      "title": "Document 14",
+      "created_at": "2025-06-14T20:08:10.893Z",
+      "size": 186247,
+      "folder_id": "f940fafd-b5f2-4e1d-8200-0ac60dbb6d6d"
+    },
+    {
+      "id": "5f64d33d-b2fe-4372-a674-54647263dceb",
+      "title": "Document 15",
+      "created_at": "2025-02-16T02:56:52.327Z",
+      "size": 156739,
+      "folder_id": null
+    },
+    {
+      "id": "d80f67ed-84ea-4751-b7d2-f2d4161815b0",
+      "title": "Document 16",
+      "created_at": "2025-10-27T21:08:28.272Z",
+      "size": 71640,
+      "folder_id": null
+    },
+    {
+      "id": "2df6026e-a6d6-4815-a444-2032c30e3e99",
+      "title": "Document 17",
+      "created_at": "2025-11-01T19:39:31.386Z",
+      "size": 112311,
+      "folder_id": null
+    },
+    {
+      "id": "74d690eb-d669-47d0-a36b-398ea2712097",
+      "title": "Document 18",
+      "created_at": "2025-10-04T14:11:27.829Z",
+      "size": 175386,
+      "folder_id": null
+    },
+    {
+      "id": "bbbe8b41-e7fd-404b-bff6-fd756a4148f5",
+      "title": "Document 19",
+      "created_at": "2024-12-01T11:25:10.244Z",
+      "size": 43014,
+      "folder_id": null
+    }
+  ]
+}

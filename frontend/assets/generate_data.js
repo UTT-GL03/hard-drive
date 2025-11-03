@@ -8,7 +8,7 @@ const AMOUT_DOCUMENTS = 20;
 const DOCUMENT_IN_FOLDER = 0.5;
 const FOLDER_IN_FOLDER = 0.3;
 
-const ASSETS_PATH = "assets"
+const ASSETS_PATH = "public"
 const DATA_FILE_NAME = "sample_data.json"
 
 
