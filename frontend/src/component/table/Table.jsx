@@ -1,15 +1,22 @@
 import './Table.scss'
 import BreadCrumbs from '../breadCrumbs/BreadCrumbs';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useDrive } from '../context/DriveContext.jsx';
+import { useEffect } from 'react';
 
-const Table = ({ data, currentView, currentFolderId, setCurrentFolderId, allFolders }) => {
-    const {slug: folder_id} = useParams();
-    const navigate = useNavigate();
+const Table = ({ data }) => {
+    const { currentFolderId, allFolders, setAllFolders, goToFolder } = useDrive();
+    
+    useEffect(() => {
+        if (allFolders.length === 0 && data?.folders) {
+            setAllFolders(data.folders);
+        }
+    }, [allFolders, data, setAllFolders]);
+
     const filter_data = {
         folders: data.folders
-            .filter(f => f.parent_id === folder_id || (folder_id === undefined && f.parent_id === null)),
+            .filter(f => f.parent_id === currentFolderId || (currentFolderId === undefined && f.parent_id === null)),
         documents: data.documents
-            .filter(d => d.folder_id === folder_id || (folder_id === undefined && d.folder_id === null)),
+            .filter(d => d.folder_id === currentFolderId || (currentFolderId === undefined && d.folder_id === null)),
     }
 
     // Fonction utilitaire pour formater la taille des fichiers
@@ -28,20 +35,10 @@ const Table = ({ data, currentView, currentFolderId, setCurrentFolderId, allFold
                 year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
         });
     };
-    
-    const handleFolderClick = (folderId) => {
-        if (currentView === "Mon Drive") {
-            navigate(`/${folderId}`)
-        }
-    };
 
     return (
         <div className="table-container">
-            <BreadCrumbs
-                currentFolderId={currentFolderId}
-                setCurrentFolderId={setCurrentFolderId}
-                allFolders={allFolders}
-            />
+            <BreadCrumbs/>
                   
             <table className="file-table">
                 <thead>
@@ -56,7 +53,7 @@ const Table = ({ data, currentView, currentFolderId, setCurrentFolderId, allFold
                         <tr 
                             key={f.id} 
                             className='folder'
-                            onClick={() => handleFolderClick(f.id)}
+                            onClick={() => goToFolder(f.id)}
                         >
                             <td>{'📁'} {f.name}</td>
                             <td>{formatDate(f.created_at)}</td>
