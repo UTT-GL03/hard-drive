@@ -1,20 +1,50 @@
-import { createContext, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, useContext, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import PathWay from './Path';
+import createPersistedState from 'use-persisted-state';
 
 const DriveContext = createContext();
 
-export const DriveProvider = ({ children }) => {
-  const [currentFolderId, setCurrentFolderId] = useState(null);
-  const [allFolders, setAllFolders] = useState([]);
-  const navigate = useNavigate();
+const usePathState = createPersistedState('path');
 
-  const goToFolder = (folderId) => {
-    setCurrentFolderId(folderId);
-    navigate(folderId ? `/${folderId}` : '/');
+// Todo, faire le cas quand on cherche un id directement qui n'est pas dans la liste
+export const DriveProvider = ({ children }) => {
+  const [path, setPath] = usePathState([]);
+  const navigate = useNavigate();
+  const {slug} = useParams();
+
+  const verifyPath = () => {
+    const pathIdList = path.map(({uid}) => uid);
+
+    if (!slug) return setPath([]);
+
+    if (pathIdList.includes(slug) && pathIdList.indexOf(slug) + 1 != pathIdList.length) {
+      return setPath([...path.splice(0, pathIdList.indexOf(slug) + 1)])
+    } 
+  }
+
+
+  useEffect(() => {
+    verifyPath()
+  }, [slug])
+  
+
+  const goToFolder = (folderId, folderName) => {
+    const p = new PathWay(folderId, folderName);
+
+    if (!folderId) {
+      navigate('/')
+      return setPath([])
+    }
+
+    navigate(`/${folderId}`);
+
+    if (path.map(({uid}) => uid).includes(folderId)) return;
+    setPath([...path, p])
   };
 
   return (
-    <DriveContext.Provider value={{ currentFolderId, setCurrentFolderId, allFolders, setAllFolders, goToFolder }}>
+    <DriveContext.Provider value={{ goToFolder, path }}>
       {children}
     </DriveContext.Provider>
   );

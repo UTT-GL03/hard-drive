@@ -5,11 +5,9 @@ import { DriveProvider } from './component/context/DriveContext.jsx';
 function App() {
   return (
     <Router>
-      <DriveProvider>
         <Routes>
-          <Route path="/:slug?" element={<Homepage />} />
+          <Route path="/:slug?" element={<DriveProvider><Homepage/></DriveProvider>} />
         </Routes>
-      </DriveProvider>
     </Router>
   )
 }

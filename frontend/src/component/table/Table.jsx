@@ -2,21 +2,24 @@ import './Table.scss'
 import BreadCrumbs from '../breadCrumbs/BreadCrumbs';
 import { useDrive } from '../context/DriveContext.jsx';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 const Table = ({ data }) => {
     const { currentFolderId, allFolders, setAllFolders, goToFolder } = useDrive();
+    const {slug} = useParams();
     
-    useEffect(() => {
-        if (allFolders.length === 0 && data?.folders) {
-            setAllFolders(data.folders);
-        }
-    }, [allFolders, data, setAllFolders]);
+    
+    // useEffect(() => {
+    //     if (allFolders.length === 0 && data?.folders) {
+    //         setAllFolders(data.folders);
+    //     }
+    // }, [allFolders, data, setAllFolders]);
 
     const filter_data = {
         folders: data.folders
-            .filter(f => f.parent_id === currentFolderId || (currentFolderId === undefined && f.parent_id === null)),
+            .filter(f => f.parent_id === slug || (slug === undefined && f.parent_id === null)),
         documents: data.documents
-            .filter(d => d.folder_id === currentFolderId || (currentFolderId === undefined && d.folder_id === null)),
+            .filter(d => d.folder_id === slug || (slug === undefined && d.folder_id === null)),
     }
 
     // Fonction utilitaire pour formater la taille des fichiers
@@ -53,7 +56,7 @@ const Table = ({ data }) => {
                         <tr 
                             key={f.id} 
                             className='folder'
-                            onClick={() => goToFolder(f.id)}
+                            onClick={() => goToFolder(f.id, f.name)}
                         >
                             <td>{'📁'} {f.name}</td>
                             <td>{formatDate(f.created_at)}</td>
