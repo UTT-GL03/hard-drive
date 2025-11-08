@@ -1,4 +1,5 @@
 import { useDrive } from "../context/DriveContext.jsx";
+import './BreadCrumbs.scss'
 
 const BreadCrumbs = () => {
   const { path, goToFolder } = useDrive();
@@ -9,7 +10,7 @@ const BreadCrumbs = () => {
         Mon Drive
       </span>
       {path.map(({uid, name}) => (
-        <span key={uid}>
+        <span key={uid} className="breadcrumb-item">
           <span className="breadcrumb-separator"> {">"} </span>
           <span
             className="breadcrumb-item"

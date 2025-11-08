@@ -8,15 +8,15 @@ const SideBar = ({ activeItem, setActiveItem }) => {
         <div className="sidebar-container">
         <nav className="sidebar-menu">
             <ul>
-            {menuItems.map((item) => (
-                <li
-                key={item}
-                className={activeItem === item ? "active" : ""}
-                onClick={() => setActiveItem(item)}
-                >
-                    {item}
-                </li>
-            ))}
+                {menuItems.map((item) => (
+                    <li
+                    key={item}
+                    className={activeItem === item ? "active" : ""}
+                    onClick={() => setActiveItem(item)}
+                    >
+                        {item}
+                    </li>
+                ))}
             </ul>
         </nav>
         </div>

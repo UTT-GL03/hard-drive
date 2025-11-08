@@ -64,7 +64,7 @@ const Table = ({ data }) => {
                             className='folder'
                             onClick={() => goToFolder(f.id, f.name)}
                         >
-                            <td><Folder /> {f.name}</td>
+                            <td><div className="icon-container"><Folder /> {f.name}</div></td>
                             <td>{formatDate(f.created_at)}</td>
                             <td>-</td>
                             <td></td>
@@ -75,7 +75,7 @@ const Table = ({ data }) => {
                             key={d.id} 
                             className='document'
                         >
-                            <td> <File /> {d.title}</td>
+                            <td>{d.title}</td>
                             <td>{formatDate(d.created_at)}</td>
                             <td>{formatSize(d.size)}</td>
                             <td ><a className='btn' onClick={() => downloadFile(d.id)} download><Download /></a></td>
