@@ -1,19 +1,12 @@
 import './Table.scss'
 import BreadCrumbs from '../breadCrumbs/BreadCrumbs';
 import { useDrive } from '../context/DriveContext.jsx';
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Download, File, Folder } from 'lucide-react';
 
 const Table = ({ data }) => {
-    const { currentFolderId, allFolders, setAllFolders, goToFolder } = useDrive();
+    const { goToFolder } = useDrive();
     const {slug} = useParams();
-    
-    
-    // useEffect(() => {
-    //     if (allFolders.length === 0 && data?.folders) {
-    //         setAllFolders(data.folders);
-    //     }
-    // }, [allFolders, data, setAllFolders]);
 
     const filter_data = {
         folders: data.folders
@@ -71,7 +64,7 @@ const Table = ({ data }) => {
                             className='folder'
                             onClick={() => goToFolder(f.id, f.name)}
                         >
-                            <td>{'📁'} {f.name}</td>
+                            <td><Folder /> {f.name}</td>
                             <td>{formatDate(f.created_at)}</td>
                             <td>-</td>
                             <td></td>
@@ -82,10 +75,10 @@ const Table = ({ data }) => {
                             key={d.id} 
                             className='document'
                         >
-                            <td>{'📄'} {d.title}</td>
+                            <td> <File /> {d.title}</td>
                             <td>{formatDate(d.created_at)}</td>
                             <td>{formatSize(d.size)}</td>
-                            <td><a onClick={() => downloadFile(d.id)} download>⬇️</a></td>
+                            <td ><a className='btn' onClick={() => downloadFile(d.id)} download><Download /></a></td>
                         </tr>
                     ))}
                 </tbody>

@@ -3,7 +3,7 @@ $table-text: #111;
 $table-header-bg: rgba(255, 255, 255, 0.25);
 $table-header-text: #000;
 $table-border: rgba(255, 255, 255, 0.3);
-$hover-bg: rgba(255, 255, 255, 0.05);
+$hover-bg: rgba(255, 255, 255, 0.1);
 
 .table-container {
   display: flex;
@@ -58,20 +58,28 @@ $hover-bg: rgba(255, 255, 255, 0.05);
     tbody {
       tr {
         transition: all 0.2s ease;
-        cursor: pointer;
-
-        &:hover {
-          background: $hover-bg;
-        }
 
         td {
           padding: 1rem;
           border-bottom: 1px solid $table-border;
-
            &:last-child {
             text-align: center;
           }
+
+          .btn {
+              padding: 10px;
+              border-radius: 6px;
+              display: flex;
+              width: fit-content;
+
+              cursor: pointer;
+              &:hover {
+                background: $hover-bg;
+              }
+            }
         }
+
+        
 
         &.folder td:first-child {
           font-weight: 600;
@@ -81,6 +89,14 @@ $hover-bg: rgba(255, 255, 255, 0.05);
           font-weight: 400;
         }
       }
+
+      .folder {
+          cursor: pointer;
+          &:hover {
+            background: $hover-bg;
+          }
+      }
+      
     }
   }
 }
