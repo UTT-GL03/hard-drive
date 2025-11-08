@@ -1,24 +1,86 @@
-$table-bg: rgba(255, 255, 255, 0.1);
-$table-text: black;
+$table-bg: rgba(255, 255, 255, 0.15);
+$table-text: #111;
+$table-header-bg: rgba(255, 255, 255, 0.25);
+$table-header-text: #000;
+$table-border: rgba(255, 255, 255, 0.3);
+$hover-bg: rgba(255, 255, 255, 0.05);
 
 .table-container {
-  height: 97%;
-  margin-top: 0.2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  max-height: 90vh;
+  height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
   margin-left: 0.2%;
-  border-radius: 2rem;
-  background: $table-bg;
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 4px 8px rgba(0,0,0,0.05);
-  color: $table-text;
-  transition: all 0.3s ease;
+  margin-top: 0.2%;
   margin-right: 2%;
   margin-bottom: 2%;
+  border-radius: 2rem;
+  background: $table-bg;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid $table-border;
+  box-shadow: 0 16px 32px rgba(0,0,0,0.2), 0 8px 16px rgba(0,0,0,0.1);
+  color: $table-text;
+  transition: all 0.3s ease;
 
   h1 {
-    margin: 0 0 1rem 0;
-    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: 600;
     text-align: center;
+  }
+
+  .file-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    text-align: left;
+    font-size: 1rem;
+    
+    thead {
+      background: $table-header-bg;
+      color: $table-header-text;
+
+      th {
+        padding: 1rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    }
+
+    tbody {
+      tr {
+        transition: all 0.2s ease;
+        cursor: pointer;
+
+        &:hover {
+          background: $hover-bg;
+        }
+
+        td {
+          padding: 1rem;
+          border-bottom: 1px solid $table-border;
+
+           &:last-child {
+            text-align: center;
+          }
+        }
+
+        &.folder td:first-child {
+          font-weight: 600;
+        }
+
+        &.document td:first-child {
+          font-weight: 400;
+        }
+      }
+    }
   }
 }

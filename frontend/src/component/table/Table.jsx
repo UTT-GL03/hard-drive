@@ -39,6 +39,18 @@ const Table = ({ data }) => {
         });
     };
 
+    //temporaire pour le download
+    const downloadFile = (fileId) => {
+        const file = data.documents.find(d => d.id === fileId);
+        if (!file) return;
+        const link = document.createElement('a');
+        link.href = `/documents/${file.title}.${file.type}`;
+        link.download = file.title;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     return (
         <div className="table-container">
             <BreadCrumbs/>
@@ -49,6 +61,7 @@ const Table = ({ data }) => {
                         <th>Nom</th>
                         <th>Créé le</th>
                         <th>Taille</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,6 +74,7 @@ const Table = ({ data }) => {
                             <td>{'📁'} {f.name}</td>
                             <td>{formatDate(f.created_at)}</td>
                             <td>-</td>
+                            <td></td>
                         </tr>
                     ))}
                     {filter_data.documents.map(d => (
@@ -71,6 +85,7 @@ const Table = ({ data }) => {
                             <td>{'📄'} {d.title}</td>
                             <td>{formatDate(d.created_at)}</td>
                             <td>{formatSize(d.size)}</td>
+                            <td><a onClick={() => downloadFile(d.id)} download>⬇️</a></td>
                         </tr>
                     ))}
                 </tbody>
