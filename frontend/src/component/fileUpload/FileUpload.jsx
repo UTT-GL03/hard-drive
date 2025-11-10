@@ -8,7 +8,7 @@ const FileUpload = () => {
   const [message, setMessage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const {slug} = useParams();
-  const {uploadFile} = useFiles()
+  const {addFile} = useFiles()
 
   // Quand l’utilisateur sélectionne un fichier
   const handleChange = (e) => {
@@ -27,10 +27,10 @@ const FileUpload = () => {
 
     setIsUploading(true);
     setMessage("");
-    
+
     try {
-        const data = await uploadFile(file, slug)
-        setMessage(`✅ Fichier uploadé : ${data.file.title}.${data.file.type}`);
+        addFile({ file, folder: slug })
+        setMessage(`✅ Fichier uploadé`);
     } catch (error) {
         console.error(error);
         setMessage("❌ Erreur pendant l’upload.");
