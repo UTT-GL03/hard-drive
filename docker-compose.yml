@@ -9,11 +9,8 @@ services:
       - NODE_ENV=development
 
   frontend:
-    image: nginx
+    build: ./frontend
     depends_on:
       - backend
-    volumes:
-      - ./frontend/dist:/usr/share/nginx/html:ro
-      - ./settings/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
       - "80:80"

@@ -31,7 +31,7 @@ const FileUpload = () => {
     formData.append("folder_id", slug ? slug : null); 
 
     try {
-      const response = await fetch("http://backend:3000/upload", {
+      const response = await fetch("http://localhost:3000/upload", {
         method: "POST",
         body: formData,
       });
