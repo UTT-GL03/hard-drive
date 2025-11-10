@@ -6,7 +6,7 @@ const useFiles = () => {
   useEffect(() => {
     const fetchFiles = async () => {
       try {
-        const response = await fetch("/sample_data.json"); 
+        const response = await fetch("http://localhost:3000/export"); 
         const data = await response.json();
         setFiles(data);
       } catch (err) {
