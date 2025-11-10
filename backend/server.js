@@ -24,7 +24,7 @@ const dataFilePath = path.join(process.cwd(), "files", "sample_data.json");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
-    cb(null, uniqueName);
+    cb(null, file.originalname);
   },
 });
 
