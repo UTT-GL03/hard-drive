@@ -2,7 +2,7 @@ import './Table.scss'
 import BreadCrumbs from '../breadCrumbs/BreadCrumbs';
 import { useDrive } from '../context/DriveContext.jsx';
 import { useParams } from 'react-router-dom';
-import { Download, File, Folder } from 'lucide-react';
+import { Download, Folder } from 'lucide-react';
 
 const Table = ({ data }) => {
     const { goToFolder } = useDrive();
