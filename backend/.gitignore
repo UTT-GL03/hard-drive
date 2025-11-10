@@ -32,3 +32,7 @@ tmp/
 
 # System files
 Thumbs.db
+
+
+files/*
+!files/.gitkeep
