@@ -10,14 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "docx": "^9.5.1",
     "lucide-react": "^0.546.0",
-    "pdfkit": "^0.17.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.4",
-    "use-persisted-state": "^0.3.3",
-    "uuid": "^13.0.0"
+    "use-persisted-state": "^0.3.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
