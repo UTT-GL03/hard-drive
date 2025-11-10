@@ -35,13 +35,12 @@ const Table = ({ data }) => {
     //temporaire pour le download
     const downloadFile = (fileId) => {
         const file = data.documents.find(d => d.id === fileId);
-        if (!file) return;
-        const link = document.createElement('a');
-        link.href = `/documents/${file.title}.${file.type}`;
-        link.download = file.title;
+        const link = document.createElement("a");
+        link.href = `http://localhost:3000/export/${fileId}`;
+        link.download = `${file.title}.${file.type}`;
         document.body.appendChild(link);
         link.click();
-        document.body.removeChild(link);
+        link.remove();
     };
 
     return (

@@ -24,7 +24,6 @@ const dataFilePath = path.join(process.cwd(), "files", "sample_data.json");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
-    const uniqueName = Date.now() + "-" + file.originalname;
     cb(null, uniqueName);
   },
 });
@@ -97,6 +96,46 @@ app.get("/export", (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Erreur lors de la lecture du fichier." });
+  }
+});
+
+app.get("/export/:uid", (req, res) => {
+  const { uid } = req.params;
+
+  try {
+    // Vérifier que le fichier JSON existe
+    if (!fs.existsSync(dataFilePath)) {
+      return res.status(404).json({ error: "Aucun fichier de référence trouvé." });
+    }
+
+    // Lire et parser sample_data.json
+    const raw = fs.readFileSync(dataFilePath, "utf8");
+    const data = JSON.parse(raw);
+
+    // Chercher le document correspondant à l'uid
+    const doc = data.documents.find((d) => d.id === uid);
+    if (!doc) {
+      return res.status(404).json({ error: "Document introuvable dans JSON." });
+    }
+
+    // Construire le chemin physique vers le fichier
+    const fileName = `${doc.title}.${doc.type}`;
+    const filePath = path.join(uploadDir, fileName);
+
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: "Fichier physique introuvable." });
+    }
+
+    // Envoyer le fichier pour téléchargement
+    res.download(filePath, fileName, (err) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: "Erreur lors du téléchargement." });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erreur serveur." });
   }
 });
 
