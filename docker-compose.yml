@@ -1,9 +1,19 @@
 services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend/files:/usr/src/app/files
+    environment:
+      - NODE_ENV=development
 
-  static_hosting:
+  frontend:
     image: nginx
+    depends_on:
+      - backend
     volumes:
       - ./frontend/dist:/usr/share/nginx/html:ro
       - ./settings/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
-      - 80:80
+      - "80:80"

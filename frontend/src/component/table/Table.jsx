@@ -36,7 +36,7 @@ const Table = ({ data }) => {
     const downloadFile = (fileId) => {
         const file = data.documents.find(d => d.id === fileId);
         const link = document.createElement("a");
-        link.href = `http://localhost:3000/export/${fileId}`;
+        link.href = `http://backend:3000/export/${fileId}`;
         link.download = `${file.title}.${file.type}`;
         document.body.appendChild(link);
         link.click();
