@@ -1,0 +1,14 @@
+- name: Importer un fichier
+  url: http://localhost/
+  waitForSelector: div.file-upload button
+  actions:
+    - step: Sélectionner le fichier à importer
+      type: click
+      element: div.file-upload input[type="file"]
+      files:
+        - ./test_files/Document_1.txt
+
+    - step: Confirmer l'importation
+      type: click
+      element: div.file-upload button
+      wait : 5000

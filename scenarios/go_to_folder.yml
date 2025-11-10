@@ -1,0 +1,12 @@
+- name: Allez dans un dossier et retourne à la racine
+  url: http://localhost/
+  waitForSelector: .btn
+  actions:
+    - step: Télécharger Document_1     
+      type: click
+      element: .folder
+    - step: Retour à la racine
+      type: click
+      element: .breadcrumb-item
+
+    
