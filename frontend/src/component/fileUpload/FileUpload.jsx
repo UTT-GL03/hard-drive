@@ -1,12 +1,14 @@
 import { useState } from "react";
 import "./FileUpload.scss";
 import { useParams } from "react-router-dom";
+import useFiles from "../../hooks/useFiles";
 
 const FileUpload = () => {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const {slug} = useParams();
+  const {uploadFile} = useFiles()
 
   // Quand l’utilisateur sélectionne un fichier
   const handleChange = (e) => {
@@ -25,28 +27,15 @@ const FileUpload = () => {
 
     setIsUploading(true);
     setMessage("");
-
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("folder_id", slug ? slug : null); 
-
+    
     try {
-      const response = await fetch("http://localhost:3000/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Erreur lors de l’envoi du fichier");
-      }
-
-      const data = await response.json();
-      setMessage(`✅ Fichier uploadé : ${data.file.title}.${data.file.type}`);
+        const data = await uploadFile(file, slug)
+        setMessage(`✅ Fichier uploadé : ${data.file.title}.${data.file.type}`);
     } catch (error) {
-      console.error(error);
-      setMessage("❌ Erreur pendant l’upload.");
+        console.error(error);
+        setMessage("❌ Erreur pendant l’upload.");
     } finally {
-      setIsUploading(false);
+        setIsUploading(false);
     }
   };
 

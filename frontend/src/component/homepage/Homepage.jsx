@@ -15,7 +15,7 @@ export default function Homepage() {
   // État pour l'ID du dossier actuellement ouvert dans "Mon Drive". Null pour la racine.
   const [currentFolderId, setCurrentFolderId] = useState(null);
 
-  const files = useFiles();
+  const { files } = useFiles();
 
   const startResize = () => {
     isResizing.current = true
