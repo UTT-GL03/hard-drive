@@ -58,6 +58,12 @@ Nous partons de l'hypothèse que l'utilisateur du drive accède plusieurs fois p
 - Il clique sur le bouton télécharger pour récupérer le fichier
 - L'utilisateur se retrouve nouveau sur la page d'accueil de son drive
 
+### Scénario 3 : Navigation dans le drive
+
+- L'utilisateur accède à son drive
+- Il scroll pour trouver le dossier souhaité
+- Il clique sur un dossier pour accéder à son contenu
+
 ## Impact de l'exécution des scénarios auprès de différents services concurrents
 
 Nous avons choisi de comparer l'impact des scénarios pour les services de stockage de documents en ligne les plus utilisés et connus du grand public. Pour cela, nous avons choisi Google Drive, Microsoft OneDrive et DropBox.
