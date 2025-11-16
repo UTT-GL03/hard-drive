@@ -24,7 +24,7 @@ A des fins de synthèse et pour faciliter le calcul, nous allons nous baser sur 
 
 Avec ces données, nous pourrons calculer l'écoindex des parcours via cette [formule](https://github.com/cnumr/GreenIT-Analysis/blob/acc0334c712ba68939466c42af1514b5f448e19f/script/ecoIndex.js#L19-L44) que nous pouvons retrouver sur le dépôt Github de GreenIt-Analysis.
 
-## Evaluation de l'impact pour 2 parcours utilisateurs sur le site
+## Evaluation de l'impact pour 3 parcours utilisateurs sur le site
 
 ### Parcours 1 : Importation d'un fichier dans le drive
 
@@ -47,3 +47,11 @@ Avec ces données, nous pourrons calculer l'écoindex des parcours via cette [fo
 
 - Consommation d'eau rapportée à 1 000 utilisateurs (en litres) : 41.4
 - Émission de GES rapportée à 1 000 utilisateurs (kilos CO2e) : 2.75
+
+### Parcours 3 : Navigation dans le drive
+
+| Action | url | Grade | Ecoindex | GES (g CO₂e) | Eau (cL) | Nombre de requêtes | Taille des requêtes (Ko) | Taille du DOM |
+| ----------- | --- | --- | ----------- | ----------- | ----------- | ----------- | ----------- | --- |
+| Accès page scénarios | https://www.dropbox.com/home/scenarios | G | 5.51 | 2.89 | 4.33 | 500 | 8470 | 2312 |
+| Scroll / navigation  | https://www.dropbox.com/home/scenarios | G | 9.81 | 2.80 | 4.21 | 471 | 8368 | 1473 |
+| Accès sous-page      | https://www.dropbox.com/home/scenarios | G | 9.89 | 2.80 | 4.20 | 461 | 8354 | 1463 |

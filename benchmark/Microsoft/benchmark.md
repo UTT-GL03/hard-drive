@@ -37,7 +37,7 @@ Avec ces données, nous pourrons calculer l'écoindex des parcours via cette [fo
 - Consommation d'eau rapportée à 1 000 utilisateurs (en litres) : 3.97
 - Émission de GES rapportée à 1 000 utilisateurs (kilos CO2e) : 2.64
 
-### Pacours 2 : Exportation d'un fichier dans le drive
+### Parcours 2 : Exportation d'un fichier dans le drive
 
 | Date | Url | Nombre de requêtes | Taille des requêtes (Ko) | Taille du DOM | GES (g CO₂e) | Eau (cL) | Ecoindex | Grade |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
@@ -47,3 +47,13 @@ Avec ces données, nous pourrons calculer l'écoindex des parcours via cette [fo
 
 - Consommation d'eau rapportée à 1 000 utilisateurs (en litres) : 3.96
 - Émission de GES rapportée à 1 000 utilisateurs (kilos CO2e) : 2.64
+
+### Parcours 3 : Navigation dans le drive
+
+| Date                | Url                                                                                    | Nombre de requêtes | Taille des requêtes (Ko) | Taille du DOM | GES (g CO₂e) | Eau (cL) | Ecoindex | Grade |
+| ------------------- | -------------------------------------------------------------------------------------- | -----------------: | -----------------------: | ------------: | -----------: | -------: | -------: | ----: |
+| 16/11/2025 02:24:08 | https://uttroyes-my.sharepoint.com/shared |                314 |                    19334 |          1021 |         2.68 |     4.02 |    16.02 |     F |
+| 16/11/2025 02:23:57 | https://uttroyes-my.sharepoint.com/shared |                248 |                    14768 |           852 |         2.59 |     3.89 |    20.49 |     F |
+| 16/11/2025 02:23:50 | https://uttroyes-my.sharepoint.com/shared |                239 |                    14764 |           852 |         2.59 |     3.88 |    20.68 |     F |
+
+
