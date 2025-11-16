@@ -161,6 +161,31 @@ Gestion des fichiers et dossiers, accès rapide aux fichiers récents, possibili
 ![](./docs/mockup_app.png)
 Fig.2 : Maquette de la page principale avec listes de dossiers et fichiers.
 
+## Implémentation du scénario prioritaire
+
+### Étape de prototypage : Données chargées de manière statique
+
+Pour cette première version du prototype (v1.0.0) :
+
+* L'échantillon de données est encore chargé directement dans le code de manière statique.
+
+* Les fonctionnalités implémentées sont uniquement celles nécessaires pour suivre le scénario prioritaire : la gestion des fichiers dans le drive (importation, exportation, navigation dans les dossiers).
+
+* Ce scénario nécessite de pouvoir naviguer entre deux types de page : la page principale du drive et les pages de contenu d’un dossier ou d’un document.
+
+Nous avons développé la page principale du drive pour qu'elle affiche l'échantillon de fichiers et dossiers sous une forme proche de la maquette initiale (cf. Fig. 2).
+
+![Prototype de la page principale du drive – Fig.3](./docs/main_page_screenshot.png)
+Prototype de la page principale du drive – Fig.3
+
+Pour l'instant, nous n'avons choisi aucun framework. L'objectif est de limiter l'impact environnemental lié au frontend. Dans la suite du projet, nous évaluerons si l'utilisation d'un framework plus complet (Bootstrap, MaterialUI, etc.) est acceptable.
+
+Nous avons décidé de ne pas inclure de fichiers volumineux ou d’aperçus générés (images) afin de réduire le nombre de requêtes et la taille totale des pages.
+
+Le problème de cette application est que le chargement des données dépend des fichiers présents dans le drive et importés par l’utilisateur. Si ce dernier ajoute des fichiers volumineux, le score EcoIndex peut chuter drastiquement. Pour limiter cet impact, le projet restreindra les fichiers autorisés aux formats PDF, DOCX et TXT uniquement.
+
+Pour l’implémentation des scénarios, nous avons remarqué qu’il y en a un que nous ne pouvons pas réellement évaluer : l’importation des fichiers. En effet, avec les outils utilisés pour calculer la consommation des requêtes, nous ne sommes pas en mesure de mesurer l’impact lorsque l’utilisateur navigue dans son explorateur de fichiers pour sélectionner un document à importer.
+
 ## Auteurs
 
 * Antoine MAZEAU

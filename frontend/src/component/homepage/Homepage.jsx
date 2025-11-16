@@ -45,7 +45,7 @@ export default function Homepage() {
       onMouseMove={handleResize}
       onMouseUp={stopResize}
       onMouseLeave={stopResize}
-      style={{ gridTemplateColumns: `${sidebarWidth}px 1fr` }}
+      style={{ gridTemplateColumns: `${sidebarWidth}px 3fr` }}
     >
       <div className="glass-overlay"></div>
       <div className="headings"><Headings /></div>
