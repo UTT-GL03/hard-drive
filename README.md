@@ -186,6 +186,22 @@ Le problème de cette application est que le chargement des données dépend des
 
 Pour l’implémentation des scénarios, nous avons remarqué qu’il y en a un que nous ne pouvons pas réellement évaluer : l’importation des fichiers. En effet, avec les outils utilisés pour calculer la consommation des requêtes, nous ne sommes pas en mesure de mesurer l’impact lorsque l’utilisateur navigue dans son explorateur de fichiers pour sélectionner un document à importer.
 
+Dans l'état actuel du prototype, on peut des a présent avoir une idée sur l'impact environnemental de notre frontend. Cela nous permettra de faire des choix éclairés pour la suite du projet. Elle nous permet également de voir la différence entre une plateforme de développement et la plateforme de pré-production.
+
+|       | EcoIndex | GES (gCO2e) | Taille du DOM | Requêtes | Taille de la page (ko)|
+| ---| -----------: | -----------: |-----------: | -----------: | -----------:|
+| Mode "développement" | 66 C 🟨 | 1,68 | 145 | 54 | 7995 |
+| Mode "pré-production" | 74 B 🟩 | 1,52| 136 | 21 | 5328 |
+
+Tab 3 : Évaluation de l'impact du prototype de la page d'accueil du drive.
+
+### Pages des dossiers
+
+Les pages des dossiers ont pour HTTP-URI`/{id}`. Nous avons de mettre un public uuid pour chaque dossier. Cela permettra aux utilisateurs de pouvoir modifier le nom du dossier sans que cela n'impacte l'URL.
+
+
+
+
 ## Auteurs
 
 * Antoine MAZEAU
