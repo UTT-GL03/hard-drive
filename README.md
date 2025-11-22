@@ -199,6 +199,32 @@ Tab 3 : Évaluation de l'impact du prototype de la page d'accueil du drive.
 
 Les pages des dossiers ont pour HTTP-URI`/{id}`. Nous avons de mettre un public uuid pour chaque dossier. Cela permettra aux utilisateurs de pouvoir modifier le nom du dossier sans que cela n'impacte l'URL.
 
+![Prototype de la page d'un dossier – Fig.4](/docs/folder_page_screenshot.png)
+Prototype de la page d'un dossier – Fig.4
+
+Avec l'implémentation actuelle, nous avons pu obtenir les scores EcoIndex suivants :
+
+| Étape |  EcoIndex | GES (gCO₂e) | Taille du DOM | Requêtes | Taille de la page (Ko) |
+| ------| --------: | ----------: | ------------: | -------: | ---------------------: |
+| 1. Arrivée sur la page d’accueil | 72 B 🟩 | 1.56 | 91 | 37 | 6394 |
+| 2. Choisir et voir les détails d’un dossier | 73 B 🟩 | 1.55 | 70 | 38 | 6396
+| 3. Naviguer dans le dossier | 72 B 🟩 |    1.56 |        80 |   38 |               6395 |
+| 4. Revenir à la page d’accueil                           |     73 B 🟩 |        1.57 |            91 |       38 |                   6396 |
+
+Tab 4 : Évaluation de l'impact du scénario de "navigation dans un dossier" dans le prototype v1.0.0.
+
+Nous pouvons constater que les scores EcoIndex sont très bons pour ce scénario. Mais nous ne pouvons bien evidemment pas les comparer avec les services concurrents, car dans cette version du prototype, les données sont chargées de manière statique.
+
+### Étape de prototypage : Données statiques chargées de manière dynamique
+
+Pour cette deuxième version du prototype (v1.0.1), nous avons mis en place un chargement dynamique des données qui sont encore statiques (fichiers JSON). Nous avons également implémenté un backend minimaliste en Express.js pour les fonctionnalités d'importation et d'exportation de fichiers.
+
+Pour ce qui est de l'impact environnemental, nous avons pu obtenir les scores EcoIndex et les résultats sont globalement similaires à la version précédente.
+
+## Mesures de la consommation énergétique lors du passage à l'échelle
+
+
+
 
 
 
