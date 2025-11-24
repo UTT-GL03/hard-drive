@@ -45,6 +45,14 @@ folders.forEach((folder, i) => {
   }
 });
 
+//ajout d'un dossier en clair
+folders.push({
+  id: "00000000-0000-0000-0000-000000000000",
+  name: `Public Folder`,
+  created_at: new Date(Date.now() - Math.floor(Math.random() * 31536000000)).toISOString(),
+  parent_id: null,
+});
+
 // --- Génération des documents ---
 const documents = [];
 
@@ -54,6 +62,8 @@ async function generateDocuments() {
     const folder_id = hasFolder ? folders[Math.floor(Math.random() * folders.length)].id : null;
     const title = `Document_${i}`;
 
+    console.log(title, " : ", folder_id);
+
     const type = await createRandomFile(title);
 
     documents.push({
@@ -62,6 +72,19 @@ async function generateDocuments() {
       created_at: new Date(Date.now() - Math.floor(Math.random() * 31536000000)).toISOString(),
       size: Math.floor(Math.random() * (200000 - 1000 + 1)) + 1000,
       folder_id,
+      type: type,
+    });
+  }
+
+  for (let j = 0; j < 5; j++) {
+    const title = `Public_Document_${j}`;
+    const type = await createRandomFile(title);
+    documents.push({
+      id: uuidv4(),
+      title,
+      created_at: new Date(Date.now() - Math.floor(Math.random() * 31536000000)).toISOString(),
+      size: Math.floor(Math.random() * (200000 - 1000 + 1)) + 1000,
+      folder_id: "00000000-0000-0000-0000-000000000000",
       type: type,
     });
   }
@@ -89,13 +112,11 @@ async function createRandomFile(title) {
     });
     const buffer = await Packer.toBuffer(doc);
     fs.writeFileSync(`${filepath}.docx`, buffer);
-    console.log(`📄 DOCX créé : ${title}.docx`);
   } else {
     const pdf = new PDFDocument();
     pdf.pipe(fs.createWriteStream(`${filepath}.pdf`));
     pdf.text("Fichier PDF généré aléatoirement.");
     pdf.end();
-    console.log(`📄 PDF créé : ${title}.pdf`);
   }
   return type;
 }

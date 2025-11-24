@@ -1,0 +1,10 @@
+baseURL: http://localhost
+projectName: hard-drive
+scenarios:
+  - name: Consulter l'acceuil
+    path: ./scenarios/consult_index.js
+  - name: Consulter un dossier
+    path: ./scenarios/consult_public_folder.js
+containers:
+  - hard-drive-backend-1
+  - hard-drive-frontend-1
