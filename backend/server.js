@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 const app = express();
 const PORT = 3000;
 
+const db_url = 'http://localhost:5984/hard-drive-db'
+
 // Pour accepter les requêtes depuis le front
 app.use(cors());
 app.use(express.json());
@@ -36,44 +38,85 @@ app.get("/", (req, res) => {
 });
 
 // --- Endpoint 1: Upload ---
-app.post("/upload", upload.single("file"), (req, res) => {
+app.post("/upload", upload.single("file"), async (req, res) => {
   if (!req.file)
     return res.status(400).json({ error: "Aucun fichier reçu." });
 
-  try {
-    // Lire le JSON existant
-    let data = { folders: [], documents: [] };
-    if (fs.existsSync(dataFilePath)) {
-      const raw = fs.readFileSync(dataFilePath, "utf8");
-      data = JSON.parse(raw);
-    }
+  // try {
+  //   // Lire le JSON existant
+  //   let data = { folders: [], documents: [] };
+  //   if (fs.existsSync(dataFilePath)) {
+  //     const raw = fs.readFileSync(dataFilePath, "utf8");
+  //     data = JSON.parse(raw);
+  //   }
 
-    // 🧩 Récupération du folder_id envoyé par le front
+  //   // 🧩 Récupération du folder_id envoyé par le front
+  //   let { folder_id } = req.body;
+  //   if (!folder_id || folder_id === "null") {
+  //       folder_id = null;
+  //   }
+
+  //   // Création du nouveau document
+  //   const newDoc = {
+  //     id: uuidv4(),
+  //     title: path.parse(req.file.originalname).name,
+  //     created_at: new Date().toISOString(),
+  //     size: req.file.size,
+  //     folder_id: folder_id || null, // le folder_id du front ou null
+  //     type: path.extname(req.file.originalname).replace(".", ""),
+  //   };
+
+  //   // Ajout dans la liste des documents
+  //   data.documents.push(newDoc);
+
+  //   // Sauvegarde dans sample_data.json
+  //   fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2), "utf8");
+
+  //   res.json({
+  //     message: "Fichier uploadé avec succès !",
+  //     file: newDoc,
+  //   });
+  // } catch (error) {
+  //   console.error("Erreur lors de la mise à jour du JSON :", error);
+  //   res.status(500).json({ error: "Erreur serveur pendant l’upload." });
+  // }
+
+  try {
+    // Récupération du folder_id envoyé par le front
     let { folder_id } = req.body;
     if (!folder_id || folder_id === "null") {
         folder_id = null;
     }
 
-    // Création du nouveau document
-    const newDoc = {
+    const doc = {
       id: uuidv4(),
       title: path.parse(req.file.originalname).name,
+      type: 'doc',
       created_at: new Date().toISOString(),
       size: req.file.size,
       folder_id: folder_id || null, // le folder_id du front ou null
-      type: path.extname(req.file.originalname).replace(".", ""),
+      file_type: path.extname(req.file.originalname).replace(".", ""),
     };
 
-    // Ajout dans la liste des documents
-    data.documents.push(newDoc);
+    const response = await fetch(`${db_url}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(doc),
+    });
 
-    // Sauvegarde dans sample_data.json
-    fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2), "utf8");
+    if (!response.ok) {
+      return res.status(500).json({ error: "Erreur CouchDB" });
+    }
+
+    const result = await response.json();
 
     res.json({
-      message: "Fichier uploadé avec succès !",
-      file: newDoc,
+      message: "Document enregistré avec succès",
+      id: result.id,
+      rev: result.rev,
+      document: doc,
     });
+
   } catch (error) {
     console.error("Erreur lors de la mise à jour du JSON :", error);
     res.status(500).json({ error: "Erreur serveur pendant l’upload." });
@@ -82,44 +125,35 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
 
 // --- Endpoint 2: Export ---
-app.get("/export", (req, res) => {
-  const filePath = path.join(process.cwd(), "files", "sample_data.json");
-
-  if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ error: "Fichier sample_data.json introuvable." });
-  }
-
+app.get("/export", async (req, res) => {
   try {
-    const data = fs.readFileSync(filePath, "utf8");
-    const json = JSON.parse(data);
-    res.json(json);
+    const dbResponse = await fetch(`${db_url}/_all_docs?include_docs=true`)
+
+    if (!dbResponse.ok) {
+      return res.status(500).json({ error: "Erreur API DB." });
+    }
+
+    const dbData = await dbResponse.json();
+
+    const folders = dbData.rows.map(({doc}) => doc).filter(({type}) => type === 'folder');
+    const documents = dbData.rows.map(({doc}) => doc).filter(({type}) => type === 'doc');
+    res.json({folders, documents});
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Erreur lors de la lecture du fichier." });
+    res.status(500).json({ error: "Erreur lors de l’appel API." });
   }
 });
 
-app.get("/export/:uid", (req, res) => {
+// --- Endpoint 2: Export specific file---
+app.get("/export/:uid", async (req, res) => {
   const { uid } = req.params;
 
   try {
-    // Vérifier que le fichier JSON existe
-    if (!fs.existsSync(dataFilePath)) {
-      return res.status(404).json({ error: "Aucun fichier de référence trouvé." });
-    }
-
-    // Lire et parser sample_data.json
-    const raw = fs.readFileSync(dataFilePath, "utf8");
-    const data = JSON.parse(raw);
-
-    // Chercher le document correspondant à l'uid
-    const doc = data.documents.find((d) => d.id === uid);
-    if (!doc) {
-      return res.status(404).json({ error: "Document introuvable dans JSON." });
-    }
+    const dbResponse = await fetch(`${db_url}/${uid}`);
+    const doc = await dbResponse.json();
 
     // Construire le chemin physique vers le fichier
-    const fileName = `${doc.title}.${doc.type}`;
+    const fileName = `${doc.title}.${doc.file_type}`;
     const filePath = path.join(uploadDir, fileName);
 
     if (!fs.existsSync(filePath)) {
@@ -133,6 +167,7 @@ app.get("/export/:uid", (req, res) => {
         res.status(500).json({ error: "Erreur lors du téléchargement." });
       }
     });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Erreur serveur." });

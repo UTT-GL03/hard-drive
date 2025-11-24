@@ -59,9 +59,9 @@ const Table = ({ data }) => {
                 <tbody>
                     {filter_data.folders.map(f => (
                         <tr 
-                            key={f.id} 
+                            key={f._id} 
                             className='folder'
-                            onClick={() => goToFolder(f.id, f.name)}
+                            onClick={() => goToFolder(f._id, f.name)}
                         >
                             <td><div className="icon-container"><Folder /> {f.name}</div></td>
                             <td>{formatDate(f.created_at)}</td>
@@ -71,7 +71,7 @@ const Table = ({ data }) => {
                     ))}
                     {filter_data.documents.map(d => (
                         <tr 
-                            key={d.id} 
+                            key={d._id} 
                             className='document'
                         >
                             <td>{d.title}</td>
