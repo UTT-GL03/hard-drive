@@ -4,56 +4,15 @@ on:
   push:
 
 jobs:
-  build_front :
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Download sources
-        uses: actions/checkout@v5
-      - name: Set up NodeJS
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-          cache: npm
-          cache-dependency-path: frontend/package-lock.json
-      - name: Install frontend dependencies
+      - uses: actions/checkout@v5
+      
+      - name: Build & start Docker
         run: |
-          cd frontend
-          npm install
-      - name: Build frontend
-        run: |
-          cd frontend
-          npm run build
-      - name: Save frontend build for later
-        uses: actions/upload-artifact@v4
-        with:
-          name: frontend-build
-          path: frontend/dist
-
-
-    build_back :
-      runs-on: ubuntu-latest
-      steps:
-        - name: Download sources
-          uses: actions/checkout@v5
-        - name: Set up NodeJS
-          uses: actions/setup-node@v6
-          with:
-            node-version: 24
-            cache: npm
-            cache-dependency-path: backend/package-lock.json
-        - name: Install backend dependencies
-          run: |
-            cd backend
-            npm install
-        - name: Generate sample
-          run: |
-            mkdir frontend/public
-            npx --yes dummy-json sample_data.hbs > frontend/public/sample_data.json
-
-
-
-
-
+          docker compose up --build -d
+          docker compose ps
 
       - name: Install GreenIT Analysis CLI
         run: |
@@ -80,3 +39,5 @@ jobs:
         with:
           name: EcoIndex
           path: "*.html"
+  
+  
