@@ -14,3 +14,43 @@ services:
       - backend
     ports:
       - "80:80"
+
+  db:
+    image: couchdb:3
+    ports:
+      - 5984:5984
+    environment:
+      - COUCHDB_USER
+      - COUCHDB_PASSWORD
+    healthcheck:
+      test: curl -f http://localhost:5984/_up || exit 1
+      start_period: 10s
+      start_interval: 2s
+
+  accessible_db:
+    image: curlimages/curl
+    entrypoint: ["/bin/sh","-c"]
+    command:
+      - |
+        alias put="curl -X PUT -u '${COUCHDB_USER}:${COUCHDB_PASSWORD}'"
+        put db:5984/_node/nonode@nohost/_config/chttpd/enable_cors --data '"true"'
+        put db:5984/_node/nonode@nohost/_config/cors/origins --data '"*"'
+        put db:5984/hard-drive-db
+        put db:5984/hard-drive-db/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
+    depends_on:
+      db:
+        condition: service_healthy
+
+  updated_samples:
+    image: curlimages/curl
+    entrypoint: ["/bin/sh","-c"]
+    volumes:
+      - ./backend/files/documents_data.json:/documents_data.json
+      - ./backend/files/folders_data.json:/folders_data.json
+    command:
+      - |
+        curl -X POST http://db:5984/hard-drive-db/_bulk_docs -H "Content-Type: application/json" -d @/documents_data.json
+        curl -X POST http://db:5984/hard-drive-db/_bulk_docs -H "Content-Type: application/json" -d @/folders_data.json
+    depends_on:
+      accessible_db:
+        condition: service_completed_successfully

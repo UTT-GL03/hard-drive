@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "node script/generate_data.js && node server.js"]
+CMD ["sh", "-c", "node script/generate_couchdb_data.js && node server.js"]
