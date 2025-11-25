@@ -18,9 +18,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: samples
-          path: sample_data.json
-
-
+          path: |
+            backend/files/documents_data.json
+            backend/files/folders_data.json
 
   measure_ecoindex:
     needs:
