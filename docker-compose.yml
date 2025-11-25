@@ -41,16 +41,16 @@ services:
       db:
         condition: service_healthy
 
-  updated_samples:
-    image: curlimages/curl
-    entrypoint: ["/bin/sh","-c"]
-    volumes:
-      - ./backend/files/documents_data.json:/documents_data.json
-      - ./backend/files/folders_data.json:/folders_data.json
-    command:
-      - |
-        curl -X POST http://db:5984/hard-drive-db/_bulk_docs -H "Content-Type: application/json" -d @/documents_data.json
-        curl -X POST http://db:5984/hard-drive-db/_bulk_docs -H "Content-Type: application/json" -d @/folders_data.json
-    depends_on:
-      accessible_db:
-        condition: service_completed_successfully
+  # updated_samples:
+  #   image: curlimages/curl
+  #   entrypoint: ["/bin/sh","-c"]
+  #   volumes:
+  #     - ./backend/files/documents_data.json:/documents_data.json
+  #     - ./backend/files/folders_data.json:/folders_data.json
+  #   command:
+  #     - |
+  #       curl -X POST http://db:5984/hard-drive-db/_bulk_docs -H "Content-Type: application/json" -d @/documents_data.json
+  #       curl -X POST http://db:5984/hard-drive-db/_bulk_docs -H "Content-Type: application/json" -d @/folders_data.json
+  #   depends_on:
+  #     accessible_db:
+  #       condition: service_completed_successfully

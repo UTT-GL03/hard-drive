@@ -4,22 +4,26 @@ description: Once done, the application is ready on `localhost:80`.
 runs:
   using: composite
   steps:
-    - name: Get frontend build
-      uses: actions/download-artifact@v4
-      with:
-        name: frontend-build
-        path: frontend/dist
     - name: Start containers
       run: |
-        export COUCHDB_USER="admin"
-        export COUCHDB_PASSWORD="admin123"
+        export COUCHDB_USER="TO_BE_CHANGED"
+        export COUCHDB_PASSWORD="TO_BE_CHANGED"
         docker compose up --detach
       shell: bash
     - name: Wait for frontend
       uses: docker://benel/wait-for-response:1
       with:
         args: http://localhost/ 200 30000 500
-    - name: Wait for db
+    - name: Get samples
+      uses: actions/download-artifact@v4
+      with:
+        name: samples
+    - name: Upload samples
+      run: |
+        curl -X POST http://localhost:5984/hard-drive-db/_bulk_docs -H "Content-Type: application/json" -d @documents_data.json
+        curl -X POST http://localhost:5984/hard-drive-db/_bulk_docs -H "Content-Type: application/json" -d @folders_data.json
+      shell: bash
+    - name: Wait for backend
       uses: docker://benel/wait-for-response:1
       with:
         args: http://localhost:5984/hard-drive-db/_all_docs?limit=10 200 30000 500
