@@ -38,14 +38,17 @@ jobs:
           cd GreenIT-Analysis-cli-master
           npm install
           npm link
-      - name: Run GreenIT Analysis CLI
+      - name: Run GreenIT Analysis CLI for multiple scenarios
         run: |
-          greenit analyse --format html --ci scenarios/read_daily_articles.yml
+          for scenario in scenarios/*.yml; do
+            echo "Analyse de $scenario"
+            greenit analyse --format html --ci "$scenario"
+          done
       - name: Save results
         uses: actions/upload-artifact@v4
         with:
           name: EcoIndex
-          path: Consulterlesactualites.html
+          path: "*.html"
 
   measure_energy_consumption:
     needs:
