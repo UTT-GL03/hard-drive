@@ -43,7 +43,7 @@ const folders = Array.from({ length: AMOUNT_FOLDERS }, (_, i) => ({
 folders.forEach((folder, i) => {
   if (Math.random() < FOLDER_IN_FOLDER && i > 0) {
     const parentFolder = folders[Math.floor(Math.random() * i)];
-    folder.parent_id = parentFolder.id;
+    folder.parent_id = parentFolder._id;
   }
 });
 
@@ -92,7 +92,7 @@ async function generateDocuments() {
       created_at: new Date(Date.now() - Math.floor(Math.random() * 31536000000)).toISOString(),
       size: Math.floor(Math.random() * (200000 - 1000 + 1)) + 1000,
       folder_id: "00000000-0000-0000-0000-000000000000",
-      type: type,
+      file_type: type,
     });
   }
 

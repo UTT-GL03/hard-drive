@@ -84,18 +84,24 @@ app.post("/upload", upload.single("file"), async (req, res) => {
 
 
 // --- Endpoint 2: Export ---
-app.get("/export", async (req, res) => {
+app.post("/export", async (req, res) => {
+  const { selector } = req.body;
   try {
-    const dbResponse = await fetch(`${db_url}/_all_docs?include_docs=true`)
+    const dbResponse = await fetch(`${db_url}/_find`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ selector }),
+      }
+    )
 
     if (!dbResponse.ok) {
       return res.status(500).json({ error: "Erreur API DB." });
     }
 
-    const dbData = await dbResponse.json();
-
-    const folders = dbData.rows.map(({doc}) => doc).filter(({type}) => type === 'folder');
-    const documents = dbData.rows.map(({doc}) => doc).filter(({type}) => type === 'doc');
+    const data = await dbResponse.json();
+    const folders = data.docs.filter(d => d.type === "folder");
+    const documents = data.docs.filter(d => d.type === "doc");
     res.json({folders, documents});
   } catch (err) {
     console.error(err);

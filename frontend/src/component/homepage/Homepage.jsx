@@ -6,6 +6,7 @@ import './Homepage.scss'
 // import fileSystemData from '../../../assets/sample_data.json'
 import useFiles from '../../hooks/useFiles'
 import { Loader } from 'lucide-react'
+import { useParams } from 'react-router-dom'
 
 export default function Homepage() {
   const [sidebarWidth, setSidebarWidth] = useState(300)
@@ -14,8 +15,10 @@ export default function Homepage() {
   const [currentView, setCurrentView] = useState("Mon Drive");
   // État pour l'ID du dossier actuellement ouvert dans "Mon Drive". Null pour la racine.
   const [currentFolderId, setCurrentFolderId] = useState(null);
-
-  const { files } = useFiles();
+  
+  let {slug} = useParams();
+  slug = slug ?? null;
+  const { files } = useFiles(slug);
 
   const startResize = () => {
     isResizing.current = true

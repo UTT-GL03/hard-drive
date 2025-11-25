@@ -34,7 +34,7 @@ const Table = ({ data }) => {
 
     //temporaire pour le download
     const downloadFile = (fileId) => {
-        const file = data.documents.find(d => d.id === fileId);
+        const file = data.documents.find(d => d._id === fileId);
         const link = document.createElement("a");
         link.href = `http://localhost:3000/export/${fileId}`;
         link.download = `${file.title}.${file.type}`;
@@ -77,7 +77,7 @@ const Table = ({ data }) => {
                             <td>{d.title}</td>
                             <td>{formatDate(d.created_at)}</td>
                             <td>{formatSize(d.size)}</td>
-                            <td ><a className='btn' onClick={() => downloadFile(d.id)} download><Download /></a></td>
+                            <td ><a className='btn' onClick={() => downloadFile(d._id)} download><Download /></a></td>
                         </tr>
                     ))}
                 </tbody>
