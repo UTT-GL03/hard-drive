@@ -12,6 +12,7 @@ jobs:
       - name: Generate sample
         run: |
           cd backend
+          npm install
           node script/generate_couchdb_data.js
       - name: Save samples for later
         uses: actions/upload-artifact@v4
