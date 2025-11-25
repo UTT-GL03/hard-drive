@@ -67,14 +67,11 @@ jobs:
           npm install -g corepack
           yarn
           yarn build 
-      - name: Run GreenIT Analysis CLI for multiple scenarios
+      - name: Run GreenFrame CLI
         run: |
-          for scenario in scenarios/*.yml; do
-            echo "Analyse de $scenario"
-            greenit analyse --format html --ci "$scenario"
-          done
+          ./greenframe-cli-post-app/bin/run analyze > Consumption.txt
       - name: Save results
         uses: actions/upload-artifact@v4
         with:
-          name: EcoIndex
-          path: "*.html"
+          name: Consumption
+          path: Consumption.txt
