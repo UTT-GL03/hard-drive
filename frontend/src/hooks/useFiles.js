@@ -1,38 +1,33 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
-const fetchFiles = async (folderId) => {
-  let selector;
+const fetchFiles = async (slug, page, limit = 10) => {
+  const selector = slug
+    ? {
+        "$or": [
+          { "type": { "$eq": "folder" }, "parent_id": { "$eq": slug } },
+          { "type": { "$eq": "doc" }, "folder_id": { "$eq": slug } }
+        ]
+      }
+    : {
+        "$or": [
+          { "type": { "$eq": "folder" }, "parent_id": { "$in": [null, ""] } },
+          { "type": { "$eq": "doc" }, "folder_id": { "$in": [null, ""] } }
+        ]
+      };
 
-  if (folderId) {
-    // On récupère les fichiers/dossiers dans ce dossier
-    selector = {
-      "$or": [
-        { "type": { "$eq": "folder" }, "parent_id": { "$eq": folderId } },
-        { "type": { "$eq": "doc" }, "folder_id": { "$eq": folderId } }
-      ]
-    };
-  } else {
-    // Racine : parent_id ou folder_id null ou ""
-    selector = {
-      "$or": [
-        { "type": { "$eq": "folder" }, "parent_id": { "$in": [null, ""] } },
-        { "type": { "$eq": "doc" }, "folder_id": { "$in": [null, ""] } }
-      ]
-    };
-  }
-
-  const response = await fetch("http://localhost:3000/export",{
+  const response = await fetch("http://localhost:3000/export", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      selector
+      selector,
+      limit,
+      skip: (page - 1) * limit
     }),
   });
 
+  if (!response.ok) throw new Error("Erreur lors de la récupération des fichiers");
   const data = await response.json();
-
   return data;
 };
 
@@ -51,22 +46,24 @@ const uploadFile = async ({ file, folder }) => {
 };
 
 const useFiles = (slug) => {
+  const [page, setPage] = useState(1);
+  const limit = 10;
   const queryClient = useQueryClient();
 
-  const { data: files, isLoading, error } = useQuery({
-    queryKey: ["files", slug],
-    queryFn: () => fetchFiles(slug),
-    enabled: slug !== undefined,
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["files", slug, page],
+    queryFn: () => fetchFiles(slug, page, limit),
+    keepPreviousData: true,
   });
 
   const { mutate: addFile } = useMutation({
     mutationFn: uploadFile,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["files"] });
-    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["files", slug, page] }),
   });
 
-  return { files, isLoading, error, addFile };
+  const totalPages = data?.total ? Math.ceil(data.total / limit) : 1;
+
+  return { files: data, isLoading, error, page, setPage, totalPages, addFile };
 };
 
 export default useFiles;

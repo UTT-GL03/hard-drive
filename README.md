@@ -234,6 +234,7 @@ Dans le cas de notre plateforme de drive l’augmentation de la quantité de don
 | 2. Choisir et voir les détails d’un dossier | <del>73 B 🟩</del><br/>67 C 🟨| <del>1.55</del><br/>1.67 | <del>70</del><br/>102 | <del>38</del><br/>56 | <del>6396</del><br/>8002 |
 | 3. Naviguer dans le dossier | <del>72 B 🟩</del><br/>67 C 🟨| <del>1.56</del><br/>1.67 | <del>80</del><br/>102 | <del>38</del><br/>56 | <del>6395</del><br/>8002 |
 | 4. Revenir à la page d’accueil                           | <del>73 B 🟩</del><br/>68 C 🟨| <del>1.57</del><br/> 1.65| <del>91</del><br/>71 | <del>38</del><br/>57| <del>6396</del><br/>8003 |
+
 Tab 5 : Évaluation de l'impact du scénario de "navigation dans un dossier" dans le prototype v1.0.1.
 
 Les résultats montrent une baisse notable de l’EcoIndex, principalement liée à deux effets combinés :

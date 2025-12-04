@@ -1,89 +1,96 @@
-import './Table.scss'
+import './Table.scss';
 import BreadCrumbs from '../breadCrumbs/BreadCrumbs';
 import { useDrive } from '../context/DriveContext.jsx';
 import { useParams } from 'react-router-dom';
 import { Download, Folder } from 'lucide-react';
+import useFiles from '../../hooks/useFiles.js';
 
-const Table = ({ data }) => {
-    const { goToFolder } = useDrive();
-    const {slug} = useParams();
+const Table = () => {
+  const { goToFolder } = useDrive();
+  const { slug } = useParams();
+  const { files, page, setPage, totalPages, isLoading } = useFiles(slug);
 
-    const filter_data = {
-        folders: data.folders
-            .filter(f => f.parent_id === slug || (slug === undefined && f.parent_id === null)),
-        documents: data.documents
-            .filter(d => d.folder_id === slug || (slug === undefined && d.folder_id === null)),
-    }
+  const formatSize = (bytes) => {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
 
-    // Fonction utilitaire pour formater la taille des fichiers
-    const formatSize = (bytes) => {
-        if (bytes === 0) return '0 B';
-        const k = 1024;
-        const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    };
+  const formatDate = (isoString) => {
+    if (!isoString) return '-';
+    return new Date(isoString).toLocaleDateString('fr-FR', {
+      year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+  };
 
-    // Fonction utilitaire pour la date
-    const formatDate = (isoString) => {
-        if (!isoString) return '-';
-        return new Date(isoString).toLocaleDateString('fr-FR', {
-                year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
-        });
-    };
+  const downloadFile = (fileId) => {
+    const file = files.documents.find(d => d._id === fileId);
+    const link = document.createElement("a");
+    link.href = `http://localhost:3000/export/${fileId}`;
+    link.download = `${file.title}.${file.type}`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
 
-    //temporaire pour le download
-    const downloadFile = (fileId) => {
-        const file = data.documents.find(d => d._id === fileId);
-        const link = document.createElement("a");
-        link.href = `http://localhost:3000/export/${fileId}`;
-        link.download = `${file.title}.${file.type}`;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-    };
+  if (isLoading) return <p>Chargement...</p>;
 
-    return (
-        <div className="table-container">
-            <BreadCrumbs/>
-                  
-            <table className="file-table">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Créé le</th>
-                        <th>Taille</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filter_data.folders.map(f => (
-                        <tr 
-                            key={f._id} 
-                            className='folder'
-                            onClick={() => goToFolder(f._id, f.name)}
-                        >
-                            <td><div className="icon-container"><Folder /> {f.name}</div></td>
-                            <td>{formatDate(f.created_at)}</td>
-                            <td>-</td>
-                            <td></td>
-                        </tr>
-                    ))}
-                    {filter_data.documents.map(d => (
-                        <tr 
-                            key={d._id} 
-                            className='document'
-                        >
-                            <td>{d.title}</td>
-                            <td>{formatDate(d.created_at)}</td>
-                            <td>{formatSize(d.size)}</td>
-                            <td ><a className='btn' onClick={() => downloadFile(d._id)} download><Download /></a></td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+  return (
+    <div className="table-container">
+      <BreadCrumbs />
+
+      <table className="file-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Créé le</th>
+            <th>Taille</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {files?.folders.map(f => (
+            <tr key={f._id} className='folder' onClick={() => goToFolder(f._id, f.name)}>
+              <td><div className="icon-container"><Folder /> {f.name}</div></td>
+              <td>{formatDate(f.created_at)}</td>
+              <td>-</td>
+              <td></td>
+            </tr>
+          ))}
+          {files?.documents.map(d => (
+            <tr key={d._id} className='document'>
+              <td>{d.title}</td>
+              <td>{formatDate(d.created_at)}</td>
+              <td>{formatSize(d.size)}</td>
+              <td><a className='btn' onClick={() => downloadFile(d._id)}><Download /></a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+        <div className="pagination">
+            <button disabled={page <= 1} onClick={() => setPage(p => Math.max(p - 1, 1))}>
+                Précédent
+            </button>
+
+            {[...Array(totalPages)].map((_, i) => (
+                <button
+                key={i}
+                className={page === i + 1 ? "active" : ""}
+                onClick={() => setPage(i + 1)}
+                >
+                {i + 1}
+                </button>
+            ))}
+
+            <button disabled={page >= totalPages} onClick={() => setPage(p => Math.min(p + 1, totalPages))}>
+                Suivant
+            </button>
         </div>
-    )
-}
+    </div>
+  );
+};
 
 export default Table;

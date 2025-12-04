@@ -85,24 +85,34 @@ app.post("/upload", upload.single("file"), async (req, res) => {
 
 // --- Endpoint 2: Export ---
 app.post("/export", async (req, res) => {
-  const { selector } = req.body;
+  const { selector, limit = 10, skip = 0 } = req.body;
   try {
-    const dbResponse = await fetch(`${db_url}/_find`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ selector }),
-      }
-    )
+    const dbResponse = await fetch(`${db_url}/_find`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ selector }),
+    });
 
-    if (!dbResponse.ok) {
-      return res.status(500).json({ error: "Erreur API DB." });
-    }
+    if (!dbResponse.ok) return res.status(500).json({ error: "Erreur API DB." });
 
     const data = await dbResponse.json();
     const folders = data.docs.filter(d => d.type === "folder");
     const documents = data.docs.filter(d => d.type === "doc");
-    res.json({folders, documents});
+    
+    // Pagination côté serveur
+    const allItems = [...folders, ...documents];
+    const pagedItems = allItems.slice(skip, skip + limit);
+
+    // Séparer à nouveau pour garder la structure
+    const pagedFolders = pagedItems.filter(d => d.type === "folder");
+    const pagedDocuments = pagedItems.filter(d => d.type === "doc");
+
+    res.json({ 
+      folders: pagedFolders, 
+      documents: pagedDocuments, 
+      total: allItems.length 
+    });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Erreur lors de l’appel API." });
