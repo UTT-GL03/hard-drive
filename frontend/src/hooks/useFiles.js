@@ -16,15 +16,13 @@ const fetchFiles = async (slug, page, limit = 10) => {
         ]
       };
 
-  const response = await fetch("http://localhost:3000/export", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      selector,
-      limit,
-      skip: (page - 1) * limit
-    }),
+  const params = new URLSearchParams({
+    selector: JSON.stringify(selector),
+    limit: limit.toString(),
+    skip: ((page - 1) * limit).toString(),
   });
+
+  const response = await fetch(`http://localhost:3000/export?${params}`);
 
   if (!response.ok) throw new Error("Erreur lors de la récupération des fichiers");
   const data = await response.json();

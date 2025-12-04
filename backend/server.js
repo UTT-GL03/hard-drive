@@ -84,8 +84,10 @@ app.post("/upload", upload.single("file"), async (req, res) => {
 
 
 // --- Endpoint 2: Export ---
-app.post("/export", async (req, res) => {
-  const { selector, limit = 10, skip = 0 } = req.body;
+app.get("/export", async (req, res) => {
+  const selector = JSON.parse(req.query.selector);
+  const limit = parseInt(req.query.limit) || 10;
+  const skip = parseInt(req.query.skip) || 0;
   try {
     const dbResponse = await fetch(`${db_url}/_find`, {
       method: "POST",
