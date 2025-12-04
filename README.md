@@ -221,6 +221,29 @@ Pour cette deuxième version du prototype (v1.0.1), nous avons mis en place un c
 
 Pour ce qui est de l'impact environnemental, nous avons pu obtenir les scores EcoIndex et les résultats sont globalement similaires à la version précédente.
 
+#### Mesures de la consommation énergétique lors du passage à l'échelle
+Maintenant que notre prototype reflète un volume réaliste de requêtes nous pouvons analyser les effets du passage à l’échelle.
+
+Dans le cas de notre plateforme de drive l’augmentation de la quantité de données à traiter ne dépend pas du nombre d’utilisateurs, mais plutôt du volume de fichiers stockés par chaque utilisateur. Nous allons donc nous intéresser à l’impact de l’augmentation du nombre de fichiers dans le drive.
+
+##### Mesures de l’impact environnemental (v1.0.1)
+
+| Étape |  EcoIndex | GES (gCO₂e) | Taille du DOM | Requêtes | Taille de la page (Ko) |
+| ------| --------: | ----------: | ------------: | -------: | ---------------------: |
+| 1. Arrivée sur la page d’accueil | <del>72 B 🟩</del><br/>68 C 🟨| <del>1.56</del><br/>1.63 | <del>91</del><br/>71 | <del>37</del><br/>54 | <del>6394</del><br/>8000 |
+| 2. Choisir et voir les détails d’un dossier | <del>73 B 🟩</del><br/>67 C 🟨| <del>1.55</del><br/>1.67 | <del>70</del><br/>102 | <del>38</del><br/>56 | <del>6396</del><br/>8002 |
+| 3. Naviguer dans le dossier | <del>72 B 🟩</del><br/>67 C 🟨| <del>1.56</del><br/>1.67 | <del>80</del><br/>102 | <del>38</del><br/>56 | <del>6395</del><br/>8002 |
+| 4. Revenir à la page d’accueil                           | <del>73 B 🟩</del><br/>68 C 🟨| <del>1.57</del><br/> 1.65| <del>91</del><br/>71 | <del>38</del><br/>57| <del>6396</del><br/>8003 |
+Tab 5 : Évaluation de l'impact du scénario de "navigation dans un dossier" dans le prototype v1.0.1.
+
+Les résultats montrent une baisse notable de l’EcoIndex, principalement liée à deux effets combinés :
+
+* une augmentation du poids total des pages due au chargement dynamique,
+* une augmentation du nombre de requêtes nécessaires pour récupérer les données JSON.
+
+L’écart par rapport à la première version reste néanmoins cohérent avec ce que l’on peut attendre lors de l’introduction d’interactions réseau minimales dans un prototype. La structure de la page ne change pas significativement, mais la présence de nouvelles requêtes et de fichiers plus volumineux a un effet direct sur les émissions estimées (GES) ainsi que sur la note globale d’EcoIndex.
+
+
 ## Mesures de la consommation énergétique lors du passage à l'échelle
 
 
