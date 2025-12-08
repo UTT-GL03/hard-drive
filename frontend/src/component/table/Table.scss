@@ -12,16 +12,13 @@ $hover-bg: rgba(255, 255, 255, 0.1);
   justify-content: flex-start;
   max-height: 83vh;
   height: 83vh;
-  overflow-y: hidden;
-  padding: 2rem;
-  margin-left: 0.2%;
-  margin-top: 0.2%;
-  margin-right: 2%;
-  margin-bottom: 2%;
+  overflow: hidden;
+  padding: 0 2rem;
+  margin: 0.2% 2% 2% 0.2%;
   border-radius: 2rem;
   background: $table-bg;
   border: 1px solid $table-border;
-  box-shadow: 0 16px 32px rgba(0,0,0,0.2), 0 8px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.1);
   color: $table-text;
   transition: all 0.3s ease;
 
@@ -38,103 +35,92 @@ $hover-bg: rgba(255, 255, 255, 0.1);
     border-spacing: 0;
     border-radius: 1.5rem;
     overflow: hidden;
-    text-align: left;
     font-size: 1rem;
-    tr {
-      display: flex;
-      td, th {
-        display: flex;
-        align-items: center;
-        flex: 3;
-      }
-      td:last-child, th:last-child {
-        flex: 1;
-      }
-    }
-    
+
+    /* --- IMPORTANT : structure tableau classique --- */
     thead {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
       background: $table-header-bg;
       color: $table-header-text;
-      display: block;
-      width: 100%;
 
       th {
         padding: 1rem;
         font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 0.05em;
+        border-bottom: 1px solid $table-border;
       }
     }
 
     tbody {
-      display: block;          
-      max-height: 60vh;            
-      overflow-y: auto;        
+      display: block;
       width: 100%;
+      max-height: 60vh;
+      overflow-y: auto;
 
       tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
         transition: all 0.2s ease;
-        td {
-          padding: 1rem;
-          border-bottom: 1px solid $table-border;
 
-          font-size: 14px;
-           &:last-child {
-            text-align: center;
-          }
-
-          .btn {
-              padding: 10px;
-              border-radius: 6px;
-              display: flex;
-              width: fit-content;
-
-              cursor: pointer;
-              &:hover {
-                background: $hover-bg;
-              }
-          }
-
-          .icon-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-          }
-        }
-
-        
-
-        &.folder td:first-child {
-          font-weight: 600;
-        }
-
-        &.document td:first-child {
-          font-weight: 400;
-        }
-      }
-
-      .folder {
+        &.folder {
           cursor: pointer;
           &:hover {
             background: $hover-bg;
           }
+        }
       }
-      
+
+      td {
+        padding: 1rem;
+        border-bottom: 1px solid $table-border;
+        font-size: 14px;
+        vertical-align: middle;
+
+        &:last-child {
+          text-align: center;
+        }
+
+        .btn {
+          padding: 10px;
+          border-radius: 6px;
+          display: flex;
+          width: fit-content;
+          cursor: pointer;
+
+          &:hover {
+            background: $hover-bg;
+          }
+        }
+
+        .icon-container {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+      }
     }
   }
+
   .pagination {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     display: flex;
     justify-content: center;
     gap: 0.5rem;
+
     button {
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
       cursor: pointer;
+
       &.active {
         background: $table-header-bg;
         font-weight: bold;
       }
+
       &:disabled {
         opacity: 0.5;
         cursor: not-allowed;

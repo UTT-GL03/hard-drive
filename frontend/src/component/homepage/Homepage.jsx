@@ -12,7 +12,6 @@ export default function Homepage() {
   const [sidebarWidth, setSidebarWidth] = useState(300)
   const wrapperRef = useRef(null)
   const isResizing = useRef(false)
-  const [currentView, setCurrentView] = useState("Mon Drive");
   // État pour l'ID du dossier actuellement ouvert dans "Mon Drive". Null pour la racine.
   const [currentFolderId, setCurrentFolderId] = useState(null);
   
@@ -35,11 +34,6 @@ export default function Homepage() {
     }
   }
 
-  const handleViewChange = (newView) => {
-    setCurrentView(newView);
-    // Réinitialiser l'ID du dossier quand on change de vue
-    setCurrentFolderId(null); 
-  };
 
   return (
     <div 
@@ -53,14 +47,13 @@ export default function Homepage() {
       <div className="glass-overlay"></div>
       <div className="headings"><Headings /></div>
       <div className="sidebar">
-        <SideBar activeItem={currentView} setActiveItem={handleViewChange} />
+        <SideBar/>
         <div className="resizer" onMouseDown={startResize} />
       </div>
       <div className="main-content">
         {files
           ?  <Table 
-              data={files} 
-              currentView={currentView}
+              data={files}
               currentFolderId={currentFolderId}
               setCurrentFolderId={setCurrentFolderId}
               allFolders={files ? files.folders : []}

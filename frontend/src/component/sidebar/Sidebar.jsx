@@ -1,24 +1,24 @@
 import FileUpload from '../fileUpload/FileUpload';
 import './Sidebar.scss';
 
-const SideBar = ({ activeItem, setActiveItem }) => {
+const SideBar = () => {
 
-    const menuItems = ["Mon Drive"];
+
 
     return (
         <div className="sidebar-container">
             <FileUpload />
             <nav className="sidebar-menu">
                 <ul>
-                    {menuItems.map((item) => (
-                        <li
-                        key={item}
-                        className={activeItem === item ? "active" : ""}
-                        onClick={() => setActiveItem(item)}
+                    <li
+                        key={"Mon Drive"}
+                        className={"active"}
+                        onClick={() => {
+                            window.location.href = '/';
+                        }}
                         >
-                            {item}
+                            Mon Drive
                         </li>
-                    ))}
                 </ul>
             </nav>
         </div>
