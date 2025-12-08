@@ -222,27 +222,38 @@ Pour cette deuxième version du prototype (v1.0.1), nous avons mis en place un c
 Pour ce qui est de l'impact environnemental, nous avons pu obtenir les scores EcoIndex et les résultats sont globalement similaires à la version précédente.
 
 #### Mesures de la consommation énergétique lors du passage à l'échelle
-Maintenant que notre prototype reflète un volume réaliste de requêtes nous pouvons analyser les effets du passage à l’échelle.
+Maintenant que notre prototype est réaliste en termes de nombre de requêtes nous pouvons simuler les effets du passage à l’échelle.
 
-Dans le cas de notre plateforme de drive l’augmentation de la quantité de données à traiter ne dépend pas du nombre d’utilisateurs, mais plutôt du volume de fichiers stockés par chaque utilisateur. Nous allons donc nous intéresser à l’impact de l’augmentation du nombre de fichiers dans le drive.
+Dans notre cas qui concerne un drive de stockage la montée en charge ne provient pas du nombre d’utilisateurs mais du volume de fichiers à gérer. Les fonctionnalités prévues reposent sur la création l’organisation et la consultation de documents ce qui implique une croissance continue du nombre d’éléments stockés. Cette exigence fonctionnelle est coûteuse d’un point de vue environnemental mais elle contribue directement à l’utilité même de la plateforme qui doit permettre d’organiser et retrouver l’information efficacement.
+
+L’augmentation du volume est linéaire : en passant progressivement à 3000 documents et 50 dossiers la structure du drive devient plus dense et impose davantage d’opérations d’accès de tri et de rendu côté interface.
+
+Évolution de l’EcoIndex lors du passage à l’échelle
+Les mesures générées automatiquement durant l’intégration continue avant et après la simulation du passage à l’échelle traduisent clairement (cf. Tab.X) l’augmentation du poids des téléchargements ainsi que du nombre d’éléments affichés sur la page principale du drive.
 
 ##### Mesures de l’impact environnemental (v1.0.1)
 
+
 | Étape |  EcoIndex | GES (gCO₂e) | Taille du DOM | Requêtes | Taille de la page (Ko) |
 | ------| --------: | ----------: | ------------: | -------: | ---------------------: |
-| 1. Arrivée sur la page d’accueil | <del>72 B 🟩</del><br/>68 C 🟨| <del>1.56</del><br/>1.63 | <del>91</del><br/>71 | <del>37</del><br/>54 | <del>6394</del><br/>8000 |
-| 2. Choisir et voir les détails d’un dossier | <del>73 B 🟩</del><br/>67 C 🟨| <del>1.55</del><br/>1.67 | <del>70</del><br/>102 | <del>38</del><br/>56 | <del>6396</del><br/>8002 |
-| 3. Naviguer dans le dossier | <del>72 B 🟩</del><br/>67 C 🟨| <del>1.56</del><br/>1.67 | <del>80</del><br/>102 | <del>38</del><br/>56 | <del>6395</del><br/>8002 |
-| 4. Revenir à la page d’accueil                           | <del>73 B 🟩</del><br/>68 C 🟨| <del>1.57</del><br/> 1.65| <del>91</del><br/>71 | <del>38</del><br/>57| <del>6396</del><br/>8003 |
+| 1. Arrivée sur la page d’accueil | <del>72 B 🟩</del><br/>26 E 🟧| <del>1.56</del><br/>2.49 | <del>91</del><br/>11093 | <del>37</del><br/>	54 | <del>6394</del><br/>1064 |
+| 2. Choisir et voir les détails d’un dossier | <del>73 B 🟩</del><br/>61 C 🟨| <del>1.55</del><br/>1.78 | <del>70</del><br/>267 | <del>38</del><br/>56 | <del>6396</del><br/>1065 |
+| 3. Naviguer dans le dossier | <del>72 B 🟩</del><br/>61 C 🟨| <del>1.56</del><br/>1.78 | <del>80</del><br/>267 | <del>38</del><br/>56 | <del>6395</del><br/>1065 |
+| 4. Revenir à la page d’accueil                           | <del>73 B 🟩</del><br/>25 F 🟥| <del>1.57</del><br/> 2.51| <del>91</del><br/>11093| <del>38</del><br/>57| <del>6396</del><br/>1065 |
 
 Tab 5 : Évaluation de l'impact du scénario de "navigation dans un dossier" dans le prototype v1.0.1.
 
-Les résultats montrent une baisse notable de l’EcoIndex, principalement liée à deux effets combinés :
+Les résultats mettent en évidence une dégradation importante de l’EcoIndex lors du passage à l’échelle. Cette baisse est principalement due à la croissance du nombre d’éléments affichés dans le drive. Avec 3000 documents et 50 dossiers la taille du DOM augmente fortement ce qui alourdit le rendu initial et impacte directement la note finale.
 
-* une augmentation du poids total des pages due au chargement dynamique,
-* une augmentation du nombre de requêtes nécessaires pour récupérer les données JSON.
+Deux facteurs expliquent cette évolution :
 
-L’écart par rapport à la première version reste néanmoins cohérent avec ce que l’on peut attendre lors de l’introduction d’interactions réseau minimales dans un prototype. La structure de la page ne change pas significativement, mais la présence de nouvelles requêtes et de fichiers plus volumineux a un effet direct sur les émissions estimées (GES) ainsi que sur la note globale d’EcoIndex.
+* l’augmentation massive de la taille du DOM sur la page d’accueil qui devient l’élément le plus coûteux du scénario
+
+* la hausse du nombre de requêtes sur les chargements complets lorsque les ressources ne sont pas encore en cache
+
+À l’inverse la navigation interne dans les dossiers reste moins coûteuse. Une fois les ressources mises en cache les requêtes diminuent et les tailles de page reviennent à des valeurs proches de la version initiale ce qui explique les notes EcoIndex plus élevées sur les étapes 2 et 3.
+
+L’écart global entre v1.0.0 et v1.0.1 reste cohérent avec un prototype soumis à une montée en charge importante. Le coût environnemental provient avant tout de la densité structurelle du drive plutôt que des interactions réseau qui restent limitées lors de la navigation interne.
 
 
 ## Mesures de la consommation énergétique lors du passage à l'échelle
