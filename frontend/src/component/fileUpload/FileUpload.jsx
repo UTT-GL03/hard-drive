@@ -7,8 +7,9 @@ const FileUpload = () => {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+  const [retention, setRetention] = useState("");
   const {slug} = useParams();
-  const {addFile} = useFiles()
+  const {addFile, page} = useFiles(slug);
 
   // Quand l’utilisateur sélectionne un fichier
   const handleChange = (e) => {
@@ -29,8 +30,9 @@ const FileUpload = () => {
     setMessage("");
 
     try {
-        addFile({ file, folder: slug })
+        addFile({ file, folder: slug, retention, page });
         setMessage(`✅ Fichier uploadé`);
+        setFile(null);
     } catch (error) {
         console.error(error);
         setMessage("❌ Erreur pendant l’upload.");
@@ -42,6 +44,24 @@ const FileUpload = () => {
   return (
     <div className="file-upload">
       <h2>Upload d’un fichier</h2>
+
+      <div className="retention-container">
+        <input type="number" min="1" defaultValue="1" id="retention-value" />
+        <select
+          onChange={(e) => {
+            const value = document.getElementById("retention-value").value;
+            const unit = e.target.value;
+            setRetention(`${value}${unit}`);
+          }}
+        >
+          <option value="m">Minute(s)</option>
+          <option value="h">Heure(s)</option>
+          <option value="d">Jour(s)</option>
+          <option value="y" selected>Année(s)</option>
+        </select>
+      </div>
+
+      
 
       <input type="file" onChange={handleChange} />
 

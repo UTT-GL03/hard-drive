@@ -16,6 +16,7 @@ const FOLDERS_FILE_NAME = "folders_data.json"
 const DOC_PATH = "documents";
 
 const DOCUMENT_IS_DOCX = 0.5;
+const RETENTION_OPTIONS = ["1d", "1y", "3y", "5y", "10y"];
 
 if (fs.existsSync(`${ASSETS_PATH}/${DOC_PATH}`)) {
   fs.rmSync(`${ASSETS_PATH}/${DOC_PATH}`, { recursive: true, force: true });
@@ -29,6 +30,25 @@ fs.mkdirSync(`${ASSETS_PATH}/${DOC_PATH}`, { recursive: true });
 function randomChoice() {
   if(Math.random() < DOCUMENT_IS_DOCX) return "docx";
   else return "pdf";
+}
+
+
+
+function randomRetention() {
+  return RETENTION_OPTIONS[Math.floor(Math.random() * RETENTION_OPTIONS.length)];
+}
+
+function retentionToDeleteAt(retention, createdAt) {
+  const date = new Date(createdAt);
+
+  if (retention === "1d") {
+    date.setDate(date.getDate() + 1);
+  } else {
+    const years = Number(retention.replace("y", ""));
+    date.setFullYear(date.getFullYear() + years);
+  }
+
+  return date.toISOString();
 }
 
 // --- Génération des dossiers ---
@@ -70,12 +90,18 @@ async function generateDocuments() {
     const title = `Document_${i}`;
 
     const type = await createRandomFile(title);
+    const created_at = new Date(Date.now() - Math.floor(Math.random() * 31536000000)).toISOString()
+    
+    const retention = randomRetention();
+    const delete_at = retentionToDeleteAt(retention, created_at);
 
     documents.push({
       _id: uuidv4(),
       type: 'doc',
       title,
-      created_at: new Date(Date.now() - Math.floor(Math.random() * 31536000000)).toISOString(),
+      created_at: created_at,
+      delete_at,
+      retention,
       size: Math.floor(Math.random() * (200000 - 1000 + 1)) + 1000,
       folder_id,
       file_type: type,
@@ -83,13 +109,19 @@ async function generateDocuments() {
   }
 
   for (let j = 0; j < 5; j++) {
+
     const title = `Public_Document_${j}`;
     const type = await createRandomFile(title);
+    const created_at = new Date(Date.now() - Math.floor(Math.random() * 31536000000)).toISOString()
+    const retention = randomRetention();
+    const delete_at = retentionToDeleteAt(retention, created_at);
     documents.push({
       _id: uuidv4(),
       type: 'doc',
       title,
-      created_at: new Date(Date.now() - Math.floor(Math.random() * 31536000000)).toISOString(),
+      created_at: created_at,
+      delete_at,
+      retention,
       size: Math.floor(Math.random() * (200000 - 1000 + 1)) + 1000,
       folder_id: "00000000-0000-0000-0000-000000000000",
       file_type: type,

@@ -30,6 +30,62 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+async function purgeExpiredDocuments() {
+  const now = new Date().toISOString();
+
+  console.log("⏳ Démarrage de la purge des documents expirés...");
+  console.log(`Heure actuelle: ${now}`);
+
+  // Récupérer les documents expirés
+  const res = await fetch(`${db_url}/_find`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      selector: { delete_at: { "$lte": now } },
+      fields: ["_id", "_rev", "title", "file_type", "delete_at"],
+      limit: 4000
+    })
+  });
+
+  
+
+  const data = await res.json();
+
+  console.log(
+    "Docs retournés par CouchDB:",
+    data.docs.map(d => ({ title: d.title, delete_at: d.delete_at }))
+  );
+  const expiredDocs = data.docs.filter(doc => {
+    if (!doc.delete_at) return false;
+    return new Date(doc.delete_at).getTime() <= Date.now();
+  });
+
+  if (!expiredDocs.length) return;
+
+  // Supprimer les fichiers physiques
+  expiredDocs.forEach(doc => {
+    const filePath = path.join(uploadDir, `${doc.title}.${doc.file_type}`);
+    if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+  });
+
+  // Supprimer les documents CouchDB
+  await fetch(`${db_url}/_bulk_docs`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      docs: expiredDocs.map(d => ({ ...d, _deleted: true }))
+    })
+  });
+  console.log('les fichiers supprimés sont :');
+  for (const doc of expiredDocs) {
+    console.log(`- ${doc.title}.${doc.file_type}`);
+  }
+
+  console.log(`✅ Purge terminée: ${expiredDocs.length} fichiers supprimés`);
+
+  await fetch(`${db_url}/_compact`, { method: "POST" });
+}
+
 
 app.get("/", (req, res) => {
   res.json({ message: "ok" });
@@ -42,9 +98,34 @@ app.post("/upload", upload.single("file"), async (req, res) => {
 
   try {
     // Récupération du folder_id envoyé par le front
-    let { folder_id } = req.body;
+    let { folder_id, retention } = req.body;
     if (!folder_id || folder_id === "null") {
         folder_id = null;
+    }
+    let delete_at = null;
+    
+    // for the retention it can be "1m", "1h", "1d", "1y"
+    if (retention) {
+      const unit = retention.slice(-1);
+      const value = parseInt(retention.slice(0, -1));
+      const now = new Date();
+      switch (unit) {
+        case 'm':
+          now.setMinutes(now.getMinutes() + value);
+          break;
+        case 'h':
+          now.setHours(now.getHours() + value);
+          break;
+        case 'd':
+          now.setDate(now.getDate() + value);
+          break;
+        case 'y':
+          now.setFullYear(now.getFullYear() + value);
+          break;
+        default:
+          break;
+      }
+      delete_at = now.toISOString();
     }
 
     const doc = {
@@ -52,6 +133,8 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       title: path.parse(req.file.originalname).name,
       type: 'doc',
       created_at: new Date().toISOString(),
+      delete_at: delete_at,
+      retention: retention,
       size: req.file.size,
       folder_id: folder_id || null, // le folder_id du front ou null
       file_type: path.extname(req.file.originalname).replace(".", ""),
@@ -151,7 +234,15 @@ app.get("/export/:uid", async (req, res) => {
   }
 });
 
-// Lancement du serveur
-app.listen(PORT, () => {
-  console.log(`🚀 Serveur en écoute sur http://localhost:${PORT}`);
-});
+
+function startServer() {
+  // Lancer la purge périodique
+  setInterval(() => purgeExpiredDocuments().catch(console.error), 2 * 60 * 1000);
+
+  // Lancer le serveur
+  app.listen(PORT, () => {
+    console.log(`🚀 Serveur en écoute sur http://localhost:${PORT}`);
+  });
+}
+
+startServer();

@@ -29,10 +29,11 @@ const fetchFiles = async (slug, page, limit = 10) => {
   return data;
 };
 
-const uploadFile = async ({ file, folder }) => {
+const uploadFile = async ({ file, folder, retention }) => {
   const formData = new FormData();
   formData.append("file", file);
   formData.append("folder_id", folder ? folder : null)
+  formData.append("retention", retention);
 
   const response = await fetch("http://localhost:3000/upload", {
     method: "POST",
@@ -56,7 +57,16 @@ const useFiles = (slug) => {
 
   const { mutate: addFile } = useMutation({
     mutationFn: uploadFile,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["files", slug, page] }),
+    onSuccess: (newDoc) => {
+      queryClient.setQueryData(["files", slug, page], oldData => {
+        if (!oldData) return { folders: [], documents: [newDoc.document], total: 1 };
+        return {
+          ...oldData,
+          documents: [newDoc.document, ...oldData.documents],
+          total: oldData.total + 1,
+        };
+      });
+    },
   });
 
   const totalPages = data?.total ? Math.ceil(data.total / limit) : 1;
