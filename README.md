@@ -316,6 +316,38 @@ Nous pouvons constater que l'introduction d'une base de données fournit des ré
 Sur nos deux scénarios, l'introduction d'une base de données n'a pas eu d'effet remarquable sur la consommation de notre application. En effet, l'ensemble des fichiers est directement chargé au lancement de l'application. L'ajout de fonctionnalités qui permettront de charger des fichiers en différé aura un plus grand impact sur la consommation.
 
 
+
+## Limitation du nombre d’éléments affichés
+
+Dans un gestionnaire de fichiers classique, afficher l’ensemble des fichiers et dossiers d’un espace de stockage peut rapidement devenir coûteux en termes de performances, notamment lorsque la volumétrie augmente. Charger tous les éléments en une seule fois entraînerait une consommation inutile de ressources côté client comme côté serveur.
+
+Dans le cadre de l’application Hard-Drive, nous avons fait le choix de limiter l’affichage aux fichiers et dossiers appartenant uniquement au dossier actuellement consulté par l’utilisateur. Deux stratégies étaient envisageables :
+
+* charger l’ensemble de l’arborescence dès le départ,
+
+* charger uniquement les éléments du dossier courant, puis charger les autres éléments à la demande lors de la navigation.
+
+La seconde stratégie a été retenue, car elle permet de garantir une expérience utilisateur constante, quel que soit le nombre total de fichiers stockés.
+
+Chaque dossier est ainsi consulté indépendamment, et les fichiers sont récupérés de manière paginée. Les éléments non visibles ne sont ni chargés en mémoire ni transférés depuis la base de données. Lorsqu’un utilisateur change de dossier ou de page, une nouvelle requête ciblée est effectuée.
+
+Cette approche permet de conserver des performances stables, de réduire les échanges réseau et de limiter la charge sur le serveur et la base de données. La consommation de ressources devient alors indépendante de la volumétrie globale des fichiers, et dépend uniquement du nombre d’éléments affichés à l’écran.
+
+L’enjeu pour les évolutions futures de l’application sera de maintenir cette sobriété tout en ajoutant de nouvelles fonctionnalités, sans remettre en cause le chargement progressif des données.
+
+![](./docs/page_chargement_progressif.png)
+Fig.5 : Schéma illustrant le chargement progressif des fichiers dans un dossier (copie d'écran).
+
+
+| Composant                        | CPU (Wh)                              | Mémoire (Wh)                           | Disque (Wh)                            | Réseau (Wh)                              | Écran (Wh)                               | Total (Wh)                               |
+|----------------------------------|--------------------------------------|---------------------------------------|----------------------------------------|-----------------------------------------|----------------------------------------|----------------------------------------|
+| Navigateur                       | ~~0.030~~ 0.059                       | ~~0.00018~~ 0.00016                   | ~~0.0~~ 0.0                             | ~~0.021~~ 0.021                           | ~~0.071~~ 0.069                          | ~~0.12~~ 0.15                            |
+| Serveur web dynamique (backend)  | ~~0.000046~~ 0.00047                  | ~~0.000020~~ 0.000013                 | ~~0.0~~ 0.0                             | ~~0.000035~~ 0.000053                     | ~~0.0~~ 0.0                               | ~~0.00010~~ 0.00053                       |
+| Serveur web static (frontend)    | ~~0.0000042~~ 0.0000075               | ~~0.0000046~~ 0.0000028               | ~~0.0~~ 0.0                             | ~~0.0095~~ 0.0095                         | ~~0.0~~ 0.0                               | ~~0.0095~~ 0.0095                         |
+| Base de données                  | ~~0.0~~ 0.00079                       | ~~0.0~~ 0.000048                       | ~~0.0~~ 0.0                             | ~~0.000029~~ 0.000029                      | ~~0.0~~ 0.0                               | ~~0.00087~~ 0.00087                       |
+
+Tab.8: Effet sur la consommation énergétique de la limitation du nombre d’éléments affichés dans l'application, lors de la consultation de la page d'accueil du drive.
+
 ## Auteurs
 
 * Antoine MAZEAU
