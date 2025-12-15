@@ -5,8 +5,8 @@ import { Document, Packer, Paragraph, TextRun } from "docx";
 import PDFDocument from "pdfkit";
 
 // Config
-const AMOUNT_FOLDERS = 1000;
-const AMOUNT_DOCUMENTS = 3000;
+const AMOUNT_FOLDERS = 5;
+const AMOUNT_DOCUMENTS = 30;
 const DOCUMENT_IN_FOLDER = 0.5;
 const FOLDER_IN_FOLDER = 0.3;
 

@@ -1,6 +1,5 @@
 - name: Téléchargement fichier Document_1
   url: http://localhost/
-  waitForSelector: .btn
   actions:
     - step: Télécharger Document_1     
       type: click
