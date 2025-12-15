@@ -8,4 +8,5 @@ scenarios:
 containers:
   - hard-drive-backend-1
   - hard-drive-frontend-1
+databaseContainers:  
   - hard-drive-db-1
