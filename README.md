@@ -256,11 +256,64 @@ Deux facteurs expliquent cette évolution :
 L’écart global entre v1.0.0 et v1.0.1 reste cohérent avec un prototype soumis à une montée en charge importante. Le coût environnemental provient avant tout de la densité structurelle du drive plutôt que des interactions réseau qui restent limitées lors de la navigation interne.
 
 
-## Mesures de la consommation énergétique lors du passage à l'échelle
+## Mesure de la consommation énergétique liée à la consultation
+
+Le logiciel GreenFrame est capable d'estimer, pour les différents composants de l'architecture, la consommation énergétique :
+- du CPU (à partir du temps de calcul),
+- de la mémoire vive (à partir de la taille des données mémorisées),
+- du disque (à partir de la taille des données lues et écrites),
+- du réseau (à partir de la taille des données reçues et envoyées),
+- pour le navigateur uniquement, de l'écran (à partir du temps d'exécution du scénario).
+
+Ainsi, nous allons mesurer la consommation de ces éléments pour l'ensemble des composants de notre application(navigateur, serveur web static et serveur web dynamique)
+
+
+| (a)              | cpu (Wh)   | mem (Wh)    | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
+|----------------------|------------|-------------|-----------|--------------|--------------|------------|
+| Navigateur    | 0.030      | 0.00018     | 0.0       | 0.021        | 0.071        | 0.12       |
+| Serveur web dynamique (backend) | 0.000046   | 0.000020    | 0.0       | 0.000035     | 0.0          | 0.00010    |
+| Serveur web static (frontend)| 0.0000042  | 0.0000046   | 0.0       | 0.0095       | 0.0          | 0.0095     |
+
+| (b)               | cpu (Wh)   | mem (Wh)    | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
+|-----------------------|------------|-------------|-----------|--------------|--------------|------------|
+| Navigateur    | 0.031      | 0.00021     | 0.0       | 0.021        | 0.074        | 0.13       |
+| Serveur web dynamique (backend)  | 0.000034   | 0.000022    | 0.0       | 0.000036     | 0.0          | 0.000091   |
+| Serveur web static (frontend)| 0.0000049  | 0.0000048   | 0.0       | 0.0095       | 0.0          | 0.0095     |
+
+Tab 6 : Estimation de la consommation énergétique de la consultation de la page d'accueil du drive (premier tableau) et d'un dossier en particulier (second tableau).
+
+Par rapport à ce que pouvait laisser penser l'EcoIndex, les résultats indiquent que la consommation due à la consultation de l'index (avec ses 3500 fichiers) est équivalente à celle d'un dossier. Autrement dit, l'affichage en lui même de ces données en grand nombre est négligeable par rapport à la transmission de ces données sur le réseau.
+
+Par contre, l'affichage de ces données a bien un impact indirect : en augmentant le temps de recherche d'un fichier/dossier, il a un effet déterminant sur le temps d'éclairage de l'écran. De fait, les trois éléments ayant le plus d'impact sont ici :
+- l'écran du client,
+- le réseau du client,
+- le réseau du serveur web static.
+
+## Effet de l'introduction d'une base de données
+
+Afin de réduire l'impact énérgétique du réseau, nous stockons désormais les données de l'application (v2.0.0) dans une base de données (CouchDB). 
+
+| (a)                              | cpu (Wh)                              | mem (Wh)                               | disk (Wh)                             | network (Wh)                              | screen (Wh)                               | total (Wh)                              |
+|----------------------------------|----------------------------------------|-----------------------------------------|-----------------------------------------|---------------------------------------------|--------------------------------------------|-------------------------------------------|
+| Navigateur                       | ~~0.030~~<br/>0.059                   | ~~0.00018~~<br/>0.00016                | ~~0.0~~<br/>0.0                        | ~~0.021~~<br/>0.021                        | ~~0.071~~<br/>0.069                       | ~~0.12~~<br/>0.15                        |
+| Serveur web dynamique (backend)  | ~~0.000046~~<br/>0.00047              | ~~0.000020~~<br/>0.000013              | ~~0.0~~<br/>0.0                        | ~~0.000035~~<br/>0.000053                  | ~~0.0~~<br/>0.0                            | ~~0.00010~~<br/>0.00053                  |
+| Serveur web static (frontend)    | ~~0.0000042~~<br/>0.0000075           | ~~0.0000046~~<br/>0.0000028            | ~~0.0~~<br/>0.0                        | ~~0.0095~~<br/>0.0095                      | ~~0.0~~<br/>0.0                            | ~~0.0095~~<br/>0.0095                    |
+| Base de données                  | ~~0.0~~<br/>0.00079                   | ~~0.0~~<br/>0.000048                   | ~~0.0~~<br/>0.0                        | ~~0.000029~~<br/>0.000029                  | ~~0.0~~<br/>0.0                            | ~~0.00087~~<br/>0.00087                  |
 
 
 
+| (b)                               | cpu (Wh)                                  | mem (Wh)                                   | disk (Wh)                               | network (Wh)                                 | screen (Wh)                                  | total (Wh)                                 |
+|-----------------------------------|---------------------------------------------|----------------------------------------------|-------------------------------------------|------------------------------------------------|-----------------------------------------------|-----------------------------------------------|
+| Navigateur                        | ~~0.031~~<br/>0.058                        | ~~0.00021~~<br/>0.00016                     | ~~0.0~~<br/>0.0                          | ~~0.021~~<br/>0.021                          | ~~0.074~~<br/>0.068                          | ~~0.13~~<br/>0.15                           |
+| Serveur web dynamique (backend)   | ~~0.000034~~<br/>0.000039                  | ~~0.000022~~<br/>0.000013                   | ~~0.0~~<br/>0.0                          | ~~0.000036~~<br/>0.000035                    | ~~0.0~~<br/>0.0                               | ~~0.000091~~<br/>0.000087                   |
+| Serveur web static (frontend)     | ~~0.0000049~~<br/>0.0000071                | ~~0.0000048~~<br/>0.0000028                 | ~~0.0~~<br/>0.0                          | ~~0.0095~~<br/>0.0095                        | ~~0.0~~<br/>0.0                               | ~~0.0095~~<br/>0.0095                       |
+| Base de données                   | ~~0~~<br/>0.00067                           | ~~0~~<br/>0.000048                          | ~~0~~<br/>0.0                            | ~~0~~<br/>0.000020                           | ~~0~~<br/>0.0                                 | ~~0~~<br/>0.00074                           |
 
+Tab.7: Effet sur la consommation énergétique de l'introduction d'une base de données dans l'application, lors de la consultation de la page d'accueil du drive (premier tableau) et d'un dossier en particulier (second tableau).
+
+Nous pouvons constater que l'introduction d'une base de données fournit des résultats plutôt similaires quant à la consommation des différents composants de notre système. En effet, les fichiers stockés dans le drive sont toujours dans notre back-end, et la base de données ne contient que l'indexation de nos fichiers (fichier JSON).
+
+Sur nos deux scénarios, l'introduction d'une base de données n'a pas eu d'effet remarquable sur la consommation de notre application. En effet, l'ensemble des fichiers est directement chargé au lancement de l'application. L'ajout de fonctionnalités qui permettront de charger des fichiers en différé aura un plus grand impact sur la consommation.
 
 
 ## Auteurs
