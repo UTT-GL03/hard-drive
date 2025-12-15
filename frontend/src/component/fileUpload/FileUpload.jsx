@@ -7,7 +7,7 @@ const FileUpload = () => {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
-  const [retention, setRetention] = useState("");
+  const [retention, setRetention] = useState("1y");
   const {slug} = useParams();
   const {addFile, page} = useFiles(slug);
 

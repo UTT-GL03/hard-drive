@@ -2,13 +2,13 @@ import './Table.scss';
 import BreadCrumbs from '../breadCrumbs/BreadCrumbs';
 import { useDrive } from '../context/DriveContext.jsx';
 import { useParams } from 'react-router-dom';
-import { Download, Folder } from 'lucide-react';
+import { Download, Folder, Trash } from 'lucide-react';
 import useFiles from '../../hooks/useFiles.js';
 
 const Table = () => {
   const { goToFolder } = useDrive();
   const { slug } = useParams();
-  const { files, page, setPage, totalPages, isLoading } = useFiles(slug);
+  const { files, page, setPage, totalPages, isLoading, removeFile } = useFiles(slug);
 
   const formatSize = (bytes) => {
     if (bytes === 0) return '0 B';
@@ -34,6 +34,11 @@ const Table = () => {
     link.click();
     link.remove();
   };
+
+  const deleteFile =  (fileId) => {
+    if (!window.confirm('Supprimer ce fichier ?')) return;
+    removeFile(fileId);
+  }
 
   if (isLoading) return <p>Chargement...</p>;
 
@@ -64,7 +69,10 @@ const Table = () => {
               <td>{d.title}</td>
               <td>{formatDate(d.created_at)}</td>
               <td>{formatSize(d.size)}</td>
-              <td><a className='btn' onClick={() => downloadFile(d._id)}><Download /></a></td>
+              <td className="actions">
+                <a className='btn' onClick={() => downloadFile(d._id)}><Download /></a>
+                <a className='btn delete' onClick={() => deleteFile(d._id)}><Trash /></a>
+              </td>
             </tr>
           ))}
         </tbody>

@@ -234,6 +234,37 @@ app.get("/export/:uid", async (req, res) => {
   }
 });
 
+// --- Endpoint 3: Delete specific file---
+app.delete("/delete/:uid", async (req, res) => {
+  const { uid } = req.params;
+
+  try {
+    // Récupérer le document depuis CouchDB
+    const dbResponse = await fetch(`${db_url}/${uid}`);
+    if (!dbResponse.ok) {
+      return res.status(404).json({ error: "Document introuvable." });
+    }
+    const doc = await dbResponse.json();
+
+    // Supprimer le fichier physique
+    const filePath = path.join(uploadDir, `${doc.title}.${doc.file_type}`);
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+
+    // Supprimer le document CouchDB
+    await fetch(`${db_url}/${uid}?rev=${doc._rev}`, {
+      method: "DELETE",
+    });
+
+    res.json({ message: "Fichier et document supprimés avec succès." });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erreur serveur." });
+  }
+});
+
 
 function startServer() {
   // Lancer la purge périodique

@@ -44,6 +44,15 @@ const uploadFile = async ({ file, folder, retention }) => {
   return response.json();
 };
 
+const deleteFile = async (fileId) => {
+  const response = await fetch(`http://localhost:3000/delete/${fileId}`, {
+    method: "DELETE",
+  });
+  
+  if (!response.ok) throw new Error("Erreur lors de la suppression");
+  return response.json();
+}
+
 const useFiles = (slug) => {
   const [page, setPage] = useState(1);
   const limit = 10;
@@ -69,9 +78,24 @@ const useFiles = (slug) => {
     },
   });
 
+  const { mutate: removeFile } = useMutation({
+    mutationFn: deleteFile,
+    onSuccess: (_, fileId) => {
+      queryClient.setQueryData(["files", slug, page], oldData => {
+        if (!oldData) return oldData;
+
+        return {
+          ...oldData,
+          documents: oldData.documents.filter(d => d._id !== fileId),
+          total: oldData.total - 1,
+        };
+      });
+    },
+  });
+
   const totalPages = data?.total ? Math.ceil(data.total / limit) : 1;
 
-  return { files: data, isLoading, error, page, setPage, totalPages, addFile };
+  return { files: data, isLoading, error, page, setPage, totalPages, addFile, removeFile };
 };
 
 export default useFiles;
