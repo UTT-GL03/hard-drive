@@ -270,15 +270,15 @@ Ainsi, nous allons mesurer la consommation de ces éléments pour l'ensemble des
 
 | (a)                             | cpu (Wh)  | mem (Wh)  | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
 |---------------------------------|-----------|-----------|-----------|--------------|-------------|------------|
-| Navigateur                      | 0.030     | 0.00018   | 0.0       | 0.021        | 0.071       | 0.12       |
-| Serveur web dynamique (backend) | 0.000046  | 0.000020  | 0.0       | 0.000035     | 0.0         | 0.00010    |
-| Serveur web static (frontend)   | 0.0000042 | 0.0000046 | 0.0       | 0.0095       | 0.0         | 0.0095     |
+| Navigateur                      | 0.040     | 0.00013   | 0.0       | 0.013        | 0.012       | 0.18       |
+| Serveur web dynamique (backend) | 0.000018  | 0.000046  | 0.0       | 0.000031     | 0.0         | 0.00025    |
+| Serveur web static (frontend)   | 0.0000069 | 0.0000078 | 0.0       | 0.0095       | 0.0         | 0.0095     |
 
 | (b)                             | cpu (Wh)  | mem (Wh)  | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
 |---------------------------------|-----------|-----------|-----------|--------------|-------------|------------|
-| Navigateur                      | 0.031     | 0.00021   | 0.0       | 0.021        | 0.074       | 0.13       |
-| Serveur web dynamique (backend) | 0.000034  | 0.000022  | 0.0       | 0.000036     | 0.0         | 0.000091   |
-| Serveur web static (frontend)   | 0.0000049 | 0.0000048 | 0.0       | 0.0095       | 0.0         | 0.0095     |
+| Navigateur                      | 0.037     | 0.00021   | 0.0       | 0.020        | 0.10        | 0.16       |
+| Serveur web dynamique (backend) | 0.000077  | 0.000039  | 0.0       | 0.000027     | 0.0         | 0.00014    |
+| Serveur web static (frontend)   | 0.0000047 | 0.0000066 | 0.0       | 0.0095       | 0.0         | 0.0095     |
 
 Tab 6 : Estimation de la consommation énergétique de la consultation de la page d'accueil du drive (premier tableau) et d'un dossier en particulier (second tableau).
 
@@ -293,28 +293,26 @@ Par contre, l'affichage de ces données a bien un impact indirect : en augmentan
 
 Afin de réduire l'impact énérgétique du réseau, nous stockons désormais les données de l'application (v2.0.0) dans une base de données (CouchDB). 
 
-| (a)                             | cpu (Wh)                    | mem (Wh)                    | disk (Wh)       | network (Wh)              | screen (Wh)         | total (Wh)              |
-|---------------------------------|-----------------------------|-----------------------------|-----------------|---------------------------|---------------------|-------------------------|
-| Navigateur                      | ~~0.030~~<br/>0.059         | ~~0.00018~~<br/>0.00016     | ~~0.0~~<br/>0.0 | ~~0.021~~<br/>0.021       | ~~0.071~~<br/>0.069 | ~~0.12~~<br/>0.15       |
-| Serveur web dynamique (backend) | ~~0.000046~~<br/>0.00047    | ~~0.000020~~<br/>0.000013   | ~~0.0~~<br/>0.0 | ~~0.000035~~<br/>0.000053 | ~~0.0~~<br/>0.0     | ~~0.00010~~<br/>0.00053 |
-| Serveur web static (frontend)   | ~~0.0000042~~<br/>0.0000075 | ~~0.0000046~~<br/>0.0000028 | ~~0.0~~<br/>0.0 | ~~0.0095~~<br/>0.0095     | ~~0.0~~<br/>0.0     | ~~0.0095~~<br/>0.0095   |
-| Base de données                 | ~~0.0~~<br/>0.00079         | ~~0.0~~<br/>0.000048        | ~~0.0~~<br/>0.0 | ~~0.000029~~<br/>0.000029 | ~~0.0~~<br/>0.0     | ~~0.00087~~<br/>0.00087 |
+| (a)                             | cpu (Wh)                | mem (Wh)                | disk (Wh) | network (Wh)         | screen (Wh)    | total (Wh)                       |
+|---------------------------------|-------------------------|-------------------------|-----------|----------------------|----------------|----------------------------------|
+| Navigateur                      | ~~0.040~~ 0.029         | ~~0.00013~~ 0.00016     | 0.0       | ~~0.013~~ 0.021      | ~~0.012~~0.069 | ~~0.18~~ <mark>0.12<\mark>       |
+| Serveur web dynamique (backend) | ~~0.000018~~ 0.000035   | ~~0.000046~~ 0.000031   | 0.0       | ~~0.000031~~ 0.00012 | 0.0            | ~~0.00025~~ <mark>0.00019<\mark> |
+| Serveur web static (frontend)   | ~~0.0000069~~ 0.0000054 | ~~0.0000078~~ 0.0000082 | 0.0       | 0.0095               | 0.0            | 0.0095                           |
+| Base de données                 | 0.00021                 | 0.000061                | 0.0       | 0.000080             | 0.0            | 0.00035                          |
 
 
 
-| (b)                             | cpu (Wh)                    | mem (Wh)                    | disk (Wh)       | network (Wh)              | screen (Wh)         | total (Wh)                |
-|---------------------------------|-----------------------------|-----------------------------|-----------------|---------------------------|---------------------|---------------------------|
-| Navigateur                      | ~~0.031~~<br/>0.058         | ~~0.00021~~<br/>0.00016     | ~~0.0~~<br/>0.0 | ~~0.021~~<br/>0.021       | ~~0.074~~<br/>0.068 | ~~0.13~~<br/>0.15         |
-| Serveur web dynamique (backend) | ~~0.000034~~<br/>0.000039   | ~~0.000022~~<br/>0.000013   | ~~0.0~~<br/>0.0 | ~~0.000036~~<br/>0.000035 | ~~0.0~~<br/>0.0     | ~~0.000091~~<br/>0.000087 |
-| Serveur web static (frontend)   | ~~0.0000049~~<br/>0.0000071 | ~~0.0000048~~<br/>0.0000028 | ~~0.0~~<br/>0.0 | ~~0.0095~~<br/>0.0095     | ~~0.0~~<br/>0.0     | ~~0.0095~~<br/>0.0095     |
-| Base de données                 | ~~0~~<br/>0.00067           | ~~0~~<br/>0.000048          | ~~0~~<br/>0.0   | ~~0~~<br/>0.000020        | ~~0~~<br/>0.0       | ~~0~~<br/>0.00074         |
+| (b)                             | cpu (Wh)                | mem (Wh)                | disk (Wh) | network (Wh)         | screen (Wh)    | total (Wh)                 |
+|---------------------------------|-------------------------|-------------------------|-----------|----------------------|----------------|----------------------------|
+| Navigateur                      | ~~0.037~~ 0.029         | ~~0.00021~~ 0.00016     | 0.0       | ~~0.020~~ 0.021      | ~~0.10~~ 0.069 | ~~0.16~~ <mark>0.12<\mark> |
+| Serveur web dynamique (backend) | ~~0.000077~~ 0.000029   | ~~0.000039~~ 0.000030   | 0.0       | ~~0.000027~~ 0.00012 | 0.0            | ~~0.00014~~ 0.00018        |
+| Serveur web static (frontend)   | ~~0.0000047~~ 0.0000037 | ~~0.0000066~~ 0.0000080 | 0.0       | 0.0095               | 0.0            | 0.0095                     |
+| Base de données                 | 0.00019                 | 0.000060                | 0.0       | 0.000080             | 0.0            | 0.00033                    |
 
 Tab.7: Effet sur la consommation énergétique de l'introduction d'une base de données dans l'application, lors de la consultation de la page d'accueil du drive (premier tableau) et d'un dossier en particulier (second tableau).
 
-Nous pouvons constater que l'introduction d'une base de données fournit des résultats plutôt similaires quant à la consommation des différents composants de notre système. En effet, les fichiers stockés dans le drive sont toujours dans notre back-end, et la base de données ne contient que l'indexation de nos fichiers (fichier JSON).
 
-Sur nos deux scénarios, l'introduction d'une base de données n'a pas eu d'effet remarquable sur la consommation de notre application. En effet, l'ensemble des fichiers est directement chargé au lancement de l'application. L'ajout de fonctionnalités qui permettront de charger des fichiers en différé aura un plus grand impact sur la consommation.
-
+L'introduction d'une base de données nous permet donc de légèrement réduire la consommation totale du navigateur et de notre serveur backend sur mesure. En effet, nous ne constatons qu'une légère différence de réduction de notre consommation car les fichiers de notre drive sont toujours stocké dans notre back-end. De plus, la consommation de la base de donnée est très minime car elle ne contient que l'indexation de nos fichiers (fichier JSON). L'ajout de fonctionnalités qui permettront de charger des fichiers en différé aura un plus grand impact sur la consommation.
 
 
 ## Limitation du nombre d’éléments affichés
