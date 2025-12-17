@@ -70,11 +70,11 @@ Nous avons choisi de comparer l'impact des scénarios pour les services de stock
 
 Et, pour calculer l'impact de ces scénarios, nous avons dû calculer à la main les scores et classes écoindex des services. Vous pouvez retrouver plus de détails sur comment nous avons réalisé les mesures dans la partie benchmark, accessible dans les liens du tableau ci-dessous.
 
-| Service | Score (sur 100) | Classe | Détail des mesures |
-| ----------- | ----------- |----------- | ----------- |
-| Google Drive | 5.7 | G | [...](./benchmark/GoogleDrive/benchmark.md) |
-| Microsoft OneDrive | 16.2 | F | [...](./benchmark/Microsoft/benchmark.md) |
-| DropBox | 12.4 | F | [...](./benchmark/DropBox/benchmark.md) |
+| Service            | Score (sur 100) | Classe | Détail des mesures                          |
+|--------------------|-----------------|--------|---------------------------------------------|
+| Google Drive       | 5.7             | G      | [...](./benchmark/GoogleDrive/benchmark.md) |
+| Microsoft OneDrive | 16.2            | F      | [...](./benchmark/Microsoft/benchmark.md)   |
+| DropBox            | 12.4            | F      | [...](./benchmark/DropBox/benchmark.md)     |
 
 ### Analyse des résultats
 
@@ -87,11 +87,11 @@ Malgré cela, nous avons donc décidé d'intégrer un service que nous n'avions 
 
 Comme nous l’avons observé précédemment, une part importante de l’impact environnemental d’un service numérique découle directement de son modèle économique. En effet, ce modèle conditionne le volume de données échangées, le nombre d’utilisateurs actifs, les pratiques de stockage et la fréquence des sollicitations réseau. Il est donc nécessaire d’analyser les principaux acteurs du partage de documents afin d’en déduire les leviers possibles de sobriété.
 
-| Service | Accès gratuit | Abonnement Payant | Répartition des revenus |
-| ----------- | ----------- |----------- | ----------- |
-| Google Drive | 15 Go gratuits | 100 Go à 2 €/mois / 2 To à 10 €/mois | Freemium (publicités indirectes via l’écosystème Google) |
-| Microsoft OneDrive | 5 Go gratuits | 100 Go à 2 €/mois / 1 To à 10 €/mois / 6 To à 13 €/mois (famille) | Freemium (abonnement Microsoft 365, intégration écosystème) |
-| DropBox | 2 Go gratuits | 2 To à partir de 12 €/mois / 3 To à 20 €/mois | Freemium (abonnement pur, sans publicité) |
+| Service            | Accès gratuit  | Abonnement Payant                                                 | Répartition des revenus                                     |
+|--------------------|----------------|-------------------------------------------------------------------|-------------------------------------------------------------|
+| Google Drive       | 15 Go gratuits | 100 Go à 2 €/mois / 2 To à 10 €/mois                              | Freemium (publicités indirectes via l’écosystème Google)    |
+| Microsoft OneDrive | 5 Go gratuits  | 100 Go à 2 €/mois / 1 To à 10 €/mois / 6 To à 13 €/mois (famille) | Freemium (abonnement Microsoft 365, intégration écosystème) |
+| DropBox            | 2 Go gratuits  | 2 To à partir de 12 €/mois / 3 To à 20 €/mois                     | Freemium (abonnement pur, sans publicité)                   |
 
 Tab. 1 : Offres des principaux services de partage de documents (particuliers).
 
@@ -111,12 +111,12 @@ Les différences se situent surtout dans la nature des revenus et leur dépendan
 
 Le seul modèle alternatif identifié est celui de **Nextcloud**, totalement gratuit mais reposant sur des **dons** et des **services d’hébergement professionnels** proposés par des partenaires. Il est probable que la maintenance plus limitée de sa plateforme publique (par rapport à un service grand public tel que Google Drive) nécessite une équipe technique plus réduite.
 
-| **Source possible de revenus** | **Montant unitaire** | **Quantité nécessaire pour financer un salaire¹** |
-|--------------------------------|----------------------|--------------------------------------------------|
-| Abonnement (2 €/mois) | 24 €/an | 500 |
-| Affichage d’une publicité (régie tierce) | 0,00046 €² | 26 000 000 |
-| Diffusion d’une publicité (régie intégrée) | 10 000 €³ | 1,2 |
-| Vente de services complémentaires (hébergement sécurisé, support premium) | 200 €⁴ | 60 |
+| **Source possible de revenus**                                            | **Montant unitaire** | **Quantité nécessaire pour financer un salaire¹** |
+|---------------------------------------------------------------------------|----------------------|---------------------------------------------------|
+| Abonnement (2 €/mois)                                                     | 24 €/an              | 500                                               |
+| Affichage d’une publicité (régie tierce)                                  | 0,00046 €²           | 26 000 000                                        |
+| Diffusion d’une publicité (régie intégrée)                                | 10 000 €³            | 1,2                                               |
+| Vente de services complémentaires (hébergement sécurisé, support premium) | 200 €⁴               | 60                                                |
 
 **Tab. 2 : Sources de revenus possibles pour un service de stockage en ligne.**
 
@@ -188,10 +188,10 @@ Pour l’implémentation des scénarios, nous avons remarqué qu’il y en a un 
 
 Dans l'état actuel du prototype, on peut des a présent avoir une idée sur l'impact environnemental de notre frontend. Cela nous permettra de faire des choix éclairés pour la suite du projet. Elle nous permet également de voir la différence entre une plateforme de développement et la plateforme de pré-production.
 
-|       | EcoIndex | GES (gCO2e) | Taille du DOM | Requêtes | Taille de la page (ko)|
-| ---| -----------: | -----------: |-----------: | -----------: | -----------:|
-| Mode "développement" | 66 C 🟨 | 1,68 | 145 | 54 | 7995 |
-| Mode "pré-production" | 74 B 🟩 | 1,52| 136 | 21 | 5328 |
+|                       | EcoIndex | GES (gCO2e) | Taille du DOM | Requêtes | Taille de la page (ko) |
+|-----------------------|---------:|------------:|--------------:|---------:|-----------------------:|
+| Mode "développement"  |  66 C 🟨 |        1,68 |           145 |       54 |                   7995 |
+| Mode "pré-production" |  74 B 🟩 |        1,52 |           136 |       21 |                   5328 |
 
 Tab 3 : Évaluation de l'impact du prototype de la page d'accueil du drive.
 
@@ -204,12 +204,12 @@ Prototype de la page d'un dossier – Fig.4
 
 Avec l'implémentation actuelle, nous avons pu obtenir les scores EcoIndex suivants :
 
-| Étape |  EcoIndex | GES (gCO₂e) | Taille du DOM | Requêtes | Taille de la page (Ko) |
-| ------| --------: | ----------: | ------------: | -------: | ---------------------: |
-| 1. Arrivée sur la page d’accueil | 72 B 🟩 | 1.56 | 91 | 37 | 6394 |
-| 2. Choisir et voir les détails d’un dossier | 73 B 🟩 | 1.55 | 70 | 38 | 6396
-| 3. Naviguer dans le dossier | 72 B 🟩 |    1.56 |        80 |   38 |               6395 |
-| 4. Revenir à la page d’accueil                           |     73 B 🟩 |        1.57 |            91 |       38 |                   6396 |
+| Étape                                       | EcoIndex | GES (gCO₂e) | Taille du DOM | Requêtes | Taille de la page (Ko) |
+|---------------------------------------------|---------:|------------:|--------------:|---------:|-----------------------:|
+| 1. Arrivée sur la page d’accueil            |  72 B 🟩 |        1.56 |            91 |       37 |                   6394 |
+| 2. Choisir et voir les détails d’un dossier |  73 B 🟩 |        1.55 |            70 |       38 |                   6396 |
+| 3. Naviguer dans le dossier                 |  72 B 🟩 |        1.56 |            80 |       38 |                   6395 |
+| 4. Revenir à la page d’accueil              |  73 B 🟩 |        1.57 |            91 |       38 |                   6396 |
 
 Tab 4 : Évaluation de l'impact du scénario de "navigation dans un dossier" dans le prototype v1.0.0.
 
@@ -234,12 +234,12 @@ Les mesures générées automatiquement durant l’intégration continue avant e
 ##### Mesures de l’impact environnemental (v1.0.1)
 
 
-| Étape |  EcoIndex | GES (gCO₂e) | Taille du DOM | Requêtes | Taille de la page (Ko) |
-| ------| --------: | ----------: | ------------: | -------: | ---------------------: |
-| 1. Arrivée sur la page d’accueil | <del>72 B 🟩</del><br/>26 E 🟧| <del>1.56</del><br/>2.49 | <del>91</del><br/>11093 | <del>37</del><br/>	54 | <del>6394</del><br/>1064 |
-| 2. Choisir et voir les détails d’un dossier | <del>73 B 🟩</del><br/>61 C 🟨| <del>1.55</del><br/>1.78 | <del>70</del><br/>267 | <del>38</del><br/>56 | <del>6396</del><br/>1065 |
-| 3. Naviguer dans le dossier | <del>72 B 🟩</del><br/>61 C 🟨| <del>1.56</del><br/>1.78 | <del>80</del><br/>267 | <del>38</del><br/>56 | <del>6395</del><br/>1065 |
-| 4. Revenir à la page d’accueil                           | <del>73 B 🟩</del><br/>25 F 🟥| <del>1.57</del><br/> 2.51| <del>91</del><br/>11093| <del>38</del><br/>57| <del>6396</del><br/>1065 |
+| Étape                                       |                       EcoIndex |               GES (gCO₂e) |           Taille du DOM |             Requêtes |   Taille de la page (Ko) |
+|---------------------------------------------|-------------------------------:|--------------------------:|------------------------:|---------------------:|-------------------------:|
+| 1. Arrivée sur la page d’accueil            | <del>72 B 🟩</del><br/>26 E 🟧 |  <del>1.56</del><br/>2.49 | <del>91</del><br/>11093 | <del>37</del><br/>	54 | <del>6394</del><br/>1064 |
+| 2. Choisir et voir les détails d’un dossier | <del>73 B 🟩</del><br/>61 C 🟨 |  <del>1.55</del><br/>1.78 |   <del>70</del><br/>267 | <del>38</del><br/>56 | <del>6396</del><br/>1065 |
+| 3. Naviguer dans le dossier                 | <del>72 B 🟩</del><br/>61 C 🟨 |  <del>1.56</del><br/>1.78 |   <del>80</del><br/>267 | <del>38</del><br/>56 | <del>6395</del><br/>1065 |
+| 4. Revenir à la page d’accueil              | <del>73 B 🟩</del><br/>25 F 🟥 | <del>1.57</del><br/> 2.51 | <del>91</del><br/>11093 | <del>38</del><br/>57 | <del>6396</del><br/>1065 |
 
 Tab 5 : Évaluation de l'impact du scénario de "navigation dans un dossier" dans le prototype v1.0.1.
 
@@ -268,17 +268,17 @@ Le logiciel GreenFrame est capable d'estimer, pour les différents composants de
 Ainsi, nous allons mesurer la consommation de ces éléments pour l'ensemble des composants de notre application(navigateur, serveur web static et serveur web dynamique)
 
 
-| (a)              | cpu (Wh)   | mem (Wh)    | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
-|----------------------|------------|-------------|-----------|--------------|--------------|------------|
-| Navigateur    | 0.030      | 0.00018     | 0.0       | 0.021        | 0.071        | 0.12       |
-| Serveur web dynamique (backend) | 0.000046   | 0.000020    | 0.0       | 0.000035     | 0.0          | 0.00010    |
-| Serveur web static (frontend)| 0.0000042  | 0.0000046   | 0.0       | 0.0095       | 0.0          | 0.0095     |
+| (a)                             | cpu (Wh)  | mem (Wh)  | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
+|---------------------------------|-----------|-----------|-----------|--------------|-------------|------------|
+| Navigateur                      | 0.030     | 0.00018   | 0.0       | 0.021        | 0.071       | 0.12       |
+| Serveur web dynamique (backend) | 0.000046  | 0.000020  | 0.0       | 0.000035     | 0.0         | 0.00010    |
+| Serveur web static (frontend)   | 0.0000042 | 0.0000046 | 0.0       | 0.0095       | 0.0         | 0.0095     |
 
-| (b)               | cpu (Wh)   | mem (Wh)    | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
-|-----------------------|------------|-------------|-----------|--------------|--------------|------------|
-| Navigateur    | 0.031      | 0.00021     | 0.0       | 0.021        | 0.074        | 0.13       |
-| Serveur web dynamique (backend)  | 0.000034   | 0.000022    | 0.0       | 0.000036     | 0.0          | 0.000091   |
-| Serveur web static (frontend)| 0.0000049  | 0.0000048   | 0.0       | 0.0095       | 0.0          | 0.0095     |
+| (b)                             | cpu (Wh)  | mem (Wh)  | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
+|---------------------------------|-----------|-----------|-----------|--------------|-------------|------------|
+| Navigateur                      | 0.031     | 0.00021   | 0.0       | 0.021        | 0.074       | 0.13       |
+| Serveur web dynamique (backend) | 0.000034  | 0.000022  | 0.0       | 0.000036     | 0.0         | 0.000091   |
+| Serveur web static (frontend)   | 0.0000049 | 0.0000048 | 0.0       | 0.0095       | 0.0         | 0.0095     |
 
 Tab 6 : Estimation de la consommation énergétique de la consultation de la page d'accueil du drive (premier tableau) et d'un dossier en particulier (second tableau).
 
@@ -293,21 +293,22 @@ Par contre, l'affichage de ces données a bien un impact indirect : en augmentan
 
 Afin de réduire l'impact énérgétique du réseau, nous stockons désormais les données de l'application (v2.0.0) dans une base de données (CouchDB). 
 
-| (a)                              | cpu (Wh)                              | mem (Wh)                               | disk (Wh)                             | network (Wh)                              | screen (Wh)                               | total (Wh)                              |
-|----------------------------------|----------------------------------------|-----------------------------------------|-----------------------------------------|---------------------------------------------|--------------------------------------------|-------------------------------------------|
-| Navigateur                       | ~~0.030~~<br/>0.059                   | ~~0.00018~~<br/>0.00016                | ~~0.0~~<br/>0.0                        | ~~0.021~~<br/>0.021                        | ~~0.071~~<br/>0.069                       | ~~0.12~~<br/>0.15                        |
-| Serveur web dynamique (backend)  | ~~0.000046~~<br/>0.00047              | ~~0.000020~~<br/>0.000013              | ~~0.0~~<br/>0.0                        | ~~0.000035~~<br/>0.000053                  | ~~0.0~~<br/>0.0                            | ~~0.00010~~<br/>0.00053                  |
-| Serveur web static (frontend)    | ~~0.0000042~~<br/>0.0000075           | ~~0.0000046~~<br/>0.0000028            | ~~0.0~~<br/>0.0                        | ~~0.0095~~<br/>0.0095                      | ~~0.0~~<br/>0.0                            | ~~0.0095~~<br/>0.0095                    |
-| Base de données                  | ~~0.0~~<br/>0.00079                   | ~~0.0~~<br/>0.000048                   | ~~0.0~~<br/>0.0                        | ~~0.000029~~<br/>0.000029                  | ~~0.0~~<br/>0.0                            | ~~0.00087~~<br/>0.00087                  |
+| (a)                             | cpu (Wh)                    | mem (Wh)                    | disk (Wh)       | network (Wh)              | screen (Wh)         | total (Wh)              |
+|---------------------------------|-----------------------------|-----------------------------|-----------------|---------------------------|---------------------|-------------------------|
+| Navigateur                      | ~~0.030~~<br/>0.059         | ~~0.00018~~<br/>0.00016     | ~~0.0~~<br/>0.0 | ~~0.021~~<br/>0.021       | ~~0.071~~<br/>0.069 | ~~0.12~~<br/>0.15       |
+| Serveur web dynamique (backend) | ~~0.000046~~<br/>0.00047    | ~~0.000020~~<br/>0.000013   | ~~0.0~~<br/>0.0 | ~~0.000035~~<br/>0.000053 | ~~0.0~~<br/>0.0     | ~~0.00010~~<br/>0.00053 |
+| Serveur web static (frontend)   | ~~0.0000042~~<br/>0.0000075 | ~~0.0000046~~<br/>0.0000028 | ~~0.0~~<br/>0.0 | ~~0.0095~~<br/>0.0095     | ~~0.0~~<br/>0.0     | ~~0.0095~~<br/>0.0095   |
+| Base de données                 | ~~0.0~~<br/>0.00079         | ~~0.0~~<br/>0.000048        | ~~0.0~~<br/>0.0 | ~~0.000029~~<br/>0.000029 | ~~0.0~~<br/>0.0     | ~~0.00087~~<br/>0.00087 |
 
 
 
-| (b)                               | cpu (Wh)                                  | mem (Wh)                                   | disk (Wh)                               | network (Wh)                                 | screen (Wh)                                  | total (Wh)                                 |
-|-----------------------------------|---------------------------------------------|----------------------------------------------|-------------------------------------------|------------------------------------------------|-----------------------------------------------|-----------------------------------------------|
-| Navigateur                        | ~~0.031~~<br/>0.058                        | ~~0.00021~~<br/>0.00016                     | ~~0.0~~<br/>0.0                          | ~~0.021~~<br/>0.021                          | ~~0.074~~<br/>0.068                          | ~~0.13~~<br/>0.15                           |
-| Serveur web dynamique (backend)   | ~~0.000034~~<br/>0.000039                  | ~~0.000022~~<br/>0.000013                   | ~~0.0~~<br/>0.0                          | ~~0.000036~~<br/>0.000035                    | ~~0.0~~<br/>0.0                               | ~~0.000091~~<br/>0.000087                   |
-| Serveur web static (frontend)     | ~~0.0000049~~<br/>0.0000071                | ~~0.0000048~~<br/>0.0000028                 | ~~0.0~~<br/>0.0                          | ~~0.0095~~<br/>0.0095                        | ~~0.0~~<br/>0.0                               | ~~0.0095~~<br/>0.0095                       |
-| Base de données                   | ~~0~~<br/>0.00067                           | ~~0~~<br/>0.000048                          | ~~0~~<br/>0.0                            | ~~0~~<br/>0.000020                           | ~~0~~<br/>0.0                                 | ~~0~~<br/>0.00074                           |
+| (b)                             | cpu (Wh)                     | mem (Wh)                     | disk (Wh)       | network (Wh)               | screen (Wh)          | total (Wh)                |
+|---------------------------------|------------------------------|------------------------------|-----------------|----------------------------|----------------------|---------------------------|
+| Navigateur                      | ~~0.031~~<br/>**0.029**      | ~~0.00021~~<br/>**0.00016**  | ~~0.0~~<br/>0.0 | ~~0.021~~<br/>**0.021**    | ~~0.074~~<br/>**0.069** | ~~0.13~~<br/>**0.12**     |
+| Serveur web dynamique (backend) | ~~0.000034~~<br/>**0.000029**| ~~0.000022~~<br/>**0.000030**| ~~0.0~~<br/>0.0 | ~~0.000036~~<br/>**0.00012** | ~~0.0~~<br/>0.0      | ~~0.000091~~<br/>**0.00018** |
+| Serveur web static (frontend)   | ~~0.0000049~~<br/>**0.0000037** | ~~0.0000048~~<br/>**0.0000080** | ~~0.0~~<br/>0.0 | ~~0.0095~~<br/>**0.0095** | ~~0.0~~<br/>0.0      | ~~0.0095~~<br/>**0.0095** |
+| Base de données                 | ~~0~~<br/>**0.00019**        | ~~0~~<br/>**0.000060**       | ~~0~~<br/>0.0   | ~~0~~<br/>**0.000080**     | ~~0~~<br/>0.0        | ~~0~~<br/>**0.00033**     |
+
 
 Tab.7: Effet sur la consommation énergétique de l'introduction d'une base de données dans l'application, lors de la consultation de la page d'accueil du drive (premier tableau) et d'un dossier en particulier (second tableau).
 
@@ -339,12 +340,12 @@ L’enjeu pour les évolutions futures de l’application sera de maintenir cett
 Fig.5 : Schéma illustrant le chargement progressif des fichiers dans un dossier (copie d'écran).
 
 
-| Composant                        | CPU (Wh)                              | Mémoire (Wh)                           | Disque (Wh)                            | Réseau (Wh)                              | Écran (Wh)                               | Total (Wh)                               |
-|----------------------------------|--------------------------------------|---------------------------------------|----------------------------------------|-----------------------------------------|----------------------------------------|----------------------------------------|
-| Navigateur                       | ~~0.030~~ 0.059                       | ~~0.00018~~ 0.00016                   | ~~0.0~~ 0.0                             | ~~0.021~~ 0.021                           | ~~0.071~~ 0.069                          | ~~0.12~~ 0.15                            |
-| Serveur web dynamique (backend)  | ~~0.000046~~ 0.00047                  | ~~0.000020~~ 0.000013                 | ~~0.0~~ 0.0                             | ~~0.000035~~ 0.000053                     | ~~0.0~~ 0.0                               | ~~0.00010~~ 0.00053                       |
-| Serveur web static (frontend)    | ~~0.0000042~~ 0.0000075               | ~~0.0000046~~ 0.0000028               | ~~0.0~~ 0.0                             | ~~0.0095~~ 0.0095                         | ~~0.0~~ 0.0                               | ~~0.0095~~ 0.0095                         |
-| Base de données                  | ~~0.0~~ 0.00079                       | ~~0.0~~ 0.000048                       | ~~0.0~~ 0.0                             | ~~0.000029~~ 0.000029                      | ~~0.0~~ 0.0                               | ~~0.00087~~ 0.00087                       |
+| Composant                       | CPU (Wh)                | Mémoire (Wh)            | Disque (Wh) | Réseau (Wh)           | Écran (Wh)      | Total (Wh)          |
+|---------------------------------|-------------------------|-------------------------|-------------|-----------------------|-----------------|---------------------|
+| Navigateur                      | ~~0.030~~ 0.059         | ~~0.00018~~ 0.00016     | ~~0.0~~ 0.0 | ~~0.021~~ 0.021       | ~~0.071~~ 0.069 | ~~0.12~~ 0.15       |
+| Serveur web dynamique (backend) | ~~0.000046~~ 0.00047    | ~~0.000020~~ 0.000013   | ~~0.0~~ 0.0 | ~~0.000035~~ 0.000053 | ~~0.0~~ 0.0     | ~~0.00010~~ 0.00053 |
+| Serveur web static (frontend)   | ~~0.0000042~~ 0.0000075 | ~~0.0000046~~ 0.0000028 | ~~0.0~~ 0.0 | ~~0.0095~~ 0.0095     | ~~0.0~~ 0.0     | ~~0.0095~~ 0.0095   |
+| Base de données                 | ~~0.0~~ 0.00079         | ~~0.0~~ 0.000048        | ~~0.0~~ 0.0 | ~~0.000029~~ 0.000029 | ~~0.0~~ 0.0     | ~~0.00087~~ 0.00087 |
 
 Tab.8: Effet sur la consommation énergétique de la limitation du nombre d’éléments affichés dans l'application, lors de la consultation de la page d'accueil du drive.
 
