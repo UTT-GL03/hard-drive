@@ -346,6 +346,61 @@ Fig.5 : Schéma illustrant le chargement progressif des fichiers dans un dossier
 
 Tab.8: Effet sur la consommation énergétique de la limitation du nombre d’éléments affichés dans l'application, lors de la consultation de la page d'accueil du drive.
 
+L'implémentation du chargement progressif des fichiers dans un dossier permet de réduire significativement la consommation énergétique totale de l'application. En effet, en ne chargeant que les éléments nécessaires à l'affichage courant, nous limitons les échanges réseau et la charge sur le serveur backend. Cela se traduit par une diminution notable de la consommation CPU et mémoire, tant côté client que côté serveur
+
+## Améliorations et évolutions du projet
+
+Après avoir réalisé les différentes étapes du projet, nous avons identifié plusieurs pistes d’amélioration et d’évolution possibles pour notre service de partage de documents numériques à impact écologique réduit.
+
+### Système de rétention des fichiers
+
+Notre plus grande amélioration que nous avons décider est de mettre en place un système de retention des fichiers lors de leurs imporatation. En effet, dans l'état actuel du projet, les fichiers importés restent indéfiniment stockés sur le serveur, ce qui peut entraîner une accumulation de données inutiles et une augmentation de l'empreinte écologique du service. Pour remédier à cela, nous proposons de mettre en place une politique de rétention des fichiers, qui permettrait de supprimer automatiquement les fichiers après une certaine période d'inactivité ou de non-utilisation. Cette politique pourrait être personnalisable par les utilisateurs, qui pourraient choisir la durée de rétention qui leur convient le mieux en fonction de leurs besoins. Par exemple, un utilisateur pourrait choisir de conserver ses fichiers pendant une semaine, un mois ou un an, en fonction de la fréquence à laquelle il utilise le service. Cette approche permettrait de réduire la quantité de données stockées sur le serveur, ce qui contribuerait à diminuer l'empreinte écologique du service. De plus, cela encouragerait les utilisateurs à adopter des pratiques de gestion de fichiers plus responsables, en les incitant à supprimer régulièrement les fichiers dont ils n'ont plus besoin.
+
+![](./docs/upload_file_component.png)
+Fig.6 : Schéma illustrant le fonctionnement du système de rétention des fichiers.
+
+
+### Ajout d'un bouton de suppression de fichiers
+
+Une autre amélioration que nous avons envisagée est l'ajout d'un bouton de suppression de fichiers dans l'interface utilisateur. Actuellement, les utilisateurs ne disposent pas d'une option simple pour supprimer les fichiers qu'ils n'utilisent plus, ce qui peut entraîner une accumulation de données inutiles sur le serveur. En intégrant un bouton de suppression directement dans l'interface, nous permettrions aux utilisateurs de gérer plus efficacement leurs fichiers et de libérer de l'espace de stockage. Ce bouton pourrait être placé à côté de chaque fichier ou dossier, offrant ainsi une accessibilité rapide et intuitive. Lorsqu'un utilisateur clique sur ce bouton, une confirmation pourrait être demandée pour éviter les suppressions accidentelles. Cette fonctionnalité encouragerait les utilisateurs à adopter des pratiques de gestion de fichiers plus responsables, en les incitant à supprimer régulièrement les fichiers dont ils n'ont plus besoin. En réduisant la quantité de données stockées sur le serveur, cette amélioration contribuerait également à diminuer l'empreinte écologique du service.
+
+![](./docs/delete_button.png)
+Fig.7 : Schéma illustrant le bouton de suppression de fichiers dans l'interface utilisateur.
+
+### Analyse des impacts
+
+Notre objectif avec ces ajouts est qu’ils n’aient aucun impact supplémentaire et qu’ils n’introduisent pas de surcoût environnemental. Nous avons donc analysé l’impact de ces deux fonctionnalités.
+
+| Étape                                       | EcoIndex | GES (gCO₂e) | Taille du DOM | Requêtes | Taille de la page (Ko) |
+|---------------------------------------------|---------:|------------:|--------------:|---------:|-----------------------:|
+| 1. Arrivée sur la page d’accueil            |  73 B 🟩 |        1.52 |            130 |       22 |                   5531 |
+| 2. Choisir et voir les détails d’un dossier |  74 B 🟩 |        1.52 |            95 |       26 |                   5534 |
+| 3. Naviguer dans le dossier                 |  74 B 🟩 |        1.52 |            95 |       26 |                   5534 |
+| 4. Revenir à la page d’accueil              |  72 B 🟩 |        1.54 |            130 |       28 |                   5535 |
+Tab.9 : Évaluation de l'impact du scénario de "navigation dans un dossier" dans le prototype v2.0.0.
+
+
+| a. Composant          | cpu (Wh)    | mem (Wh)    | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
+|-----------------------|-------------|-------------|-------------|-------------|------------|-------------|
+| Navigateur   | 0.058     | 0.00016   | 0.0     | 0.021      | 0.068     | 0.15     |
+| Backend | 0.00011   | 0.000013  | 0.0     | 0.000097   | 0.0       | 0.00022  |
+| Frontend | 0.0000073 | 0.0000028 | 0.0     | 0.0095     | 0.0       | 0.0095   |
+| Base de données      | 0.00070   | 0.000045  | 0.0     | 0.000070   | 0.0       | 0.00082  |
+
+Tab.10: Estimation de la consommation énergétique de la consultation de la page d'accueil du drive
+
+
+| b. Composant   | cpu (Wh)    | mem (Wh)    | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
+|----------------|-------------|-------------|-----------|-------------|-------------|------------|
+| Navigateur     | 0.059     | 0.00016   | 0.0     | 0.021      | 0.068     | 0.15     |
+| Backend  | 0.000052  | 0.000014  | 0.0     | 0.000078   | 0.0       | 0.00014  |
+| Frontend | 0.0000067 | 0.0000029 | 0.0     | 0.0095     | 0.0       | 0.0095   |
+| Base de données       | 0.00069   | 0.000046  | 0.0     | 0.000050   | 0.0       | 0.00079  |
+
+Tab.11: Estimation de la consommation énergétique de la consultation d'un dossier particulier dans le drive
+
+L'analyse des impacts de ces deux nouvelles fonctionnalités montre qu'elles n'ont pas d'impact significatif sur les performances environnementales de l'application. Les scores EcoIndex restent élevés, indiquant une bonne optimisation de l'interface utilisateur. De plus, la consommation énergétique totale de l'application reste stable, avec seulement de légères variations dues à l'ajout des nouvelles fonctionnalités.
+
 ## Auteurs
 
 * Antoine MAZEAU
