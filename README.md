@@ -337,12 +337,12 @@ L’enjeu pour les évolutions futures de l’application sera de maintenir cett
 Fig.5 : Schéma illustrant le chargement progressif des fichiers dans un dossier (copie d'écran).
 
 
-| (a)                             | cpu (Wh)               | mem (Wh)               | disk (Wh) | network (Wh) | screen (Wh) | total (Wh)         |
-|---------------------------------|------------------------|------------------------|-----------|--------------|-------------|--------------------|
-| Navigateur                      | 0.029                  | 0.00016                | 0.0       | 0.021        | 0.069       | 0.12               |
-| Serveur web dynamique (backend) | ~~0.000035~~0.000032   | ~~0.000031~~0.000064   | 0.0       | 0.00012      | 0.0         | ~~0.00019~~0.00021 |
-| Serveur web static (frontend)   | ~~0.0000054~~0.0000018 | ~~0.0000082~~0.0000092 | 0.0       | 0.0095       | 0.0         | 0.0095             |
-| Base de données                 | ~~0.00021~~0.00020     | ~~0.000061~~0.000084   | 0.0       | 0.000080     | 0.0         | ~~0.00035~~0.00036 |
+| (a)                             | cpu (Wh)                | mem (Wh)                | disk (Wh) | network (Wh) | screen (Wh) | total (Wh)          |
+|---------------------------------|-------------------------|-------------------------|-----------|--------------|-------------|---------------------|
+| Navigateur                      | 0.029                   | 0.00016                 | 0.0       | 0.021        | 0.069       | 0.12                |
+| Serveur web dynamique (backend) | ~~0.000035~~ 0.000032   | ~~0.000031~~ 0.000064   | 0.0       | 0.00012      | 0.0         | ~~0.00019~~ 0.00021 |
+| Serveur web static (frontend)   | ~~0.0000054~~ 0.0000018 | ~~0.0000082~~ 0.0000092 | 0.0       | 0.0095       | 0.0         | 0.0095              |
+| Base de données                 | ~~0.00021~~ 0.00020     | ~~0.000061~~ 0.000084   | 0.0       | 0.000080     | 0.0         | ~~0.00035~~ 0.00036 |
 
 
 Tab.8: Effet sur la consommation énergétique de la limitation du nombre d’éléments affichés dans l'application, lors de la consultation de la page d'accueil du drive.
@@ -383,12 +383,12 @@ Notre objectif avec ces ajouts est qu’ils n’aient aucun impact supplémentai
 Tab.9 : Évaluation de l'impact du scénario de "navigation dans un dossier" dans le prototype v2.0.0.
 
 
-| (a)                             | cpu (Wh)            | mem (Wh)             | disk (Wh) | network (Wh)         | screen (Wh) | total (Wh)         |
-|---------------------------------|---------------------|----------------------|-----------|----------------------|-------------|--------------------|
-| Navigateur                      | 0.029               | 0.00016              | 0.0       | 0.021                | 0.069       | 0.12               |
-| Serveur web dynamique (backend) | ~~0.000032~~0.00015 | ~~0.000064~~0.000024 | 0.0       | 0.00012              | 0.0         | ~~0.00021~~0.00029 |
-| Serveur web static (frontend)   | 0.0000018           | 0.0000092            | 0.0       | 0.0095               | 0.0         | 0.0095             |
-| Base de données                 | ~~0.00020~~0.00027  | ~~0.000084~~0.000058 | 0.0       | ~~0.000080~~0.000079 | 0.0         | ~~0.00036~~0.00041 |
+| (a)                             | cpu (Wh)             | mem (Wh)              | disk (Wh) | network (Wh)          | screen (Wh) | total (Wh)          |
+|---------------------------------|----------------------|-----------------------|-----------|-----------------------|-------------|---------------------|
+| Navigateur                      | 0.029                | 0.00016               | 0.0       | 0.021                 | 0.069       | 0.12                |
+| Serveur web dynamique (backend) | ~~0.000032~~ 0.00015 | ~~0.000064~~ 0.000024 | 0.0       | 0.00012               | 0.0         | ~~0.00021~~ 0.00029 |
+| Serveur web static (frontend)   | 0.0000018            | 0.0000092             | 0.0       | 0.0095                | 0.0         | 0.0095              |
+| Base de données                 | ~~0.00020~~ 0.00027  | ~~0.000084~~ 0.000058 | 0.0       | ~~0.000080~~ 0.000079 | 0.0         | ~~0.00036~~ 0.00041 |
 
 Tab.10: Estimation de la consommation énergétique de la consultation de la page d'accueil du drive
 
