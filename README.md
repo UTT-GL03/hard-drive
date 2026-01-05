@@ -295,8 +295,8 @@ Afin de réduire l'impact énérgétique du réseau, nous stockons désormais le
 
 | (a)                             | cpu (Wh)                | mem (Wh)                | disk (Wh) | network (Wh)         | screen (Wh)    | total (Wh)                       |
 |---------------------------------|-------------------------|-------------------------|-----------|----------------------|----------------|----------------------------------|
-| Navigateur                      | ~~0.040~~ 0.029         | ~~0.00013~~ 0.00016     | 0.0       | ~~0.013~~ 0.021      | ~~0.012~~0.069 | ~~0.18~~ <mark>0.12<\mark>       |
-| Serveur web dynamique (backend) | ~~0.000018~~ 0.000035   | ~~0.000046~~ 0.000031   | 0.0       | ~~0.000031~~ 0.00012 | 0.0            | ~~0.00025~~ <mark>0.00019<\mark> |
+| Navigateur                      | ~~0.040~~ 0.029         | ~~0.00013~~ 0.00016     | 0.0       | ~~0.013~~ 0.021      | ~~0.012~~0.069 | ~~0.18~~ 0.12       |
+| Serveur web dynamique (backend) | ~~0.000018~~ 0.000035   | ~~0.000046~~ 0.000031   | 0.0       | ~~0.000031~~ 0.00012 | 0.0            | ~~0.00025~~ 0.00019 |
 | Serveur web static (frontend)   | ~~0.0000069~~ 0.0000054 | ~~0.0000078~~ 0.0000082 | 0.0       | 0.0095               | 0.0            | 0.0095                           |
 | Base de données                 | 0.00021                 | 0.000061                | 0.0       | 0.000080             | 0.0            | 0.00035                          |
 
@@ -304,7 +304,7 @@ Afin de réduire l'impact énérgétique du réseau, nous stockons désormais le
 
 | (b)                             | cpu (Wh)                | mem (Wh)                | disk (Wh) | network (Wh)         | screen (Wh)    | total (Wh)                 |
 |---------------------------------|-------------------------|-------------------------|-----------|----------------------|----------------|----------------------------|
-| Navigateur                      | ~~0.037~~ 0.029         | ~~0.00021~~ 0.00016     | 0.0       | ~~0.020~~ 0.021      | ~~0.10~~ 0.069 | ~~0.16~~ <mark>0.12<\mark> |
+| Navigateur                      | ~~0.037~~ 0.029         | ~~0.00021~~ 0.00016     | 0.0       | ~~0.020~~ 0.021      | ~~0.10~~ 0.069 | ~~0.16~~ 0.12 |
 | Serveur web dynamique (backend) | ~~0.000077~~ 0.000029   | ~~0.000039~~ 0.000030   | 0.0       | ~~0.000027~~ 0.00012 | 0.0            | ~~0.00014~~ 0.00018        |
 | Serveur web static (frontend)   | ~~0.0000047~~ 0.0000037 | ~~0.0000066~~ 0.0000080 | 0.0       | 0.0095               | 0.0            | 0.0095                     |
 | Base de données                 | 0.00019                 | 0.000060                | 0.0       | 0.000080             | 0.0            | 0.00033                    |
@@ -356,7 +356,8 @@ Après avoir réalisé les différentes étapes du projet, nous avons identifié
 
 Notre plus grande amélioration que nous avons décider est de mettre en place un système de retention des fichiers lors de leurs imporatation. En effet, dans l'état actuel du projet, les fichiers importés restent indéfiniment stockés sur le serveur, ce qui peut entraîner une accumulation de données inutiles et une augmentation de l'empreinte écologique du service. Pour remédier à cela, nous proposons de mettre en place une politique de rétention des fichiers, qui permettrait de supprimer automatiquement les fichiers après une certaine période d'inactivité ou de non-utilisation. Cette politique pourrait être personnalisable par les utilisateurs, qui pourraient choisir la durée de rétention qui leur convient le mieux en fonction de leurs besoins. Par exemple, un utilisateur pourrait choisir de conserver ses fichiers pendant une semaine, un mois ou un an, en fonction de la fréquence à laquelle il utilise le service. Cette approche permettrait de réduire la quantité de données stockées sur le serveur, ce qui contribuerait à diminuer l'empreinte écologique du service. De plus, cela encouragerait les utilisateurs à adopter des pratiques de gestion de fichiers plus responsables, en les incitant à supprimer régulièrement les fichiers dont ils n'ont plus besoin.
 
-![](./docs/upload_file_component.png)
+<img src=./docs/upload_file_component.png width="300" style="display:block;margin-left:auto;margin-right:auto;"/>
+
 Fig.6 : Schéma illustrant le fonctionnement du système de rétention des fichiers.
 
 
@@ -377,6 +378,7 @@ Notre objectif avec ces ajouts est qu’ils n’aient aucun impact supplémentai
 | 2. Choisir et voir les détails d’un dossier |  74 B 🟩 |        1.52 |            95 |       26 |                   5534 |
 | 3. Naviguer dans le dossier                 |  74 B 🟩 |        1.52 |            95 |       26 |                   5534 |
 | 4. Revenir à la page d’accueil              |  72 B 🟩 |        1.54 |            130 |       28 |                   5535 |
+
 Tab.9 : Évaluation de l'impact du scénario de "navigation dans un dossier" dans le prototype v2.0.0.
 
 
