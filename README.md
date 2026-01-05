@@ -293,21 +293,21 @@ Par contre, l'affichage de ces données a bien un impact indirect : en augmentan
 
 Afin de réduire l'impact énérgétique du réseau, nous stockons désormais les données de l'application (v2.0.0) dans une base de données (CouchDB). 
 
-| (a)                             | cpu (Wh)                | mem (Wh)                | disk (Wh) | network (Wh)         | screen (Wh)    | total (Wh)                       |
-|---------------------------------|-------------------------|-------------------------|-----------|----------------------|----------------|----------------------------------|
+| (a)                             | cpu (Wh)                | mem (Wh)                | disk (Wh) | network (Wh)         | screen (Wh)    | total (Wh)          |
+|---------------------------------|-------------------------|-------------------------|-----------|----------------------|----------------|---------------------|
 | Navigateur                      | ~~0.040~~ 0.029         | ~~0.00013~~ 0.00016     | 0.0       | ~~0.013~~ 0.021      | ~~0.012~~0.069 | ~~0.18~~ 0.12       |
 | Serveur web dynamique (backend) | ~~0.000018~~ 0.000035   | ~~0.000046~~ 0.000031   | 0.0       | ~~0.000031~~ 0.00012 | 0.0            | ~~0.00025~~ 0.00019 |
-| Serveur web static (frontend)   | ~~0.0000069~~ 0.0000054 | ~~0.0000078~~ 0.0000082 | 0.0       | 0.0095               | 0.0            | 0.0095                           |
-| Base de données                 | 0.00021                 | 0.000061                | 0.0       | 0.000080             | 0.0            | 0.00035                          |
+| Serveur web static (frontend)   | ~~0.0000069~~ 0.0000054 | ~~0.0000078~~ 0.0000082 | 0.0       | 0.0095               | 0.0            | 0.0095              |
+| Base de données                 | 0.00021                 | 0.000061                | 0.0       | 0.000080             | 0.0            | 0.00035             |
 
 
 
-| (b)                             | cpu (Wh)                | mem (Wh)                | disk (Wh) | network (Wh)         | screen (Wh)    | total (Wh)                 |
-|---------------------------------|-------------------------|-------------------------|-----------|----------------------|----------------|----------------------------|
-| Navigateur                      | ~~0.037~~ 0.029         | ~~0.00021~~ 0.00016     | 0.0       | ~~0.020~~ 0.021      | ~~0.10~~ 0.069 | ~~0.16~~ 0.12 |
-| Serveur web dynamique (backend) | ~~0.000077~~ 0.000029   | ~~0.000039~~ 0.000030   | 0.0       | ~~0.000027~~ 0.00012 | 0.0            | ~~0.00014~~ 0.00018        |
-| Serveur web static (frontend)   | ~~0.0000047~~ 0.0000037 | ~~0.0000066~~ 0.0000080 | 0.0       | 0.0095               | 0.0            | 0.0095                     |
-| Base de données                 | 0.00019                 | 0.000060                | 0.0       | 0.000080             | 0.0            | 0.00033                    |
+| (b)                             | cpu (Wh)                | mem (Wh)                | disk (Wh) | network (Wh)         | screen (Wh)    | total (Wh)          |
+|---------------------------------|-------------------------|-------------------------|-----------|----------------------|----------------|---------------------|
+| Navigateur                      | ~~0.037~~ 0.029         | ~~0.00021~~ 0.00016     | 0.0       | ~~0.020~~ 0.021      | ~~0.10~~ 0.069 | ~~0.16~~ 0.12       |
+| Serveur web dynamique (backend) | ~~0.000077~~ 0.000029   | ~~0.000039~~ 0.000030   | 0.0       | ~~0.000027~~ 0.00012 | 0.0            | ~~0.00014~~ 0.00018 |
+| Serveur web static (frontend)   | ~~0.0000047~~ 0.0000037 | ~~0.0000066~~ 0.0000080 | 0.0       | 0.0095               | 0.0            | 0.0095              |
+| Base de données                 | 0.00019                 | 0.000060                | 0.0       | 0.000080             | 0.0            | 0.00033             |
 
 Tab.7: Effet sur la consommation énergétique de l'introduction d'une base de données dans l'application, lors de la consultation de la page d'accueil du drive (premier tableau) et d'un dossier en particulier (second tableau).
 
@@ -337,16 +337,17 @@ L’enjeu pour les évolutions futures de l’application sera de maintenir cett
 Fig.5 : Schéma illustrant le chargement progressif des fichiers dans un dossier (copie d'écran).
 
 
-| Composant                       | CPU (Wh)                | Mémoire (Wh)            | Disque (Wh) | Réseau (Wh)           | Écran (Wh)      | Total (Wh)          |
-|---------------------------------|-------------------------|-------------------------|-------------|-----------------------|-----------------|---------------------|
-| Navigateur                      | ~~0.030~~ 0.059         | ~~0.00018~~ 0.00016     | ~~0.0~~ 0.0 | ~~0.021~~ 0.021       | ~~0.071~~ 0.069 | ~~0.12~~ 0.15       |
-| Serveur web dynamique (backend) | ~~0.000046~~ 0.00047    | ~~0.000020~~ 0.000013   | ~~0.0~~ 0.0 | ~~0.000035~~ 0.000053 | ~~0.0~~ 0.0     | ~~0.00010~~ 0.00053 |
-| Serveur web static (frontend)   | ~~0.0000042~~ 0.0000075 | ~~0.0000046~~ 0.0000028 | ~~0.0~~ 0.0 | ~~0.0095~~ 0.0095     | ~~0.0~~ 0.0     | ~~0.0095~~ 0.0095   |
-| Base de données                 | ~~0.0~~ 0.00079         | ~~0.0~~ 0.000048        | ~~0.0~~ 0.0 | ~~0.000029~~ 0.000029 | ~~0.0~~ 0.0     | ~~0.00087~~ 0.00087 |
+| (a)                             | cpu (Wh)               | mem (Wh)               | disk (Wh) | network (Wh) | screen (Wh) | total (Wh)         |
+|---------------------------------|------------------------|------------------------|-----------|--------------|-------------|--------------------|
+| Navigateur                      | 0.029                  | 0.00016                | 0.0       | 0.021        | 0.069       | 0.12               |
+| Serveur web dynamique (backend) | ~~0.000035~~0.000032   | ~~0.000031~~0.000064   | 0.0       | 0.00012      | 0.0         | ~~0.00019~~0.00021 |
+| Serveur web static (frontend)   | ~~0.0000054~~0.0000018 | ~~0.0000082~~0.0000092 | 0.0       | 0.0095       | 0.0         | 0.0095             |
+| Base de données                 | ~~0.00021~~0.00020     | ~~0.000061~~0.000084   | 0.0       | 0.000080     | 0.0         | ~~0.00035~~0.00036 |
+
 
 Tab.8: Effet sur la consommation énergétique de la limitation du nombre d’éléments affichés dans l'application, lors de la consultation de la page d'accueil du drive.
 
-L'implémentation du chargement progressif des fichiers dans un dossier permet de réduire significativement la consommation énergétique totale de l'application. En effet, en ne chargeant que les éléments nécessaires à l'affichage courant, nous limitons les échanges réseau et la charge sur le serveur backend. Cela se traduit par une diminution notable de la consommation CPU et mémoire, tant côté client que côté serveur
+L'implémentation du chargement progressif des fichiers dans un dossier permet de réduire significativement la consommation énergétique du CPU de notre application front-end. En effet, le fait de charger les données progressivement permet de réduire la puissance de calcul nécessaire pour afficher les éléments à l'écran. On constate aussi une augmentation négligeable de la consommation du back-end et de la base données.
 
 ## Améliorations et évolutions du projet
 
@@ -374,30 +375,30 @@ Notre objectif avec ces ajouts est qu’ils n’aient aucun impact supplémentai
 
 | Étape                                       | EcoIndex | GES (gCO₂e) | Taille du DOM | Requêtes | Taille de la page (Ko) |
 |---------------------------------------------|---------:|------------:|--------------:|---------:|-----------------------:|
-| 1. Arrivée sur la page d’accueil            |  73 B 🟩 |        1.52 |            130 |       22 |                   5531 |
+| 1. Arrivée sur la page d’accueil            |  73 B 🟩 |        1.52 |           130 |       22 |                   5531 |
 | 2. Choisir et voir les détails d’un dossier |  74 B 🟩 |        1.52 |            95 |       26 |                   5534 |
 | 3. Naviguer dans le dossier                 |  74 B 🟩 |        1.52 |            95 |       26 |                   5534 |
-| 4. Revenir à la page d’accueil              |  72 B 🟩 |        1.54 |            130 |       28 |                   5535 |
+| 4. Revenir à la page d’accueil              |  72 B 🟩 |        1.54 |           130 |       28 |                   5535 |
 
 Tab.9 : Évaluation de l'impact du scénario de "navigation dans un dossier" dans le prototype v2.0.0.
 
 
-| a. Composant          | cpu (Wh)    | mem (Wh)    | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
-|-----------------------|-------------|-------------|-------------|-------------|------------|-------------|
-| Navigateur   | 0.058     | 0.00016   | 0.0     | 0.021      | 0.068     | 0.15     |
-| Backend | 0.00011   | 0.000013  | 0.0     | 0.000097   | 0.0       | 0.00022  |
-| Frontend | 0.0000073 | 0.0000028 | 0.0     | 0.0095     | 0.0       | 0.0095   |
-| Base de données      | 0.00070   | 0.000045  | 0.0     | 0.000070   | 0.0       | 0.00082  |
+| a. Composant    | cpu (Wh)  | mem (Wh)  | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
+|-----------------|-----------|-----------|-----------|--------------|-------------|------------|
+| Navigateur      | 0.058     | 0.00016   | 0.0       | 0.021        | 0.068       | 0.15       |
+| Backend         | 0.00011   | 0.000013  | 0.0       | 0.000097     | 0.0         | 0.00022    |
+| Frontend        | 0.0000073 | 0.0000028 | 0.0       | 0.0095       | 0.0         | 0.0095     |
+| Base de données | 0.00070   | 0.000045  | 0.0       | 0.000070     | 0.0         | 0.00082    |
 
 Tab.10: Estimation de la consommation énergétique de la consultation de la page d'accueil du drive
 
 
-| b. Composant   | cpu (Wh)    | mem (Wh)    | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
-|----------------|-------------|-------------|-----------|-------------|-------------|------------|
-| Navigateur     | 0.059     | 0.00016   | 0.0     | 0.021      | 0.068     | 0.15     |
-| Backend  | 0.000052  | 0.000014  | 0.0     | 0.000078   | 0.0       | 0.00014  |
-| Frontend | 0.0000067 | 0.0000029 | 0.0     | 0.0095     | 0.0       | 0.0095   |
-| Base de données       | 0.00069   | 0.000046  | 0.0     | 0.000050   | 0.0       | 0.00079  |
+| b. Composant    | cpu (Wh)  | mem (Wh)  | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
+|-----------------|-----------|-----------|-----------|--------------|-------------|------------|
+| Navigateur      | 0.059     | 0.00016   | 0.0       | 0.021        | 0.068       | 0.15       |
+| Backend         | 0.000052  | 0.000014  | 0.0       | 0.000078     | 0.0         | 0.00014    |
+| Frontend        | 0.0000067 | 0.0000029 | 0.0       | 0.0095       | 0.0         | 0.0095     |
+| Base de données | 0.00069   | 0.000046  | 0.0       | 0.000050     | 0.0         | 0.00079    |
 
 Tab.11: Estimation de la consommation énergétique de la consultation d'un dossier particulier dans le drive
 
