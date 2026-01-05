@@ -364,7 +364,7 @@ Fig.6 : Schéma illustrant le fonctionnement du système de rétention des fichi
 
 ### Ajout d'un bouton de suppression de fichiers
 
-Une autre amélioration que nous avons envisagée est l'ajout d'un bouton de suppression de fichiers dans l'interface utilisateur. Actuellement, les utilisateurs ne disposent pas d'une option simple pour supprimer les fichiers qu'ils n'utilisent plus, ce qui peut entraîner une accumulation de données inutiles sur le serveur. En intégrant un bouton de suppression directement dans l'interface, nous permettrions aux utilisateurs de gérer plus efficacement leurs fichiers et de libérer de l'espace de stockage. Ce bouton pourrait être placé à côté de chaque fichier ou dossier, offrant ainsi une accessibilité rapide et intuitive. Lorsqu'un utilisateur clique sur ce bouton, une confirmation pourrait être demandée pour éviter les suppressions accidentelles. Cette fonctionnalité encouragerait les utilisateurs à adopter des pratiques de gestion de fichiers plus responsables, en les incitant à supprimer régulièrement les fichiers dont ils n'ont plus besoin. En réduisant la quantité de données stockées sur le serveur, cette amélioration contribuerait également à diminuer l'empreinte écologique du service.
+Une autre amélioration que nous avons envisagée est l'ajout d'un bouton de suppression de fichiers dans l'interface utilisateur. Actuellement, les utilisateurs ne disposent pas d'option simple pour supprimer les fichiers qu'ils n'utilisent plus, ce qui peut entraîner une accumulation de données inutiles sur le serveur. En intégrant un bouton de suppression directement dans l'interface, nous permettrions aux utilisateurs de gérer plus efficacement leurs fichiers et de libérer de l'espace de stockage. Ce bouton pourrait être placé à côté de chaque fichier ou dossier, offrant ainsi une accessibilité rapide et intuitive. Lorsqu'un utilisateur clique sur ce bouton, une confirmation pourrait être demandée pour éviter les suppressions accidentelles. Cette fonctionnalité encouragerait les utilisateurs à adopter des pratiques de gestion de fichiers plus responsables, en les incitant à supprimer régulièrement les fichiers dont ils n'ont plus besoin. En réduisant la quantité de données stockées sur le serveur, cette amélioration contribuerait également à diminuer l'empreinte écologique du service.
 
 ![](./docs/delete_button.png)
 Fig.7 : Schéma illustrant le bouton de suppression de fichiers dans l'interface utilisateur.
@@ -383,26 +383,17 @@ Notre objectif avec ces ajouts est qu’ils n’aient aucun impact supplémentai
 Tab.9 : Évaluation de l'impact du scénario de "navigation dans un dossier" dans le prototype v2.0.0.
 
 
-| a. Composant    | cpu (Wh)  | mem (Wh)  | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
-|-----------------|-----------|-----------|-----------|--------------|-------------|------------|
-| Navigateur      | 0.058     | 0.00016   | 0.0       | 0.021        | 0.068       | 0.15       |
-| Backend         | 0.00011   | 0.000013  | 0.0       | 0.000097     | 0.0         | 0.00022    |
-| Frontend        | 0.0000073 | 0.0000028 | 0.0       | 0.0095       | 0.0         | 0.0095     |
-| Base de données | 0.00070   | 0.000045  | 0.0       | 0.000070     | 0.0         | 0.00082    |
+| (a)                             | cpu (Wh)            | mem (Wh)             | disk (Wh) | network (Wh)         | screen (Wh) | total (Wh)         |
+|---------------------------------|---------------------|----------------------|-----------|----------------------|-------------|--------------------|
+| Navigateur                      | 0.029               | 0.00016              | 0.0       | 0.021                | 0.069       | 0.12               |
+| Serveur web dynamique (backend) | ~~0.000032~~0.00015 | ~~0.000064~~0.000024 | 0.0       | 0.00012              | 0.0         | ~~0.00021~~0.00029 |
+| Serveur web static (frontend)   | 0.0000018           | 0.0000092            | 0.0       | 0.0095               | 0.0         | 0.0095             |
+| Base de données                 | ~~0.00020~~0.00027  | ~~0.000084~~0.000058 | 0.0       | ~~0.000080~~0.000079 | 0.0         | ~~0.00036~~0.00041 |
 
 Tab.10: Estimation de la consommation énergétique de la consultation de la page d'accueil du drive
 
 
-| b. Composant    | cpu (Wh)  | mem (Wh)  | disk (Wh) | network (Wh) | screen (Wh) | total (Wh) |
-|-----------------|-----------|-----------|-----------|--------------|-------------|------------|
-| Navigateur      | 0.059     | 0.00016   | 0.0       | 0.021        | 0.068       | 0.15       |
-| Backend         | 0.000052  | 0.000014  | 0.0       | 0.000078     | 0.0         | 0.00014    |
-| Frontend        | 0.0000067 | 0.0000029 | 0.0       | 0.0095       | 0.0         | 0.0095     |
-| Base de données | 0.00069   | 0.000046  | 0.0       | 0.000050     | 0.0         | 0.00079    |
-
-Tab.11: Estimation de la consommation énergétique de la consultation d'un dossier particulier dans le drive
-
-L'analyse des impacts de ces deux nouvelles fonctionnalités montre qu'elles n'ont pas d'impact significatif sur les performances environnementales de l'application. Les scores EcoIndex restent élevés, indiquant une bonne optimisation de l'interface utilisateur. De plus, la consommation énergétique totale de l'application reste stable, avec seulement de légères variations dues à l'ajout des nouvelles fonctionnalités.
+L'analyse des impacts de ces deux nouvelles fonctionnalités montre qu'elles ont un léger impact sur la consommation globale de notre base de données et notre back-end. Ces augmentations sont à considérer, mais, les fonctionnalités que nous avons rajoutées devraient permettre d'avoir des utilisations plus réfléchies et responsables de notre service. De plus, ces comportements ne sont pas testables directement et devront être évalués sur le long terme à travers l’analyse des usages réels et des indicateurs de performance une fois les fonctionnalités déployées.
 
 ## Auteurs
 
