@@ -395,6 +395,16 @@ Tab.10: Estimation de la consommation énergétique de la consultation de la pag
 
 L'analyse des impacts de ces deux nouvelles fonctionnalités montre qu'elles ont un léger impact sur la consommation globale de notre base de données et notre back-end. Ces augmentations sont à considérer, mais, les fonctionnalités que nous avons rajoutées devraient permettre d'avoir des utilisations plus réfléchies et responsables de notre service. De plus, ces comportements ne sont pas testables directement et devront être évalués sur le long terme à travers l’analyse des usages réels et des indicateurs de performance une fois les fonctionnalités déployées.
 
+## Bilan et perspectives
+
+À la suite de ce cours et des mesures que nous avons réaliser dans le cadre de ce projet, nous avons retenu les points suivants.
+
+Tout d’abord, nous avons constaté que, même lorsqu’une application est conçue de manière optimale, sa consommation énergétique reste fortement dépendante des usages qui en sont faits par les utilisateurs. En effet, le comportement des utilisateurs peut largement influencer les ressources mobilisées par le système. Dans notre cas d’étude, la consommation énergétique d’un service de type drive varie principalement en fonction de la taille des fichiers stockés ainsi que de leur quantité, ce qui impacte directement les besoins en stockage, en calcul et en transferts de données.
+
+Par ailleurs, le choix des architectures logicielles apparaît comme un levier important de réduction de l’empreinte énergétique. Il est essentiel de limiter autant que possible la multiplication des couches logicielles, car chacune d’entre elles introduit des traitements supplémentaires et des communications réseau additionnelles lors des échanges d’informations. Les mesures réalisées à l’aide de l’outil Greenframe ont notamment mis en évidence que l’impact de ces communications réseau sur la consommation énergétique est loin d’être négligeable.
+
+
+
 ## Auteurs
 
 * Antoine MAZEAU
